@@ -17,60 +17,17 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-
-<style>
-	.filebox {display:inline-block; margin-right: 10px;}
-	
-	.filebox label {
-	display: inline-block;
-	padding: .5em .75em;
-	color: #999;
-	font-size: inherit;
-	line-height: normal;
-	vertical-align: middle;
-	background-color: #fdfdfd;
-	cursor: pointer;
-	border: 1px solid #ebebeb;
-	border-bottom-color: #e2e2e2;
-	border-radius: .25em;
-	}
-	
-	.filebox input[type="file"] { 
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip:rect(0,0,0,0);
-	border: 0;
-	}
-	
-	.filebox.bs3-primary label {
-	  color: #fff;
-	  background-color: #337ab7;
-	  border-color: #2e6da4;
-	}
-	
-	.filebox.bs3-success label {
-	  color: #fff;
-	  background-color: #5cb85c;
-	  border-color: #4cae4c;
-	}
-	
-</style>
-
 <body>
 	<div class="limiter">
 		<div class="container-login102">
 			<div style="position: absolute; margin-top: -90px;" class="wrap-login100">
 				<form class="login100-form validate-form" action="modify" method="post"
-					onsubmit ="return chkValidate2()" enctype="multipart/form-data" >
+					onsubmit ="return chkValidate2()">
+					<input type="hidden" name="hiddenValue" value="1">
+					
 					<span class="login100-form-title p-b-30">
 						회원 정보수정 
 					</span>
-					<input type="hidden" name="hiddenvalue" value=1>	
-					
 					<div style="display: none;" class="wrap-input100 m-b-16" data-validate = "아이디가 없습니다.">
 						<input class="input100" type="text" name="hotelid" value="${hVo.hotelid}" disabled placeholder="아이디">
 						<span class="focus-input100"></span>
@@ -154,37 +111,6 @@
 						<label class="label-checkbox100" for="chkBox">
 							메타마스크에서 가져오기
 						</label>
-					</div>
-					
-					<div style="margin-top:5px;"  class="wrap-input100">
-						 
-						<div style="margin-left:13px;" class="filebox bs3-primary" >
-							<label for="photo">업로드</label> 
-                          <input style="visibility:hidden;" type="file" id="photo"> 
-						</div>
-						
-						<!-- <input type="file" name="photo"> -->
-						
-						<div class="filebox bs3-primary" >
-							<label for="photo2">업로드</label> 
-                          <input style="display:none;" type="file" id="photo2"> 
-						</div>
-						
-						<div class="filebox bs3-primary" >
-							<label for="photo3">업로드</label> 
-                          <input style="display:none;" type="file" id="photo3"> 
-						</div>
-						
-						<div class="filebox bs3-primary" >
-							<label for="photo4">업로드</label> 
-                          <input style="display:none;" type="file" id="photo4"> 
-						</div>
-						
-						<div class="filebox bs3-primary" >
-							<label for="photo5">업로드</label> 
-                          <input style="display:none;" type="file" id="photo5"> 
-						</div>
-						
 					</div>
 					
 					<div class="container-login100-form-btn p-t-25">
