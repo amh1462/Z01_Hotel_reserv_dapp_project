@@ -1,45 +1,42 @@
 package dto;
 
-import java.util.Date;
-
 public class ReservVO {
-	private String resNo;
-	private String resName;
-	private int cabinId;
-	private Date checkIn;
-	private Date checkOut;
+	private String resno;
+	private String roomname;
+	private String guestname;
+	private String email;
 	private String phone;
-	private String user_wallet;
+	private String uwallet;
+	private String totalprice;
+	private String ordernum;
+	private String checkin;
+	private String checkout;
+	private String iscancel;
+	private String iswithdraw;
 	
-	public String getResNo() {
-		return resNo;
+	public String getResno() {
+		return resno;
 	}
-	public void setResNo(String resNo) {
-		this.resNo = resNo;
+	public void setResno(String resno) {
+		this.resno = resno;
 	}
-	public String getResName() {
-		return resName;
+	public String getRoomname() {
+		return roomname;
 	}
-	public void setResName(String resName) {
-		this.resName = resName;
+	public void setRoomname(String roomname) {
+		this.roomname = roomname;
 	}
-	public int getCabinId() {
-		return cabinId;
+	public String getGuestname() {
+		return guestname;
 	}
-	public void setCabinId(int cabinId) {
-		this.cabinId = cabinId;
+	public void setGuestname(String guestname) {
+		this.guestname = guestname;
 	}
-	public Date getCheckIn() {
-		return checkIn;
+	public String getEmail() {
+		return email;
 	}
-	public void setCheckIn(Date checkIn) {
-		this.checkIn = checkIn;
-	}
-	public Date getCheckOut() {
-		return checkOut;
-	}
-	public void setCheckOut(Date checkOut) {
-		this.checkOut = checkOut;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPhone() {
 		return phone;
@@ -47,10 +44,48 @@ public class ReservVO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getUser_wallet() {
-		return user_wallet;
+	public String getUwallet() {
+		return uwallet;
 	}
-	public void setUser_wallet(String user_wallet) {
-		this.user_wallet = user_wallet;
+	public void setUwallet(String uwallet) {
+		this.uwallet = uwallet;
 	}
+	public String getTotalprice() {
+		return totalprice;
+	}
+	public void setTotalprice(String totalprice) {
+		this.totalprice = totalprice;
+	}
+	public String getOrdernum() {
+		return ordernum;
+	}
+	public void setOrdernum(String ordernum) {
+		this.ordernum = ordernum;
+	}
+	public String getCheckin() {
+		return checkin;
+	}
+	public void setCheckin(String checkin) {
+		this.checkin = checkin;
+	}
+	public String getCheckout() {
+		return checkout;
+	}
+	public void setCheckout(String checkout) {
+		this.checkout = checkout;
+	}
+	public String getIscancel() {
+		return iscancel;
+	}
+	public void setIscancel(String iscancel) {
+		this.iscancel = iscancel;
+	}
+	public String getIswithdraw() {
+		return iswithdraw;
+	}
+	public void setIswithdraw(String iswithdraw) {
+		this.iswithdraw = iswithdraw;
+	}
+	
+	
 }

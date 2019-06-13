@@ -1,0 +1,84 @@
+package dto;
+
+public class RoomVO {
+	private String roomno;
+	private String hotelno;
+	private String roomname;
+	private String roominfo;
+	private String allowedman;
+	private String dailyprice;
+	private String weekendprice;
+	private String saleprice; 
+	private String totalcount;
+	private String restcount;
+	private String photo;
+	
+	public String getRoomno() {
+		return roomno;
+	}
+	public void setRoomno(String roomno) {
+		this.roomno = roomno;
+	}
+	public String getHotelno() {
+		return hotelno;
+	}
+	public void setHotelno(String hotelno) {
+		this.hotelno = hotelno;
+	}
+	public String getRoomname() {
+		return roomname;
+	}
+	public void setRoomname(String roomname) {
+		this.roomname = roomname;
+	}
+	public String getRoominfo() {
+		return roominfo;
+	}
+	public void setRoominfo(String roominfo) {
+		this.roominfo = roominfo;
+	}
+	public String getAllowedman() {
+		return allowedman;
+	}
+	public void setAllowedman(String allowedman) {
+		this.allowedman = allowedman;
+	}
+	public String getDailyprice() {
+		return dailyprice;
+	}
+	public void setDailyprice(String dailyprice) {
+		this.dailyprice = dailyprice;
+	}
+	public String getWeekendprice() {
+		return weekendprice;
+	}
+	public void setWeekendprice(String weekendprice) {
+		this.weekendprice = weekendprice;
+	}
+	public String getSaleprice() {
+		return saleprice;
+	}
+	public void setSaleprice(String saleprice) {
+		this.saleprice = saleprice;
+	}
+	public String getTotalcount() {
+		return totalcount;
+	}
+	public void setTotalcount(String totalcount) {
+		this.totalcount = totalcount;
+	}
+	public String getRestcount() {
+		return restcount;
+	}
+	public void setRestcount(String restcount) {
+		this.restcount = restcount;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
+	
+}
