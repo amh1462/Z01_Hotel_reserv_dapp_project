@@ -17,7 +17,7 @@ public class HotelDAO {
 		return hDao;
 	}
 	
-	// 회원가입
+	// 회원가입 
 	
 	public int insert(HotelVO hVo) {
 		
@@ -68,8 +68,7 @@ public class HotelDAO {
 		
 		return result;
 	}
-	// 데이터 호출
-	
+	// 정보 불러오기	
 	public HotelVO select(String hotelid) {
 		HotelVO hVo = null;
 		
@@ -96,7 +95,7 @@ public class HotelDAO {
 		return hVo;
 	}
 	
-	// 데이터 수정
+	// 회원정보수정
 	public int update(HotelVO hVo) {
 		int result =0;
 		

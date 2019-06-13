@@ -22,6 +22,14 @@
 	function move() {
 		location.href = "hotelMain.jsp?contentPage=modify.jsp";
 	}
+	
+	function popup() {
+		var url = "photoinsert";
+		var name = "photos"
+		var option = "width = 700, height = 500 top = 100"
+					 + "location = no"
+		window.open(url,name, option);
+	}
 </script>
 
 <body>
@@ -44,6 +52,7 @@
           <li style="margin-top: 15px;">지갑주소 : <input style="width: 200px;" type="text" onfocus="this.blur()" value="${wallet}"></li>
           <li style="margin-top: 15px;">연 락 처 : <input style="width: 200px; margin-left: 8px;" type="text" onfocus="this.blur()" value="${phone}"></li>
         </ul>
+        <input style=" margin-top: 30px; margin-left: 270px;" type="button" value="사진 올리기(test)" onclick="popup()" >
         <input style=" margin-top: 30px; margin-left: 270px;" type="button" value="수정" onclick="move()" >
       </div>
 
