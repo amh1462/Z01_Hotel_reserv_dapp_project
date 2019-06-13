@@ -106,6 +106,6 @@ public class HotelVO {
 	@Override
 	public String toString() {
 		return String.format("hotelid = %s, password = %s, hotelname = %s, city = %s, country = %s"
-				+ " detailaddr= %s, phone= %s, photo = %s, hwallet = %s, auth = %s", hotelid, password, hotelname, city, country, detailaddr, phone, photo, hwallet, auth); 
+				+ " detailaddr= %s, phone= %s, photo = %s, hwallet = %s, auth = %s, photo2 = %s, photo3 = %s, photo4 = %s, photo5 = %s", hotelid, password, hotelname, city, country, detailaddr, phone, photo, hwallet, auth, photo2, photo3, photo4, photo5); 
 	}
 }

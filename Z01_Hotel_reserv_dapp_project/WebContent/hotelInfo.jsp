@@ -22,6 +22,14 @@
 	function move() {
 		location.href = "hotelMain.jsp?contentPage=modify.jsp";
 	}
+	
+	function popup() {
+		var url = "photoinsert.jsp";
+		var name = "photos"
+		var option = "width = 400, height = 255, top = 150 left = 700"
+					 + "location = no"
+		window.open(url,name, option);
+	}
 </script>
 
 <body>
@@ -41,41 +49,42 @@
           <li>호텔 명 : <input onfocus="this.blur()" style="width: 200px; margin-left: 10px;" type="text" value = "${ hotelname }" ></li>
           <li style="margin-top: 15px;">도시 : <input style="width: 200px; margin-left: 31px;" type="text" onfocus="this.blur()" value="${city}"></li>  
           <li style="margin-top: 15px;">상세주소: <input style="width: 200px;margin-left: 4px;" type="text" onfocus="this.blur()" value="${detailaddr}"></li>
-          <li style="margin-top: 15px;">지갑주소 : <input style="width: 200px;" type="text" onfocus="this.blur()" value="${wallet}"></li>
+          <li style="margin-top: 15px;">지갑주소 : <input style="width: 200px;" type="text" onfocus="this.blur()" value="${hwallet}"></li>
           <li style="margin-top: 15px;">연 락 처 : <input style="width: 200px; margin-left: 8px;" type="text" onfocus="this.blur()" value="${phone}"></li>
         </ul>
-        <input style=" margin-top: 30px; margin-left: 270px;" type="button" value="수정" onclick="move()" >
+        <input style=" margin-top: 30px; margin-left: 150px;" type="button" value="사진 올리기" onclick="popup()" >
+        <input style=" margin-top: 30px; margin-left: 20px;" type="button" value="수정" onclick="move()" >
       </div>
 
     </div>
     <!-- /.row -->
 
     <!-- Related Projects Row -->
-    <h3 class="my-4">Related Projects</h3>
+    <h3 class="my-4">호텔 전망 사진</h3>
 
     <div class="row">
 
       <div class="col-md-3 col-sm-6 mb-4">
         <a href="#">
-          <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          <img class="img-fluid" src="${ photo2 }" alt="">
         </a>
       </div>
 
       <div class="col-md-3 col-sm-6 mb-4">
         <a href="#">
-          <img style="width:85.5; height:142.5;" class="img-fluid" src="http://placehold.it/500x300" alt="">
+          <img class="img-fluid" src="${photo3}" alt="">
         </a>
       </div>
 
       <div class="col-md-3 col-sm-6 mb-4">
         <a href="#">
-          <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          <img class="img-fluid" src="${photo4}" alt="">
         </a>
       </div>
 
       <div class="col-md-3 col-sm-6 mb-4">
         <a href="#">
-          <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          <img class="img-fluid" src="${photo5}" alt="">
         </a>
       </div>
 

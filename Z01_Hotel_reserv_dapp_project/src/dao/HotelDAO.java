@@ -17,7 +17,7 @@ public class HotelDAO {
 		return hDao;
 	}
 	
-	// 회원가입
+	// 회원가입 
 	
 	public int insert(HotelVO hVo) {
 		
@@ -46,6 +46,25 @@ public class HotelDAO {
 		return result;
 	}
 	
+	public int photoUpdate(HotelVO hVo) {
+		int result = 0;
+		
+		String query ="update hotel set photo = '" + hVo.getPhoto() + 
+				   "', photo2 = '" + hVo.getPhoto2() + "', photo3 = '"
+				   + hVo.getPhoto3()+ "', photo4 = '" + hVo.getPhoto4()
+				   + "', photo5 = '" + hVo.getPhoto5() 
+				   + "' where hotelid = '" + hVo.getHotelid() + "'";
+		
+		try {
+			Statement stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return result;
+	}
+	
 	
 	// 로그인
 	public int MachIdPw(String hotelid, String password) {
@@ -68,8 +87,7 @@ public class HotelDAO {
 		
 		return result;
 	}
-	// 데이터 호출
-	
+	// 정보 불러오기	
 	public HotelVO select(String hotelid) {
 		HotelVO hVo = null;
 		
@@ -89,6 +107,10 @@ public class HotelDAO {
 				hVo.setPhoto(rs.getString("photo"));
 				hVo.setHwallet(rs.getString("hwallet"));
 				hVo.setCountry(rs.getString("country"));
+				hVo.setPhoto2(rs.getString("photo2"));
+				hVo.setPhoto3(rs.getString("photo3"));
+				hVo.setPhoto4(rs.getString("photo4"));
+				hVo.setPhoto5(rs.getString("photo5"));
 			}
 			
 		} catch (Exception e) {e.printStackTrace();}
@@ -96,7 +118,7 @@ public class HotelDAO {
 		return hVo;
 	}
 	
-	// 데이터 수정
+	// 회원정보수정
 	public int update(HotelVO hVo) {
 		int result =0;
 		
@@ -104,14 +126,12 @@ public class HotelDAO {
 			
 			Statement stmt = conn.createStatement();
 			
-			String pwStr = (hVo.getPassword() == null) ? "" : "password = '" + hVo.getPassword()+"' ,";
+			String pwStr = hVo.getPassword() == null ? "" : String.format("password='%s',", hVo.getPassword());
 			
 			String sql = "update hotel set " + pwStr + "hotelname = '" + hVo.getHotelname() + "', " + "country = '"
 						+ hVo.getCountry() + "', city = '" + hVo.getCity() + "', detailaddr = '"
-						+ hVo.getDetailaddr() + "', hwallet = '" + hVo.getHwallet() + "', photo= '" 
-						+ hVo.getPhoto() + "', photo2 = '" + hVo.getPhoto2() + "', photo3= '"  
-						+ hVo.getPhoto3() + "', photo4 = '" + hVo.getPhoto4()+ "', photo5= '"
-						+ hVo.getPhoto5()+ "' where hotelid = '" + hVo.getHotelid() + "'";
+						+ hVo.getDetailaddr() + "', hwallet = '" + hVo.getHwallet() + 
+						  "' where hotelid = '" + hVo.getHotelid() + "'";
 			result = stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (Exception e) {e.printStackTrace(); }
