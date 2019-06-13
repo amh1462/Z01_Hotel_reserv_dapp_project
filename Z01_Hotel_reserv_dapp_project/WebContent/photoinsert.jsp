@@ -29,7 +29,7 @@
 		
 		<button style="margin-top:15px; margin-left:150px;" class="login100-form-btn">
 		insert photo</button>
-		
+		<input type="hidden" value="testset">
 	</div>
 	</form>
 </body>
