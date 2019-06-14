@@ -2,16 +2,16 @@ package dto;
 
 public class RoomVO {
 	private String roomno;
-	private String hotelno;
+	private String hotelid;
 	private String roomname;
 	private String roominfo;
 	private String allowedman;
 	private String dailyprice;
 	private String weekendprice;
-	private String saleprice; 
 	private String totalcount;
 	private String restcount;
 	private String photo;
+	private String time;
 	
 	public String getRoomno() {
 		return roomno;
@@ -19,11 +19,11 @@ public class RoomVO {
 	public void setRoomno(String roomno) {
 		this.roomno = roomno;
 	}
-	public String getHotelno() {
-		return hotelno;
+	public String getHotelid() {
+		return hotelid;
 	}
-	public void setHotelno(String hotelno) {
-		this.hotelno = hotelno;
+	public void setHotelid(String hotelid) {
+		this.hotelid = hotelid;
 	}
 	public String getRoomname() {
 		return roomname;
@@ -55,12 +55,6 @@ public class RoomVO {
 	public void setWeekendprice(String weekendprice) {
 		this.weekendprice = weekendprice;
 	}
-	public String getSaleprice() {
-		return saleprice;
-	}
-	public void setSaleprice(String saleprice) {
-		this.saleprice = saleprice;
-	}
 	public String getTotalcount() {
 		return totalcount;
 	}
@@ -78,6 +72,12 @@ public class RoomVO {
 	}
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
 	}
 	
 	
