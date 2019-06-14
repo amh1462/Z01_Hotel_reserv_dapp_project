@@ -12,22 +12,27 @@ import javax.servlet.http.HttpSession;
 
 import dao.RoomDAO;
 
-@WebServlet("/showroom")
-public class ShowRoomController extends HttpServlet {
+@WebServlet("/regroom")
+public class RegisterRoomController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("왔음?");
-		RoomDAO rDao = RoomDAO.getInstance();
-		HttpSession session = request.getSession();
-		request.setAttribute("rlist", rDao.selectAll((String)session.getAttribute("hotelid")));
-		
-		RequestDispatcher rd = request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp");
-		rd.forward(request,response);
+		String type = (String)request.getParameter("type");
+		if(type.equals("show")) {
+			RoomDAO rDao = RoomDAO.getInstance();
+			HttpSession session = request.getSession();
+			request.setAttribute("rlist", rDao.selectAll((String)session.getAttribute("hotelid")));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp");
+			rd.forward(request,response);
+		}
+		else if(type.equals("register")) {	
+			request.getRequestDispatcher("./hotelMain.jsp?contentPage=registerRoom.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("여기?");
+		System.out.println("regroom post");
 	}
 
 }

@@ -48,25 +48,21 @@
 						<input type='submit' value='검색' style='width: 70px;'>
 					</form>
 				</div><br>
-				<table>
+				<table style="table-layout: fixed">
 					<tr>
-						<th>no</th>
-						<th>방 종류</th>
-						<th>평일요금</th>
-						<th>주말요금</th>
-						<th>남은 방</th>
-						<th>등록날짜</th>
-						<th>수 정</th>
+						<th width="30">no</th>
+						<th width="200">방 종류</th>
+						<th width="30">남은 방</th>
+						<th width="100">등록날짜</th>
+						<th width="30">수 정</th>
 					</tr>
 					<c:forEach var="rvo" items="${ rlist }">
 						<tr>
 							<td>${ rvo.roomno }</td>
 							<td>${ rvo.roomname }</td>
-							<td>${ rvo.dailyprice }</td>
-							<td>${ rvo.weekendprice }</td>
 							<td>${ rvo.restcount }</td>
 							<td>${ rvo.time }</td>
-							<td><button>수정</button></td>
+							<td><button class='btn_hgray' >수정</button></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -83,7 +79,7 @@
 						</a>
 					</li>
 				</ul>
-				<a href='registerRoom' class='btn_hgray' style='float: left'>객실 등록</a>
+				<a href='regroom?type=register' class='btn_hgray' style='float: left'>객실 등록</a>
 			</div>
 		</div>
 	</div>
