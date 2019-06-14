@@ -17,9 +17,9 @@ public class ShowRoomController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("왔음?");
 		RoomDAO rDao = RoomDAO.getInstance();
 		HttpSession session = request.getSession();
+		System.out.println((String)session.getAttribute("hotelid"));
 		request.setAttribute("rlist", rDao.selectAll((String)session.getAttribute("hotelid")));
 		
 		RequestDispatcher rd = request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp");
