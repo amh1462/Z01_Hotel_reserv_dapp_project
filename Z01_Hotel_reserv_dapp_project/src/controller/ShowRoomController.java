@@ -14,9 +14,9 @@ import dao.RoomDAO;
 
 @WebServlet("/showroom")
 public class ShowRoomController extends HttpServlet {
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private static final long serialVersionUID = 1L;
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("왔음?");
 		RoomDAO rDao = RoomDAO.getInstance();
 		HttpSession session = request.getSession();
@@ -27,7 +27,7 @@ public class ShowRoomController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		System.out.println("여기?");
 	}
 
 }
