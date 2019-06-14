@@ -81,7 +81,7 @@
 					</a>
 					</li>
 				</ul>
-				<a href='write' class='btn_hgray' style='float: left'>객실 등록</a>
+				<a href='registerRoom' class='btn_hgray' style='float: left'>객실 등록</a>
 			</div>
 		</div>
 	</div>
