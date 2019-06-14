@@ -50,11 +50,11 @@
         <div style='text-align: right;'>
           <form>
             <select name='searchField'>
-              <option value='name'>예약자 명</option>
-              <option value='type'>방 종류</option>
-              <option value='bookdate'>예약날짜</option>
-              <option value='chkin'>체크인</option>
-              <option value='chkout'>체크아웃</option>
+              <option value='guestname'>예약자 명</option>
+              <option value='roomno'>방 종류</option>
+              <option value='time'>예약날짜</option>
+              <option value='checkin'>체크인</option>
+              <option value='checkout'>체크아웃</option>
             </select> 
             <input name='searchKeyword'>
             <input type='submit' value='검색' style='width: 70px;'>
