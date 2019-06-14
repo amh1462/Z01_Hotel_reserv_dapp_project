@@ -87,5 +87,16 @@ public class ReservVO {
 		this.iswithdraw = iswithdraw;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return String.format("resno = %s, roomname  = %s, "+ 
+							 "guestname = %s, email = %s, "+
+							 "phone = %s, uwallet = %s, " + 
+							 "totalprice = %s, ordernum = %s, "+
+							 "checkin = %s, checkout = %s, " +
+							 "iscancel = %s, iswithdraw = %s, "
+							 ,resno, roomname, guestname, email, 
+							 uwallet, totalprice, ordernum, 
+							 checkin, checkout, iscancel, iswithdraw);
+	}
 }
