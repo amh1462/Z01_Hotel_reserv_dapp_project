@@ -8,27 +8,42 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.HotelDAO;
-import dao.RoomDAO;
 import dto.HotelVO;
 
 @WebServlet("/join")
 public class JoinController extends HttpServlet  {
 	private static final long serialVersionUID = 1L;
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("왔음?");
-		RoomDAO rDao = RoomDAO.getInstance();
-		HttpSession session = request.getSession();
-		request.setAttribute("rlist", rDao.selectAll((String)session.getAttribute("hotelid")));
 		
-		RequestDispatcher rd = request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp");
-		rd.forward(request,response);
+		RequestDispatcher rd = request.getRequestDispatcher("join.html");
+		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("여기?");
+		
+		request.setCharacterEncoding("utf-8");
+		
+		HotelDAO hDao = HotelDAO.getInstance();
+		
+		HotelVO hVo = new HotelVO();
+		
+		hVo.setHotelid(request.getParameter("hotelid"));
+		hVo.setPassword(request.getParameter("password"));
+		hVo.setHotelname(request.getParameter("hotelname"));
+		hVo.setCountry(request.getParameter("country"));
+		hVo.setCity(request.getParameter("city"));
+		hVo.setDetailaddr(request.getParameter("detailaddr"));
+		hVo.setPhone(request.getParameter("phone"));
+		hVo.setHwallet(request.getParameter("hwallet"));
+		
+		if(hDao.insert(hVo)>0) {
+			response.sendRedirect("./hotelMain.jsp?contentPage=hotelInfo.jsp");
+		}else {
+			response.sendRedirect("<script>history.back();</script>");
+			
+		}
 	}
 }
