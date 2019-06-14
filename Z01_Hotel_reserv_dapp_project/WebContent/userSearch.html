@@ -1,0 +1,180 @@
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> -->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link rel='stylesheet' href='css/User/userSearch.css' type='text/css' media='all' />
+    <!-- <link rel='stylesheet' href='css/User/main3.css' type='text/css' media='all' /> -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='css/User/jquery.rateyo.min.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='css/User/jquery.mmenu.all.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='css/User/bootstrap-grid.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='fonts/web-icons/web-icons.min.css' type='text/css' media='all' />
+</head>
+
+<style>
+    .hotelSearch {
+        height: 260px;
+        box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+        padding-top: 5px;
+    }
+
+    .hotelImg {
+        height: 230px;
+        width: 320px;
+    }
+
+    .imgSection {
+        float: left;
+        padding: 10px 10px 10px 10px;
+        height: 250px;
+    }
+
+    .hotelInfo {
+        padding: 10px 10px 10px 10px;
+        float: left;
+
+        width: 512px;
+        height: 230px;
+    }
+
+    li {
+        padding-bottom: 18px;
+        padding-top: 18px;
+    }
+
+    .hotelBtnSection {
+        float: right;
+        height: 250px;
+        width: 288px;
+        padding: 105px 10px 10px 10px;
+        border-left: solid 1px lightgray;
+
+    }
+
+    .hotelBtnSection .hotelBtn {
+        margin: auto;
+        width: 50%;
+        background-color: aliceblue;
+
+    }
+
+    .blank_top {
+        margin: 90px;
+    }
+
+    .blank_mid {
+        margin: 20px;
+    }
+
+    .inputs {
+        margin: 0 auto;
+    }
+</style>
+
+<body class="loaded">
+    <div class="site-all">
+        <div id="header">
+            <div class="row-header">
+                <div class="container">
+                    <form id="search-form">
+                        <div class="inputs">
+                            <input type="text" name="city" placeholder="검색">
+                            <select name="country" id="q" style="padding-right: 10px;">
+                                <option value="#" selected>국가</option>
+                                <option value="kr">Korea</option>
+                                <option value="us">USA</option>
+                                <option value="cn">China</option>
+                                <option value="jp">Japan</option>
+                                <option value="uk">England</option>
+                                <option value="aus">Australia</option>
+                            </select>
+                        </div>
+                        <ul>
+                            <label>Check In : <%= request.getParameter("checkIn") %></label>
+                            <label>Check Out : <%= request.getParameter("checkOut") %></label>
+                            <label>방 갯수 : <%= request.getParameter("roomCount") %></label>
+                        </ul>
+                        <div>
+                            <div class="blank_top"></div>
+                            <article class="hotelSearch">
+                                <div class="">
+                                    <section class="imgSection">
+                                        <div>
+                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
+                                        </div>
+                                    </section>
+                                    <section class="">
+                                        <div class="hotelInfo">
+                                            <li class="hotelName">호텔명 :
+                                                asldjfoajsdslkfjlkajflkjaslkdjflkajsdlkfjadjflkjaslkdjflajsdf</li>
+                                            <li class="hotelName">호텔 주소 : </li>
+                                            <li class="hotelName">호텔 연락처 : </li>
+                                            <li class="hotelName">최소요금 : </li>
+                                        </div>
+                                    </section>
+                                    <section class="hotelBtnSection">
+                                        <center><input class="hotelBtn" type="button" value="방 선택"></center>
+                                    </section>
+                                </div>
+                            </article>
+                            <div class="blank_mid"></div>
+                            <article class="hotelSearch">
+                                <div class="">
+                                    <section class="imgSection">
+                                        <div>
+                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
+                                        </div>
+                                    </section>
+                                    <section class="">
+                                        <div class="hotelInfo">
+                                            <li class="hotelName">호텔명 :
+                                                asldjfoajsdslkfjlkajflkjaslkdjflkajsdlkfjadjflkjaslkdjflajsdf</li>
+                                            <li class="hotelName">호텔 주소 : </li>
+                                            <li class="hotelName">호텔 연락처 : </li>
+                                            <li class="hotelName">최소요금 : </li>
+                                        </div>
+                                    </section>
+                                    <section class="hotelBtnSection">
+                                        <center><input class="hotelBtn" type="button" value="방 선택"></center>
+                                    </section>
+                                </div>
+                            </article>
+                            <div class="blank_mid"></div>
+                            <article class="hotelSearch">
+                                <div class="">
+                                    <section class="imgSection">
+                                        <div>
+                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
+                                        </div>
+                                    </section>
+                                    <section class="">
+                                        <div class="hotelInfo">
+                                            <li class="hotelName">호텔명 :
+                                                asldjfoajsdslkfjlkajflkjaslkdjflkajsdlkfjadjflkjaslkdjflajsdf</li>
+                                            <li class="hotelName">호텔 주소 : </li>
+                                            <li class="hotelName">호텔 연락처 : </li>
+                                            <li class="hotelName">최소요금 : </li>
+                                        </div>
+                                    </section>
+                                    <section class="hotelBtnSection">
+                                        <center><input class="hotelBtn" type="button" value="방 선택"></center>
+                                    </section>
+                                </div>
+                            </article>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='js/User/jquery.js'></script>
+    <script type='text/javascript' src='js/User/superfish.min.js'></script>
+    <script type='text/javascript' src='js/User/jquery.sumoselect.min.js'></script>
+    <script type='text/javascript' src='js/User/owl.carousel.min.js'></script>
+    <script type='text/javascript' src='js/User/init.js'></script>
+</body>
+
+</html>
