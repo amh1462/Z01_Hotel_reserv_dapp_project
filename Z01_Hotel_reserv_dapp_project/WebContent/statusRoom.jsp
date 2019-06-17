@@ -79,7 +79,7 @@
 						</a>
 					</li>
 				</ul>
-				<a href='regroom?type=register' class='btn_hgray' style='float: left'>객실 등록</a>
+				<a href='manageroom?type=register' class='btn_hgray' style='float: left'>객실 등록</a>
 			</div>
 		</div>
 	</div>

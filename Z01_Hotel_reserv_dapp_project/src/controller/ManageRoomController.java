@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import dao.RoomDAO;
 
-@WebServlet("/regroom")
-public class RegisterRoomController extends HttpServlet {
+@WebServlet("/manageroom")
+public class ManageRoomController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class RegisterRoomController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("regroom post");
+		System.out.println("manageroom post");
 	}
 
 }

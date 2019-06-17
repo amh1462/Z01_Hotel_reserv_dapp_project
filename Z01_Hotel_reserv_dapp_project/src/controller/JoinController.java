@@ -40,9 +40,13 @@ public class JoinController extends HttpServlet  {
 		hVo.setHwallet(request.getParameter("hwallet"));
 		
 		if(hDao.insert(hVo)>0) {
-			response.sendRedirect("./hotelMain.jsp?contentPage=hotelInfo.jsp");
+			response.sendRedirect("./login.html");
 		}else {
-			response.sendRedirect("<script>history.back();</script>");
+			response.setContentType("text/html; charset=utf-8");
+			response.getWriter().println("<script> "
+					+ "alert('죄송합니다. 오류로 인해 회원가입이 취소되었습니다.');"
+					+ "history.back();"
+					+ " </script>");
 			
 		}
 	}

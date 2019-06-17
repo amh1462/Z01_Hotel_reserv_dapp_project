@@ -88,9 +88,6 @@ function z(hotelid){ return document.getElementById(hotelid); }
 			//document.getElementsByClassName('emptyDiv')[0].style.height = '0px';
 		}
 		
-		
-
-		var accountInterval;
 		function getAccount(checked){ // 메타마스크에서 지갑 가져오기
 			if(checked){
 				// web3 인식 여부
@@ -127,6 +124,7 @@ function z(hotelid){ return document.getElementById(hotelid); }
 					types: ['(cities)'] // 도시 정보만 가져오는 옵션
 			}
 			var autocomplete = new google.maps.places.Autocomplete(cityElem, option); // autocomplete 객체 생성
+			var clickFlag = false;
 			
 			countryElem.onchange = function(){ // 나라 선택
 				cityElem.value = '';
@@ -134,23 +132,32 @@ function z(hotelid){ return document.getElementById(hotelid); }
 				if(countryElem.value != ''){ // 선택했을 시
 					cityElem.disabled = false;
 					autocomplete.setComponentRestrictions({'country': countryElem.value}); // 해당 국가만
-					google.maps.event.addListener(autocomplete, 'place_changed', function(){ // 도시 정보를 자동 완성
-						cityElem.value = autocomplete.getPlace().name;
-						selectedCity = true;
-						chkSelectCity();
+					google.maps.event.addListener(autocomplete, 'place_changed', function(){ // 도시 정보를 자동 완성하는데, 주소가 클릭될 때마다 이벤트가 발생
+						if((typeof autocomplete.getPlace()) != 'undefined' && !clickFlag){
+							cityElem.value = autocomplete.getPlace().name;
+							console.log('클릭으로 getPlace()에 문자가 담김.');
+							selectedCity = true;
+							chkSelectCity();
+							clickFlag = true;
+						}
 					})
-				} else{
+				} else{ // 국가 선택 안 했을 시
 					cityElem.disabled = true;
 					selectedCity = false;
 				}
 			}
 			
-			cityElem.onkeypress = function(){
-				google.maps.event.trigger(autocomplete, 'place_changed');
-				selectedCity = false;
-				chkSelectCity();
+			cityElem.onkeyup = function(){ // city input에 입력이 들어왔을 때
+				if((typeof autocomplete.getPlace()) != 'undefined'){ // 주소 선택이 한 번 되고 나서 (안 되고 하면 에러뜸)
+					if(cityElem.value != autocomplete.getPlace().name && clickFlag){ // input 내용을 건드리면
+						selectedCity = false;
+						chkSelectCity();
+						clickFlag = false;
+					}
+				}
 			}
 		}
+
 		
 		function chkSelectCity(){
 			if(!selectedCity){
