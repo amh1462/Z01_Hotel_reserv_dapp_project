@@ -13,14 +13,8 @@ import dao.ReservDAO;
 @WebServlet("/showrservation")
 public class ShowReservationControoler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-
-    public ShowReservationControoler() {
-        super();
-    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		ReservDAO resDao = ReservDAO.getInstance();
 		String s = request.getParameter("resIndex");
 		
@@ -36,7 +30,18 @@ public class ShowReservationControoler extends HttpServlet {
 				request.setAttribute("startList", resDao.getStartList(resIndexParam));
 				request.setAttribute("endList", resDao.getEndList(resIndexParam,category,keyword));
 				request.setAttribute("reslist", resDao.selectAll(resIndexParam,category,keyword));
+			}else {
+				request.setAttribute("lastListNum", resDao.lastPageNum());
+				request.setAttribute("startList", resDao.getStartList(resIndexParam));
+				request.setAttribute("endList", resDao.getEndList(resIndexParam));
+				request.setAttribute("reslist", resDao.selectAll(resIndexParam));
 			}
+			
+			request.getRequestDispatcher("hotelMain.jsp?contentPage=bookStatus.jsp").forward(request, response);
+		}else {
+			request.setAttribute("resVo", resDao.select(request.getParameter("no")));
+			System.out.println("no");
+			request.getRequestDispatcher("hotelMain.jsp").forward(request, response);		
 		}
 	}
 
