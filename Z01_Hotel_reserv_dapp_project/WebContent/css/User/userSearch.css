@@ -54,7 +54,8 @@ p{
 } */
 
 .row-header #search-form .inputs{
-	height:67px
+	height:67px;
+	padding-left: 240px;
 }
 .row-header #search-form .inputs input[type='text']{
 	background:#fff;
@@ -83,6 +84,21 @@ p{
 	float:left;
 	height:100%;
 	width:164px
+}
+
+.row-header #search-form .inputs input[type='text']:hover{
+	color:#3c3c3c
+}
+.row-header #search-form .inputs input[type='number']:hover{
+	color:#3c3c3c
+}
+.row-header #search-form .inputs input[type='text']:focus{
+	box-shadow:0 0 3px rgba(0,0,0,.2) inset;
+	background:#fff
+}
+.row-header #search-form .inputs input[type='number']:focus{
+	box-shadow:0 0 3px rgba(0,0,0,.2) inset;
+	background:#fff
 }
 
 /* .row-header #search-form .examples{
@@ -400,3 +416,69 @@ img{
 	outline:none;
 	text-decoration:none
 } */
+
+.row-header .slogan{
+	color:#fff;
+	font-weight:700;
+	font-size:36px;
+	text-align:center;
+	padding:22px 0
+}
+
+.hotelSearch {
+	height: 260px;
+	box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+	padding-top: 5px;
+}
+
+.hotelImg {
+	height: 230px;
+	width: 320px;
+}
+
+.imgSection {
+	float: left;
+	padding: 10px 10px 10px 10px;
+	height: 250px;
+}
+
+.hotelInfo {
+	padding: 10px 10px 10px 10px;
+	float: left;
+
+	width: 512px;
+	height: 230px;
+}
+
+li {
+	padding-bottom: 18px;
+	padding-top: 18px;
+}
+
+.hotelBtnSection {
+	float: right;
+	height: 250px;
+	width: 288px;
+	padding: 105px 10px 10px 10px;
+	border-left: solid 1px lightgray;
+
+}
+
+.hotelBtnSection .hotelBtn {
+	margin: auto;
+	width: 50%;
+	background-color: aliceblue;
+
+}
+
+.blank_top {
+	margin: 90px;
+}
+
+.blank_mid {
+	margin: 20px;
+}
+
+.inputs {
+	margin: 0 auto;
+}

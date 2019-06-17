@@ -1,6 +1,6 @@
 @import url(font-awesome.css);
 html,body {
-	background: url(/Z01_Hotel_reserv_dapp_project/WebContent/images/content/header-bg.jpg) no-repeat center center fixed; 
+	background: url('../../images/content/header-bg.jpg') no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -49,8 +49,8 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,secti
 	display:block
 }
 .row-header{
-	/* background:url(/Z01_Hotel_reserv_dapp_project/WebContent/images/content/header-bg.jpg) #323a45 no-repeat scroll 50% 0/cover; */
-	/* background:url(/Z01_Hotel_reserv_dapp_project/WebContent/images/content/header-bg.jpg) #323a45 no-repeat; */
+	/*background:url(/Z01_Hotel_reserv_dapp_project/WebContent/images/content/header-bg.jpg) #323a45 no-repeat scroll 50% 0/cover;*/
+	/* background:url(/Z01_Hotel_reserv_dapp_project/WebContent/images/content/header-bg.jpg) #323a45 no-repeat;*/
 	min-height: 100%;
 	min-width: 1024px;
 
@@ -144,7 +144,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,secti
 	}
 } */
 #search-form input[type='submit']{
-	background:url(/Z01_Hotel_reserv_dapp_project/WebContent/images/icons/icon-zoom.png) no-repeat 50% 50% #fff;
+	background:url('../../images/icons/icon-zoom.png') no-repeat 50% 50% #fff;
 	border:none;
 	border-radius:5px 5px 5px 5px;
 	float:left;
