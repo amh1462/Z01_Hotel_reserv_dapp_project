@@ -1,6 +1,6 @@
 @import url(font-awesome.css);
 html,body {
-	background: url('../../images/content/header-bg.jpg') no-repeat center center fixed; 
+	background: url('content/header-bg.jpg') no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -144,7 +144,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,secti
 	}
 } */
 #search-form input[type='submit']{
-	background:url('../../images/icons/icon-zoom.png') no-repeat 50% 50% #fff;
+	background:url('content/icon-zoom.png') no-repeat 50% 50% #fff;
 	border:none;
 	border-radius:5px 5px 5px 5px;
 	float:left;

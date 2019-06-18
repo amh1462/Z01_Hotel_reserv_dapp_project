@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import dto.HotelVO;
 import dao.HotelDAO;
+import dao.UserDAO;
 
 @WebServlet("/UserSearch")
 public class UserController extends HttpServlet {
@@ -23,12 +24,27 @@ public class UserController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("utf-8");
 		
-		HotelDAO hDao = HotelDAO.getInstance();
-		HttpSession session = request.getSession();
+		UserDAO uDao = UserDAO.getInstance();
+		HotelVO hVo = new HotelVO();
 		
-		if(request.getParameter(""))
+		if(request.getParameter("searchKeyword") != null) { // �˻��� ������ �ִٸ�.
+			String category = request.getParameter("searchField");
+			String keyword =  request.getParameter("searchKeyword");
+
+			request.setAttribute("lastListNum", bDao.lastPageNum(category,keyword));
+			request.setAttribute("startList", bDao.getStartList(pIndexParam));
+			request.setAttribute("endList", bDao.getEndList(pIndexParam,category,keyword));
+			request.setAttribute("blist", bDao.selectAll(pIndexParam,category,keyword));
+			
+		} else {//�˻��� ������ ���ٸ�...
+			request.setAttribute("lastListNum", bDao.lastPageNum());
+			request.setAttribute("startList", bDao.getStartList(pIndexParam));
+			request.setAttribute("endList", bDao.getEndList(pIndexParam));
+			request.setAttribute("blist", bDao.selectAll(pIndexParam));
+		}
 	}
 
 }
