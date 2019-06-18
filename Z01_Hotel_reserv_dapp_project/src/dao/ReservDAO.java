@@ -45,13 +45,13 @@ public ReservVO select(String resno, String hotelid) {
 		return resVo;
 	}
 	
-	// ¿¹¾à µî·Ï ÃßÈÄ ÀÛ¼º
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½
 	
 	
-	// ¿¹¾à ¸®½ºÆ®È­
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®È­
 	public List<ReservVO> selectAll(int pidx, String hotelid){
 		
-		List<ReservVO> reslist = new ArrayList<ReservVO>();
+		List<ReservVO> reslist = new ArrayList<ReservVO>() ;
 		int start = (pidx -1) * 10 + 1;
 		int end = pidx*10;
 		/*
@@ -96,7 +96,7 @@ public ReservVO select(String resno, String hotelid) {
 		
 		return reslist;
 	}
-	// °Ë»ö±â´É
+	// ï¿½Ë»ï¿½ï¿½ï¿½ï¿½
 	public Object selectAll(int resIndexParam, String category, String keyoword, String hotelid) {
 		List<ReservVO> reslist = new ArrayList<ReservVO>();
 		
@@ -177,7 +177,7 @@ public ReservVO select(String resno, String hotelid) {
 	
 	
 	
-	// ¸¶Áö¸· ÆäÀÌÁö ±¸ÇÏ±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 	public int lastPageNum(String hotelid) {
 		int result = 0;
 		try {
