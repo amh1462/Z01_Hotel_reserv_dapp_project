@@ -25,7 +25,7 @@
                 <div class="container">
                     <h1 class="slogan">Hotelnara</h1>
                     <form id="search-form" method="POST">
-                        <center><div class="inputs" name="searchKeyword">
+                        <center><div class="inputs">
                             <input type="text" name="city" placeholder="<%= request.getParameter("city") %>">
                             <select name="country" id="q" style="padding-right: 10px;">
                                 <option value="#" selected>국가</option>
@@ -48,7 +48,7 @@
                                 <div class="">
                                     <section class="imgSection">
                                         <div>
-                                            <img class="hotelImg" src="css/User/content/hotelSample.jpg">
+                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
                                         </div>
                                     </section>
                                     <section class="">
@@ -70,7 +70,7 @@
                                 <div class="">
                                     <section class="imgSection">
                                         <div>
-                                            <img class="hotelImg" src="css/User/content/hotelSample.jpg">
+                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
                                         </div>
                                     </section>
                                     <section class="">
@@ -94,7 +94,7 @@
                                 <div class="">
                                     <section class="imgSection">
                                         <div>
-                                            <img class="hotelImg" src="css/User/content/hotelSample.jpg">
+                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
                                         </div>
                                     </section>
                                     <section class="">

@@ -13,10 +13,10 @@ import dto.HotelVO;
 public class UserDAO {
 	
 	private static Connection conn = DBConn.getInstance();
-	private static UserDAO uDao = new UserDAO();
+	private static HotelDAO hDao = new HotelDAO();
 	
-	public static UserDAO getInstance() {
-		return uDao;
+	public static HotelDAO getInstance() {
+		return hDao;
 	}
 	
 	public List<HotelVO> selectAll(String hotelname) {

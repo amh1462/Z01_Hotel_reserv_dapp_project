@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import dto.HotelVO;
 import dao.HotelDAO;
-import dao.UserDAO;
 
 @WebServlet("/UserSearch")
 public class UserController extends HttpServlet {
@@ -24,29 +23,28 @@ public class UserController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("utf-8");
 		
-		UserDAO uDao = UserDAO.getInstance();
-		HotelVO hVo = new HotelVO();
-/*		
-		if(request.getParameter("searchKeyword") != null) { // �˻��� ������ �ִٸ�.
+		HotelDAO hDao = HotelDAO.getInstance();
+		
+		
+		if(request.getParameter("city") != null) { // 검색한 내용이 있다면.
 			String category = request.getParameter("searchField");
-			String keyword =  request.getParameter("searchKeyword");
+			String keyword =  request.getParameter("city");
 
 			request.setAttribute("lastListNum", bDao.lastPageNum(category,keyword));
 			request.setAttribute("startList", bDao.getStartList(pIndexParam));
 			request.setAttribute("endList", bDao.getEndList(pIndexParam,category,keyword));
 			request.setAttribute("blist", bDao.selectAll(pIndexParam,category,keyword));
 			
-		} else {//�˻��� ������ ���ٸ�...
+		} else {//검색한 내용이 없다면...
 			request.setAttribute("lastListNum", bDao.lastPageNum());
 			request.setAttribute("startList", bDao.getStartList(pIndexParam));
 			request.setAttribute("endList", bDao.getEndList(pIndexParam));
 			request.setAttribute("blist", bDao.selectAll(pIndexParam));
 		}
+		
 		//if(request.getParameter(""))
-		 */
 	}
 
 }
