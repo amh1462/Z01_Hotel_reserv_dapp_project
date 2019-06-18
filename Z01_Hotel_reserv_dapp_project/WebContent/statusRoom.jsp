@@ -73,12 +73,12 @@
 				<div style="height: 10px;"></div>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <c:if test='${startList == 1}'>disabled</c:if>">
-						<a class="page-link" href="board?pIndex=${ startList-1 }"> 
+						<a class="page-link" href="showroom?pIndex=${ startList-1 }"> 
 							<span class="lnr lnr-arrow-left"></span>
 						</a>
 					</li>
 					<li class="page-item <c:if test='${endList % 10 != 0}'> disabled</c:if>">
-						<a class="page-link" href="board?pIndex=${ endList+1 }"> 
+						<a class="page-link" href="showroom?pIndex=${ endList+1 }"> 
 							<span class="lnr lnr-arrow-right"></span>
 						</a>
 					</li>

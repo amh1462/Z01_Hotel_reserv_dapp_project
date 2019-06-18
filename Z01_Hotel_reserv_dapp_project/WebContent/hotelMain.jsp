@@ -69,8 +69,7 @@
         <div class="list-group">
           <a href="hotelMain.jsp?contentPage=hotelInfo.jsp" class="list-group-item">호텔 정보</a>
           <a href="showroom" class="list-group-item">객실 현황</a>
-          <a href="hotelMain.jsp?contentPage=bookStatus.jsp" class="list-group-item">예약 현황</a>
-          <a href="hotelMain.jsp?contentPage=payAdjust.jsp" class="list-group-item">요금 정산</a>
+          <a href="showrservation" class="list-group-item">예약 현황</a>
           <a href="hotelMain.jsp?contentPage=faq.jsp" class="list-group-item">FAQ</a>
           <a href="logout" class="list-group-item">로그아웃</a>
         </div>
