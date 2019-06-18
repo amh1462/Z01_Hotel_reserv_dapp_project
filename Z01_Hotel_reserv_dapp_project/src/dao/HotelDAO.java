@@ -23,8 +23,9 @@ public class HotelDAO {
 		
 		int result = 0;
 		
-		String query = "insert into hotel (hotelno, hotelid, password, hotelname, country, city, detailaddr, phone, hwallet)"
-				+ "values(hno_seq.nextval,?,?,?,?,?,?,?,?)";
+		String query = "insert into hotel "
+				+ "(hotelno, hotelid, password, hotelname, country, city, detailaddr, phone, hwallet, cancelfee1, cancelfee2, cancelfee3, cancelfee4, cancelday1, cancelday2)"
+				+ "values(hno_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			
@@ -37,6 +38,12 @@ public class HotelDAO {
 			pst.setString(6, hVo.getDetailaddr());
 			pst.setString(7, hVo.getPhone());
 			pst.setString(8, hVo.getHwallet());
+			pst.setString(9, hVo.getCancelfee1());
+			pst.setString(10, hVo.getCancelfee2());
+			pst.setString(11, hVo.getCancelfee3());
+			pst.setString(12, hVo.getCancelfee4());
+			pst.setString(13, hVo.getCancelday1());
+			pst.setString(14, hVo.getCancelday2());
 			
 			result = pst.executeUpdate();
 			pst.close();
@@ -111,6 +118,12 @@ public class HotelDAO {
 				hVo.setPhoto3(rs.getString("photo3"));
 				hVo.setPhoto4(rs.getString("photo4"));
 				hVo.setPhoto5(rs.getString("photo5"));
+				hVo.setCancelfee1(rs.getString("cancelfee1"));
+				hVo.setCancelfee2(rs.getString("cancelfee2"));
+				hVo.setCancelfee3(rs.getString("cancelfee3"));
+				hVo.setCancelfee4(rs.getString("cancelfee4"));
+				hVo.setCancelday1(rs.getString("cancelday1"));
+				hVo.setCancelday2(rs.getString("cancelday2"));
 			}
 			
 		} catch (Exception e) {e.printStackTrace();}
@@ -130,8 +143,10 @@ public class HotelDAO {
 			
 			String sql = "update hotel set " + pwStr + "hotelname = '" + hVo.getHotelname() + "', " + "country = '"
 						+ hVo.getCountry() + "', city = '" + hVo.getCity() + "', detailaddr = '"
-						+ hVo.getDetailaddr() + "', hwallet = '" + hVo.getHwallet() + 
-						  "' where hotelid = '" + hVo.getHotelid() + "'";
+						+ hVo.getDetailaddr() + "', hwallet = '" + hVo.getHwallet() + "', cancelfee1 ='" 
+						+ hVo.getCancelfee1() + "', cancelfee2 ='" + hVo.getCancelfee2() + "', cancelfee3 ='" 
+						+ hVo.getCancelfee3() + "', cancelfee4 ='" + hVo.getCancelfee4() + "', cancelday1 ='" + hVo.getCancelday1() + "', cancelday2 ='" + hVo.getCancelday2() 
+						+ "' where hotelid = '" + hVo.getHotelid() + "'";
 			result = stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (Exception e) {e.printStackTrace(); }

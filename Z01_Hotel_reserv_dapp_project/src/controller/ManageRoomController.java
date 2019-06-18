@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.RoomDAO;
+import dto.RoomVO;
 
 @WebServlet("/manageroom")
 public class ManageRoomController extends HttpServlet {
@@ -32,7 +33,31 @@ public class ManageRoomController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("manageroom post");
+		request.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession();
+		RoomVO rVo = new RoomVO();
+		RoomDAO rDao = RoomDAO.getInstance();
+		
+		rVo.setHotelid((String)session.getAttribute("hotelid"));
+		rVo.setRoomname(request.getParameter("roomname"));
+		rVo.setRoominfo(request.getParameter("roominfo"));
+		rVo.setAllowedman(request.getParameter("allowedman"));
+		rVo.setDailyprice(request.getParameter("dailyprice"));
+		rVo.setWeekendprice(request.getParameter("weekendprice"));
+		rVo.setTotalcount(request.getParameter("totalcount"));
+		rVo.setRestcount(request.getParameter("totalcount"));
+		rVo.setPhoto(request.getParameter("photo"));
+		rVo.setContract(request.getParameter("contract"));
+		System.out.println(rVo.toString());
+		
+		if(rDao.insert(rVo) > 0) {
+			response.setContentType("text/html; charset=utf-8");
+			response.getWriter().println("<script>alert('방 등록이 완료되었습니다.'); location.href='manageroom?type=show';</script>");
+		} else {
+			response.setContentType("text/html; charset=utf-8");
+			response.getWriter().println("<script>alert('DB 등록에 오류가 발생했습니다.\n 다시 등록해주십시오.'); history.back();</script>");
+		}
 	}
 
 }

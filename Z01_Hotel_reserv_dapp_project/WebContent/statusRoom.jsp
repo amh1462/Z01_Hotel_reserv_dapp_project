@@ -32,6 +32,12 @@
 	color: #333;
 }
 
+tr, td {
+	overflow:hidden; 
+	text-overflow:ellipsis; 
+	white-space:nowrap;
+}
+
 </style>
 
 <body>
@@ -48,10 +54,11 @@
 						<input type='submit' value='검색' style='width: 70px;'>
 					</form>
 				</div><br>
-				<table style="table-layout: fixed">
+				<table style="table-layout: fixed;">
 					<tr>
 						<th width="30">no</th>
-						<th width="200">방 종류</th>
+						<th width="100">방 종류</th>
+						<th width="100">컨트랙트 주소</th>
 						<th width="30">남은 방</th>
 						<th width="100">등록날짜</th>
 						<th width="30">수 정</th>
@@ -60,6 +67,7 @@
 						<tr>
 							<td>${ rvo.roomno }</td>
 							<td>${ rvo.roomname }</td>
+							<td>${ rvo.contract }</td>
 							<td>${ rvo.restcount }</td>
 							<td>${ rvo.time }</td>
 							<td><button class='btn_hgray' >수정</button></td>

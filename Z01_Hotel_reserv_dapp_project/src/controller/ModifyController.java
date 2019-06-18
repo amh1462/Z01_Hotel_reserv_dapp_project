@@ -48,6 +48,13 @@ public class ModifyController extends HttpServlet {
 			hVo.setHwallet(request.getParameter("hwallet"));
 			hVo.setHotelid((String)session.getAttribute("hotelid"));
 			
+			hVo.setCancelfee1(request.getParameter("cancelfee1"));
+			hVo.setCancelfee2(request.getParameter("cancelfee2"));
+			hVo.setCancelfee3(request.getParameter("cancelfee3"));
+			hVo.setCancelfee4(request.getParameter("cancelfee4"));
+			hVo.setCancelday1(request.getParameter("cancelday1"));
+			hVo.setCancelday2(request.getParameter("cancelday2"));
+			
 			if(hDao.update(hVo)>0) {
 				session.setAttribute("hotelname", hVo.getHotelname());
 				session.setAttribute("country", hVo.getCountry());
