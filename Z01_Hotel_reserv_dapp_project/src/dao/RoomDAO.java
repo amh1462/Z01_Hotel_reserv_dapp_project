@@ -21,7 +21,7 @@ public class RoomDAO {
 	public List<RoomVO> selectAll(String hotelid){
 		List<RoomVO> rlist = new ArrayList<RoomVO>();
 		String query = "select * from room where hotelid = '" + hotelid + "'";
-		
+		System.out.println(query);
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);

@@ -28,9 +28,6 @@ public class LoginController extends HttpServlet  {
 		String hotelid = request.getParameter("hotelid");
 		String password = request.getParameter("password");
 		
-		System.out.println(hotelid);
-		System.out.println(password);
-		
 		int matchresult = hDao.MachIdPw(hotelid, password); 
 		if( matchresult == 1){ 
 			HotelVO hVo = hDao.select(hotelid);
