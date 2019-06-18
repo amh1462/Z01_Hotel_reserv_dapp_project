@@ -40,7 +40,7 @@ public class JoinController extends HttpServlet  {
 		hVo.setHwallet(request.getParameter("hwallet"));
 		
 		if(hDao.insert(hVo)>0) {
-			response.sendRedirect("./hotelMain.jsp?contentPage=hotelInfo.jsp");
+			response.sendRedirect("./login.html");
 		}else {
 			response.sendRedirect("<script>history.back();</script>");
 			

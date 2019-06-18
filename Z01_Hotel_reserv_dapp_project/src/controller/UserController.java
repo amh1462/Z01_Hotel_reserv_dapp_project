@@ -29,7 +29,7 @@ public class UserController extends HttpServlet {
 		
 		UserDAO uDao = UserDAO.getInstance();
 		HotelVO hVo = new HotelVO();
-		
+/*		
 		if(request.getParameter("searchKeyword") != null) { // �˻��� ������ �ִٸ�.
 			String category = request.getParameter("searchField");
 			String keyword =  request.getParameter("searchKeyword");
@@ -45,6 +45,8 @@ public class UserController extends HttpServlet {
 			request.setAttribute("endList", bDao.getEndList(pIndexParam));
 			request.setAttribute("blist", bDao.selectAll(pIndexParam));
 		}
+		//if(request.getParameter(""))
+		 */
 	}
 
 }

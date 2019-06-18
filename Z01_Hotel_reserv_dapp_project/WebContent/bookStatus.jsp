@@ -112,7 +112,7 @@
 					</a>
 					</li>
 				</ul>
-        
+        <input type="hidden" name="hotelid" value="${ hVo.hotelid }" >
         <div style="height: 10px;"></div>
         
         
