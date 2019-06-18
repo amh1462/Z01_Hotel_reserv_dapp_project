@@ -1,6 +1,7 @@
 package dto;
 
 public class RoomVO {
+	
 	private String roomno;
 	private String hotelid;
 	private String roomname;
@@ -12,6 +13,7 @@ public class RoomVO {
 	private String restcount;
 	private String photo;
 	private String time;
+	
 	
 	public String getRoomno() {
 		return roomno;

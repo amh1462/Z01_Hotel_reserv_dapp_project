@@ -10,7 +10,7 @@
 
 <script>
 	function navigator1() {
-		alert("사용자");
+		location.href="./userIndex.html"
 	}
 	function navigator2() {
 		location.href="./login.html"

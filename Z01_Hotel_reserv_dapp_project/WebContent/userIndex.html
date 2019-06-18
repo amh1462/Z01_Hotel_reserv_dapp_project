@@ -2,6 +2,7 @@
 <html lang="ko">
 
 <head>
+	<meta charset="UTF-8">
 	<link rel='stylesheet' href='fonts/web-icons/web-icons.min.css' type='text/css' media='all' />
 	<link rel='stylesheet' href='css/User/bootstrap-grid.css' type='text/css' media='all' />
 	<link rel='stylesheet' href='css/User/jquery.mmenu.all.css' type='text/css' media='all' />
@@ -46,8 +47,8 @@
 						</div>
 						<!-- t-datepicker -->
 						<div class="t-datepicker">
-							<div class="t-check-in"></div>
-							<div class="t-check-out"></div>
+							<div class="t-check-in" name="checkIn"></div>
+							<div class="t-check-out" name="checkOut"></div>
 						</div>
 						<script>
 							$(function () {
@@ -58,7 +59,7 @@
 						</script>
 
 						<div class="inputs">
-							<input name="roomCount" type='number' placeholder="방갯수" min='1' max='99'>
+							<input name="roomCount" type='number' placeholder="방 갯수" min='1' max='99'>
 
 							<input type="submit" value="">
 						</div>

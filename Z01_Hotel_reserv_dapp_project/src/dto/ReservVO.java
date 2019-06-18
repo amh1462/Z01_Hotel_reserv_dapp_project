@@ -1,8 +1,9 @@
 package dto;
 
 public class ReservVO {
+	
 	private String resno;
-	private String roomname;
+	private String roomno;
 	private String guestname;
 	private String email;
 	private String phone;
@@ -13,6 +14,7 @@ public class ReservVO {
 	private String checkout;
 	private String iscancel;
 	private String iswithdraw;
+	private String time;
 	
 	public String getResno() {
 		return resno;
@@ -20,11 +22,11 @@ public class ReservVO {
 	public void setResno(String resno) {
 		this.resno = resno;
 	}
-	public String getRoomname() {
-		return roomname;
+	public String getRoomno() {
+		return roomno;
 	}
-	public void setRoomname(String roomname) {
-		this.roomname = roomname;
+	public void setRoomno(String roomno) {
+		this.roomno = roomno;
 	}
 	public String getGuestname() {
 		return guestname;
@@ -87,5 +89,25 @@ public class ReservVO {
 		this.iswithdraw = iswithdraw;
 	}
 	
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
 	
+	@Override
+	public String toString() {
+		return String.format("resno = %s, roomno  = %s, "+ 
+							 "guestname = %s, email = %s, "+
+							 "phone = %s, uwallet = %s, " + 
+							 "totalprice = %s, ordernum = %s, "+
+							 "checkin = %s, checkout = %s, " +
+							 "iscancel = %s, iswithdraw = %s, "+
+							 "time = %s"
+							 ,resno, roomno, guestname, email, 
+							 uwallet, totalprice, ordernum, 
+							 checkin, checkout, iscancel, iswithdraw,
+							 time);
+	}
 }

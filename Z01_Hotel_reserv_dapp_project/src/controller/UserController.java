@@ -10,25 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.RoomDAO;
+import dto.HotelVO;
+import dao.HotelDAO;
 
-@WebServlet("/showroom")
-public class ShowRoomController extends HttpServlet {
+@WebServlet("/UserSearch")
+public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("�Դ�?");
-		RoomDAO rDao = RoomDAO.getInstance();
-		HttpSession session = request.getSession();
-		System.out.println((String)session.getAttribute("hotelid"));
-		request.setAttribute("rlist", rDao.selectAll((String)session.getAttribute("hotelid")));
-		
-		RequestDispatcher rd = request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp");
-		rd.forward(request,response);
+		RequestDispatcher rd = request.getRequestDispatcher("UserSearch.html");
+		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("����?");
+		request.setCharacterEncoding("utf-8");
+		
+		HotelDAO hDao = HotelDAO.getInstance();
+		HttpSession session = request.getSession();
+		
+		//if(request.getParameter(""))
 	}
 
 }
