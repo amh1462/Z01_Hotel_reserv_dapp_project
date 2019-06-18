@@ -28,7 +28,7 @@ public class UserController extends HttpServlet {
 		HotelDAO hDao = HotelDAO.getInstance();
 		HttpSession session = request.getSession();
 		
-		if(request.getParameter(""))
+		//if(request.getParameter(""))
 	}
 
 }
