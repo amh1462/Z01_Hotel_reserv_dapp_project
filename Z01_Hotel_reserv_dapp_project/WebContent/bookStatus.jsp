@@ -50,15 +50,16 @@
         <div style='text-align: right;'>
           <form>
             <select name='searchField'>
-              <option value='name'>예약자 명</option>
-              <option value='type'>방 종류</option>
-              <option value='bookdate'>예약날짜</option>
-              <option value='chkin'>체크인</option>
-              <option value='chkout'>체크아웃</option>
+              <option value='guestname'>예약자 명</option>
+              <option value='roomno'>방 종류</option>
+              <option value='time'>예약날짜</option>
+              <option value='checkin'>체크인</option>
+              <option value='checkout'>체크아웃</option>
             </select> 
             <input name='searchKeyword'>
             <input type='submit' value='검색' style='width: 70px;'>
           </form>
+          <label style="pont-size:small; margin-top:10px; margin-bottom:-15px;" >날짜 검색시 ex) 19-12-25 (yy-mm-dd)</label>
         </div><br>
         <table>
           <tr>
@@ -69,8 +70,49 @@
             <th>체크인</th>
             <th>체크아웃</th>
             <th>취 소</th>
+            <th>정 산</th>
           </tr>
+	        <c:forEach var="resVo" items="${ reslist }">
+	          <tr>
+	        	<td>${ resVo.guestname }</td>
+	        	<td>${ resVo.roomno }</td>
+	        	<td>${ resVo.totalprice }</td>
+	        	<td>${ resVo.time }</td>
+	        	<td>${ resVo.checkin}</td>
+	        	<td>${ resVo.checkout}</td>
+	        	<c:choose>
+	        		<c:when test="${ resVo.iscancel eq 0 }"><td><a href="" >취 소</a></td></c:when>
+	        		<c:when test="${ resVo.iscancel eq 1 }"><td><a>취 소</a></td></c:when>		
+	        	</c:choose>
+	        	<c:choose>
+		        	<c:when test="${ resVo.iswithdraw eq 0 }"><td><a href="" >정 산</a></td></c:when>
+	        		<c:when test="${ resVo.iswithdraw eq 1 }"><td><a>정산 완료</a></td></c:when>	 				
+	        	</c:choose>
+	        	</tr>
+	        </c:forEach>
         </table>
+        <!-- <td>${ resVo.iscancel}</td>
+	         <td>${ resVo.iswithdraw}</td> -->
+        <ul class="pagination justify-content-center">
+					<li class="page-item <c:if test='${startList == 1}'>disabled</c:if>">
+						<a class="page-link" href="showrservation?pIndex=${ startList-1 }"> <span
+							class="lnr lnr-arrow-left"></span>
+					</a>
+					</li>
+					<c:forEach var="pIdx" begin="${ startList }" end="${ endList }">
+						<li
+							class="page-item <c:if test='${param.pIndex == pIdx}'> active</c:if>">
+							<a class="page-link" href="showrservation?pIndex=${ pIdx }">${ pIdx }</a>
+						</li>
+					</c:forEach>
+					<li
+						class="page-item <c:if test='${endList % 10 != 0}'> disabled</c:if>">
+						<a class="page-link" href="showrservation?pIndex=${ endList+1 }"> <span
+							class="lnr lnr-arrow-right"></span>
+					</a>
+					</li>
+				</ul>
+        <input type="hidden" name="hotelid" value="${ hVo.hotelid }" >
         <div style="height: 10px;"></div>
         
         

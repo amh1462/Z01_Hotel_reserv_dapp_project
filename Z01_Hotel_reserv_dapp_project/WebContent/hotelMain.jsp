@@ -68,9 +68,14 @@
       <div class="col-lg-3 mb-4">
         <div class="list-group">
           <a href="hotelMain.jsp?contentPage=hotelInfo.jsp" class="list-group-item">호텔 정보</a>
+<<<<<<< HEAD
           <a href="manageroom?type=show" class="list-group-item">객실 현황</a>
           <a href="hotelMain.jsp?contentPage=bookStatus.jsp" class="list-group-item">예약 현황</a>
           <a href="hotelMain.jsp?contentPage=payAdjust.jsp" class="list-group-item">요금 정산</a>
+=======
+          <a href="showroom" class="list-group-item">객실 현황</a>
+          <a href="showrservation" class="list-group-item">예약 현황</a>
+>>>>>>> branch 'develop' of https://github.com/amh1462/Z01_Hotel_reserv_dapp_project
           <a href="hotelMain.jsp?contentPage=faq.jsp" class="list-group-item">FAQ</a>
         </div>
       </div>
