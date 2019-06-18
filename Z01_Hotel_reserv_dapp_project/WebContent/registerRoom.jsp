@@ -21,7 +21,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <form action="./manageroom" method="post">
+        <form action="./manageroom" method="post" enctype="multipart/form-data">
           <ul style="list-style-type: none; width: 400px;">
 	          <li>방 이름 : <br><input name="roomname" style="width: 250px;" required></li>  
 	          <li style="margin-top: 15px;">방 설명 : <textarea name="roominfo" cols="70" rows="8" style="resize: none;"></textarea></li>

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import dao.RoomDAO;
 import dto.RoomVO;
 
@@ -34,21 +37,28 @@ public class ManageRoomController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		String uploadPath = request.getServletContext().getRealPath("/uploadFiles");
+		
+		int maxPostSize = 10 * 1024 * 1024;
+		
+
+		MultipartRequest multi = new MultipartRequest(request, uploadPath, maxPostSize,
+													 "utf-8", new DefaultFileRenamePolicy());
 		
 		HttpSession session = request.getSession();
 		RoomVO rVo = new RoomVO();
 		RoomDAO rDao = RoomDAO.getInstance();
 		
 		rVo.setHotelid((String)session.getAttribute("hotelid"));
-		rVo.setRoomname(request.getParameter("roomname"));
-		rVo.setRoominfo(request.getParameter("roominfo"));
-		rVo.setAllowedman(request.getParameter("allowedman"));
-		rVo.setDailyprice(request.getParameter("dailyprice"));
-		rVo.setWeekendprice(request.getParameter("weekendprice"));
-		rVo.setTotalcount(request.getParameter("totalcount"));
-		rVo.setRestcount(request.getParameter("totalcount"));
-		rVo.setPhoto(request.getParameter("photo"));
-		rVo.setContract(request.getParameter("contract"));
+		rVo.setRoomname(multi.getParameter("roomname"));
+		rVo.setRoominfo(multi.getParameter("roominfo"));
+		rVo.setAllowedman(multi.getParameter("allowedman"));
+		rVo.setDailyprice(multi.getParameter("dailyprice"));
+		rVo.setWeekendprice(multi.getParameter("weekendprice"));
+		rVo.setTotalcount(multi.getParameter("totalcount"));
+		rVo.setRestcount(multi.getParameter("totalcount"));
+		rVo.setPhoto("uploadFiles/" + multi.getParameter("photo"));
+		rVo.setContract(multi.getParameter("contract"));
 		System.out.println(rVo.toString());
 		
 		if(rDao.insert(rVo) > 0) {
