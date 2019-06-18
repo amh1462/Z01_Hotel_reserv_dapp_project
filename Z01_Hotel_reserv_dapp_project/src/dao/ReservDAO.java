@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import dto.ReservVO;
 
 public class ReservDAO {
@@ -22,10 +24,10 @@ public class ReservDAO {
 		return reservDao;
 	}
 	
-public ReservVO select(String resno) {
+public ReservVO select(String resno, String hotelid) {
 		ReservVO resVo = null;
 		String resquery = "select res.*, rm.roomname from reservation res,"
-				+ "room rm where res.roomno = rm.roomno and res.resno = '"+ resno +"'";
+				+ "room rm where res.roomno = rm.roomno and rm.hotelid = '"+ hotelid +"' and res.resno = '"+ resno +"'";
 		try {
 			ResultSet rs = conn.createStatement().executeQuery(resquery);
 			if(rs.next()) {
@@ -49,9 +51,9 @@ public ReservVO select(String resno) {
 	
 	
 	// 예약 리스트화
-	public List<ReservVO> selectAll(int pidx){
-		List<ReservVO> reslist = new ArrayList<ReservVO>();
+	public List<ReservVO> selectAll(int pidx, String hotelid){
 		
+		List<ReservVO> reslist = new ArrayList<ReservVO>();
 		int start = (pidx -1) * 10 + 1;
 		int end = pidx*10;
 		/*
@@ -61,7 +63,7 @@ public ReservVO select(String resno) {
 						+ "order by res.resno desc) v1) where r1 "
 						+ "between " + start + " and " + end ;
 		*/
-		String pquery = "select * from (select rownum r1, v1.* from (select res.*, rm.roomname from reservation res, room rm where res.roomno = rm.roomno order by res.resno desc) v1) where r1 between "+ start + " and "+ end;
+		String pquery = "select * from (select rownum r1, v1.* from (select res.*, rm.roomname from reservation res, room rm where res.roomno = rm.roomno and rm.hotelid = '"+hotelid+"' order by res.resno desc) v1) where r1 between "+ start + " and "+ end;
 		
 		try {
 			Statement stmt = conn.createStatement();
@@ -87,8 +89,7 @@ public ReservVO select(String resno) {
 				long formatted3 = Long.parseLong(rs.getString("checkout")+"000");
 				String t3 = new SimpleDateFormat("yy-MM-dd").format(formatted3);
 				resVo.setCheckout(t3);
-				System.out.println(rs.getString("iscancel"));
-				System.out.println(rs.getString("iswithdraw"));
+
 				reslist.add(resVo);
 			}
 			rs.close();
@@ -98,7 +99,7 @@ public ReservVO select(String resno) {
 		return reslist;
 	}
 	// 검색기능
-	public Object selectAll(int resIndexParam, String category, String keyoword) {
+	public Object selectAll(int resIndexParam, String category, String keyoword, String hotelid) {
 		List<ReservVO> reslist = new ArrayList<ReservVO>();
 		
 		int resSize = 10;
@@ -114,7 +115,7 @@ public ReservVO select(String resno) {
 					+ "'%" + keyoword +"%' order by res.resno desc) v1)  where "
 							+ "r1 between"+ start +"and"+ end;
 			*/
-			resquery = "select * from ( select rownum r1, v1.*from (SELECT RES.*, rm.roomname from reservation res, room rm where res.ROOMNO = rm.ROOMNO  and guestname like '%"+ keyoword +"%' order by res.resno desc) v1)  where r1 between " + start + " and " + end;
+			resquery = "select * from ( select rownum r1, v1.*from (SELECT RES.*, rm.roomname from reservation res, room rm where res.ROOMNO = rm.ROOMNO and rm.hotelid = '"+ hotelid +"' and guestname like '%"+ keyoword +"%' order by res.resno desc) v1)  where r1 between " + start + " and " + end;
 		}else if(category.equals("roomno")) {
 			/*
 			resquery = "select * from ( select rownum r1, v1.*from"
@@ -124,7 +125,7 @@ public ReservVO select(String resno) {
 					+ " v1) where r1 between"+ start +"and" + end;
 			*/
 			
-			resquery = "select * from ( select rownum r1, v1.*from (SELECT RES.*, rm.roomname from reservation res, room rm where res.ROOMNO = rm.ROOMNO and rm.roomname like '%"+keyoword+"%' order by res.resno desc) v1) where r1 between "+ start +" and " + end;
+			resquery = "select * from ( select rownum r1, v1.*from (SELECT RES.*, rm.roomname from reservation res, room rm where res.ROOMNO = rm.ROOMNO and rm.hotelid = '"+ hotelid +"' and rm.roomname like '%"+keyoword+"%' order by res.resno desc) v1) where r1 between "+ start +" and " + end;
 		}else {
 			/*
 			resquery = "select * from ( select rownum r1, v1.*from"
@@ -139,8 +140,7 @@ public ReservVO select(String resno) {
 				Date date = dataformat.parse(t);
 				long unixt = (long)date.getTime()/1000;
 				String tt = ""+ unixt;
-				System.out.println(tt);
-				resquery = "select * from ( select rownum r1, v1.*from (SELECT RES.*, rm.roomname from reservation res, room rm where res.ROOMNO = rm.ROOMNO and res."+category+" like '%"+tt+"%' order by res.resno desc) v1) where r1 between " + start +" and " + end;
+				resquery = "select * from ( select rownum r1, v1.*from (SELECT RES.*, rm.roomname from reservation res, room rm where res.ROOMNO = rm.ROOMNO and rm.hotelid = '"+hotelid+"' and res."+category+" like '%"+tt+"%' order by res.resno desc) v1) where r1 between " + start +" and " + end;
 			} catch (ParseException e) {e.printStackTrace();}
 			
 		}
@@ -180,10 +180,10 @@ public ReservVO select(String resno) {
 	
 	
 	// 마지막 페이지 구하기
-	public int lastPageNum() {
+	public int lastPageNum(String hotelid) {
 		int result = 0;
 		try {
-			String query = "select count(*) as cnt from reservation";
+			String query = "select count(*) as cnt from (select res.*, rm.roomname from reservation res, room rm where res.roomno = rm.roomno and rm.hotelid = '"+ hotelid +"' order by res.resno desc) v1";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			if(rs.next()) {
@@ -200,14 +200,15 @@ public ReservVO select(String resno) {
 		return (resIndexParam -1) / 10 * 10 + 1;
 	}
 	
-	public int getEndList(int resIndexParam) {
-		return Math.min(lastPageNum(), (resIndexParam - 1)/ 10 * 10 + 10);
+	public int getEndList(int resIndexParam, String hotelid) {
+		
+		return Math.min(lastPageNum(hotelid), (resIndexParam - 1)/ 10 * 10 + 10);
 	}
 	
-	public int lastPageNum(String category, String keyword) {
+	public int lastPageNum(String category, String keyword, String hotelid) {
 		int result = 0;
 		try {
-			String query = "select count(*) as cnt from reservation where "+ category + " like '%" + keyword + "%'";
+			String query = "select count(*) as cnt from (select res.*, rm.roomname from reservation res, room rm where res.roomno = rm.roomno and rm.hotelid = '"+hotelid+"' order by res.resno desc) v1 where "+ category + " like '%" + keyword + "%'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			if(rs.next()) {
@@ -220,7 +221,7 @@ public ReservVO select(String resno) {
 		return result;
 	}
 	
-	public Object getEndList(int resIndexParam, String category, String keyword) {
-		return Math.min(lastPageNum(category, keyword), (resIndexParam -1) / 10 * 10 +10);
+	public Object getEndList(int resIndexParam, String category, String keyword, String hotelid) {
+		return Math.min(lastPageNum(category, keyword,hotelid), (resIndexParam -1) / 10 * 10 +10);
 	}
 }

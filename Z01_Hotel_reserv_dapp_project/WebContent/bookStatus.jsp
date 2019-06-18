@@ -46,6 +46,7 @@
   <div class="limiter">
     <div class="container-login101">
       <div style="position:absolute; top: 10px;" class="wrap-main100">
+      
         <span class="login100-form-title p-b-30">예약 현황</span>
         <div style='text-align: right;'>
           <form>
@@ -58,6 +59,7 @@
             </select> 
             <input name='searchKeyword'>
             <input type='submit' value='검색' style='width: 70px;'>
+            <input type="hidden" name="hotelid" value="${ hotelid }" >
           </form>
           <label style="pont-size:small; margin-top:10px; margin-bottom:-15px;" >날짜 검색시 ex) 19-12-25 (yy-mm-dd)</label>
         </div><br>
