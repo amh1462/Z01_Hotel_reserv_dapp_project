@@ -18,7 +18,7 @@ public class ShowReservationController extends HttpServlet {
 		String s = request.getParameter("resIndex");
 		
 		int resIndexParam = Integer.parseInt((s !=null) ? s : "1");
-	
+		System.out.println("가나다라마바사아");
 		if(request.getParameter("no") == null) {
 			if(request.getParameter("searchKeyword") !=null) {
 				String category = request.getParameter("searchField");
