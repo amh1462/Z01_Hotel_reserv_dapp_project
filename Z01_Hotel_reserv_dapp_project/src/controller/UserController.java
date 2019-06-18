@@ -27,7 +27,7 @@ public class UserController extends HttpServlet {
 		
 		HotelDAO hDao = HotelDAO.getInstance();
 		
-		
+		/*
 		if(request.getParameter("city") != null) { // 검색한 내용이 있다면.
 			String category = request.getParameter("searchField");
 			String keyword =  request.getParameter("city");
@@ -43,7 +43,7 @@ public class UserController extends HttpServlet {
 			request.setAttribute("endList", bDao.getEndList(pIndexParam));
 			request.setAttribute("blist", bDao.selectAll(pIndexParam));
 		}
-		
+		*/
 		//if(request.getParameter(""))
 	}
 
