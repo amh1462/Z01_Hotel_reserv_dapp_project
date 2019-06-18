@@ -17,9 +17,10 @@ public class ShowRoomController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("¿Ô´Ï?");
+		System.out.println("ï¿½Ô´ï¿½?");
 		RoomDAO rDao = RoomDAO.getInstance();
 		HttpSession session = request.getSession();
+		System.out.println((String)session.getAttribute("hotelid"));
 		request.setAttribute("rlist", rDao.selectAll((String)session.getAttribute("hotelid")));
 		
 		RequestDispatcher rd = request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp");
@@ -27,7 +28,7 @@ public class ShowRoomController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("¿©±â?");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½?");
 	}
 
 }
