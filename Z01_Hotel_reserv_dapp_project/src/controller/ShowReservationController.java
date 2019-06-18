@@ -6,8 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dao.HotelDAO;
 import dao.ReservDAO;
+import dto.HotelVO;
 
 
 @WebServlet("/showrservation")
@@ -18,6 +21,12 @@ public class ShowReservationController extends HttpServlet {
 		ReservDAO resDao = ReservDAO.getInstance();
 		String s = request.getParameter("resIndex");
 		
+		HotelVO hVo = new HotelVO();
+		HttpSession session = request.getSession();
+		String sss = (String)session.getAttribute("hotelid");		
+		System.out.println(sss);
+		
+		hVo.setHotelid((String)session.getAttribute("hotelid"));
 		
 		int resIndexParam = Integer.parseInt((s !=null) ? s : "1");
 	
