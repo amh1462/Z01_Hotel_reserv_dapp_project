@@ -12,11 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 
-import javax.servlet.http.HttpSession;
-
-import controller.ShowReservationController;
-import dto.HotelVO;
-
 import dto.ReservVO;
 
 public class ReservDAO {
@@ -28,8 +23,7 @@ public class ReservDAO {
 	}
 	
 public ReservVO select(String resno, String hotelid) {
-	
-	ReservVO resVo = null;
+		ReservVO resVo = null;
 		String resquery = "select res.*, rm.roomname from reservation res,"
 				+ "room rm where res.roomno = rm.roomno and rm.hotelid = '"+ hotelid +"' and res.resno = '"+ resno +"'";
 		try {
@@ -69,24 +63,19 @@ public ReservVO select(String resno, String hotelid) {
 		*/
 		String pquery = "select * from (select rownum r1, v1.* from (select res.*, rm.roomname from reservation res, room rm where res.roomno = rm.roomno and rm.hotelid = '"+hotelid+"' order by res.resno desc) v1) where r1 between "+ start + " and "+ end;
 		
-		//String pquery = "";
-		
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(pquery);
 			
-			
-			
 			while(rs.next()) {
 				ReservVO resVo = new ReservVO();
-				HotelVO hVo = new HotelVO();
-				hVo.setHotelid(rs.getString("hotelid"));
 				resVo.setResno(rs.getString("resno"));
 				resVo.setGuestname(rs.getString("guestname"));
 				resVo.setRoomno(rs.getString("roomname"));
 				resVo.setTotalprice(rs.getString("totalprice"));
 				resVo.setIscancel(rs.getString("iscancel"));
 				resVo.setIswithdraw(rs.getString("iswithdraw"));
+				
 				long formatted = Long.parseLong(rs.getString("time")+"000");
 				String t = new SimpleDateFormat("yy-MM-dd").format(formatted);
 				resVo.setTime(t);
@@ -99,7 +88,6 @@ public ReservVO select(String resno, String hotelid) {
 				String t3 = new SimpleDateFormat("yy-MM-dd").format(formatted3);
 				resVo.setCheckout(t3);
 
-				
 				reslist.add(resVo);
 			}
 			rs.close();
