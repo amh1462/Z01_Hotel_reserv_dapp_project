@@ -43,7 +43,6 @@ public class RoomDAO {
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("zz");
 		}
 		return rlist;
 	}
