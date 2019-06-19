@@ -155,6 +155,44 @@ var reservation_contract_ABI = [
 		"constant": false,
 		"inputs": [
 			{
+				"name": "hotel",
+				"type": "address"
+			},
+			{
+				"name": "cancelPercentTheday",
+				"type": "uint256"
+			},
+			{
+				"name": "cancelPercent1day",
+				"type": "uint256"
+			},
+			{
+				"name": "setCancelPercent1",
+				"type": "uint256"
+			},
+			{
+				"name": "setCancelPercent2",
+				"type": "uint256"
+			},
+			{
+				"name": "setCancelPeriod1",
+				"type": "uint256"
+			},
+			{
+				"name": "setCancelPeriod2",
+				"type": "uint256"
+			}
+		],
+		"name": "updateContract",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "guest",
 				"type": "address"
 			}

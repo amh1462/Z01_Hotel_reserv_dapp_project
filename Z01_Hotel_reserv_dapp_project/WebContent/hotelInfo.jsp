@@ -20,7 +20,7 @@
 </head>
 <script type="text/javascript">
 	function move() {
-		location.href = "hotelMain.jsp?contentPage=modify.jsp";
+		location.href = "modify";
 	}
 	
 	function popup() {

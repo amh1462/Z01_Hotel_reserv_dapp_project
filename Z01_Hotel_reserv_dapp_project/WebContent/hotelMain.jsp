@@ -35,6 +35,12 @@
 </style>
 
 <body>
+	<c:if test="${ empty hotelid }"> <!-- id라는 name값이 비어있으면 실행한다..(즉, 로그인 처리가 안 됐으면 올 수 없게..) -->
+		<script>
+			alert("로그인이 필요합니다.");
+			location.href = './logout' // session이 없으면 알아서 로그아웃 처리..
+		</script>
+	</c:if>
 
 	 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">

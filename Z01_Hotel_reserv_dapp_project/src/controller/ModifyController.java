@@ -13,14 +13,25 @@ import dto.HotelVO;
 
 @WebServlet("/modify")
 public class ModifyController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	public ModifyController() {
-        super();
-    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("modify.jsp").forward(request, response);
+		HotelDAO hDao = HotelDAO.getInstance();
+		HttpSession session = request.getSession();
+		String hotelId = (String)session.getAttribute("hotelid");
+		
+		request.setAttribute("hotelname", hDao.select(hotelId).getHotelname());
+		request.setAttribute("country", hDao.select(hotelId).getCountry());
+		request.setAttribute("city", hDao.select(hotelId).getCity());
+		request.setAttribute("detailaddr", hDao.select(hotelId).getDetailaddr());
+		request.setAttribute("phone", hDao.select(hotelId).getPhone());
+		request.setAttribute("hwallet", hDao.select(hotelId).getHwallet());
+		request.setAttribute("cancelfee1", hDao.select(hotelId).getCancelfee1());
+		request.setAttribute("cancelfee2", hDao.select(hotelId).getCancelfee2());
+		request.setAttribute("cancelfee3", hDao.select(hotelId).getCancelfee3());
+		request.setAttribute("cancelfee4", hDao.select(hotelId).getCancelfee4());
+		request.setAttribute("cancelday1", hDao.select(hotelId).getCancelday1());
+		request.setAttribute("cancelday2", hDao.select(hotelId).getCancelday2());
+		request.getRequestDispatcher("hotelMain.jsp?contentPage=modify.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,9 +40,6 @@ public class ModifyController extends HttpServlet {
 		
 		HotelDAO hDao = HotelDAO.getInstance();
 		HttpSession session = request.getSession();
-		
-		
-		
 		if(request.getParameter("hiddenValue") != null) {
 			System.out.println(request.getParameter("hiddenValue"));
 			HotelVO hVo = new HotelVO();
@@ -62,6 +70,13 @@ public class ModifyController extends HttpServlet {
 				session.setAttribute("detailaddr", hVo.getDetailaddr());
 				session.setAttribute("phone", hVo.getPhone());
 				session.setAttribute("hwallet", hVo.getHwallet());
+				
+				session.setAttribute("cancelfee1", hVo.getCancelfee1());
+				session.setAttribute("cancelfee2", hVo.getCancelfee2());
+				session.setAttribute("cancelfee3", hVo.getCancelfee3());
+				session.setAttribute("cancelfee4", hVo.getCancelfee4());
+				session.setAttribute("cancelday1", hVo.getCancelday1());
+				session.setAttribute("cancelday2", hVo.getCancelday2());
 				
 				response.sendRedirect("hotelMain.jsp?contentPage=hotelInfo.jsp");
 			}else {

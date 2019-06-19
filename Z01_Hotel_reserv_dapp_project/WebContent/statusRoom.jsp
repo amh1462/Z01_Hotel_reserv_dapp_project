@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 </head>
 
 <style>
@@ -62,6 +64,18 @@ tr, td {
 						<input type='submit' value='검색' style='width: 70px;'>
 					</form>
 				</div><br>
+				<script>
+					// searchField and searchKeyword remain if page are changed.
+					if(${ !empty param.searchField && !empty param.searchKeyword }){
+						var sel = document.forms[0].searchField;
+						for(i=0; i<sel.options.length; i++){
+							if(sel.options[i].value == '${ param.searchField }'){
+								sel.options[i].selected = true;
+							}
+						}
+						document.forms[0].searchKeyword.value = '${ param.searchKeyword }'
+					}
+				</script>
 				<table style="table-layout: fixed; width: 100%">
 					<tr>
 						<th width="30">no</th>
@@ -122,10 +136,6 @@ tr, td {
 			</div>
 		</div>
 	</div>
-	
-
-	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 
 </body>
 </html>

@@ -45,11 +45,10 @@ public class ManageRoomController extends HttpServlet {
 				
 				request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp").forward(request,response);
 			} else {
-				
+				// room 테이블에서 select해서 room_modify.jsp로 보냄. room_modify.jsp에선 여기서 받은 내용들을 EL로 띄워줌.
 			}
 		}
 		else if(type.equals("register")) {	
-			request.setAttribute("hwallet", hDao.select(hotelId).getHwallet());
 			request.getRequestDispatcher("./hotelMain.jsp?contentPage=registerRoom.jsp").forward(request, response);
 		}
 	}

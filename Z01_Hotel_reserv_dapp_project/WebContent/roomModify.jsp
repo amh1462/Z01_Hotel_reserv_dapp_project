@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>객실 등록</title>
+  <title>객실 내용 수정</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,22 +24,30 @@
       <div class="col-md-6">
         <form action="./manageroom" method="post" enctype="multipart/form-data">
           <ul style="list-style-type: none; width: 400px;">
-	          <li>방 이름 : <br><input name="roomname" style="width: 250px;" required></li>  
-	          <li style="margin-top: 15px;">방 설명 : <textarea name="roominfo" cols="70" rows="8" style="resize: none;"></textarea></li>
+	          <li>방 이름 : <br><input name="roomname" style="width: 250px;" value="${ roomname }" required></li>  
+	          <li style="margin-top: 15px;">방 설명 : <textarea name="roominfo" cols="70" rows="8" style="resize: none;">${ roominfo }</textarea></li>
 	          <li style="margin-top: 15px;">허용 인원: <br>
 	          	<select name="allowedman" style="width: 50px">
 	          		<c:forEach var="i" begin="2" end="9">
 	          			<option>${ i }</option>
 	          		</c:forEach>
 	          	</select>
+	          	<script>
+		          	var sel = document.forms[0].allowedman;
+					for(i=0; i<sel.options.length; i++){
+						if(sel.options[i].value == '${ allowedman }'){
+							sel.options[i].selected = true;
+						}
+					}
+	          	</script>
 	          </li>
-	          <li style="margin-top: 15px;">평일 1박요금 : <br><input name="dailyprice" style="width: 250px;" required>(단위:원)</li>
-	          <li style="margin-top: 15px;">주말 1박요금: <br><input name="weekendprice" style="width: 250px;" required>(단위:원)</li>
-	          <li style="margin-top: 15px;">전체 방 개수 : <br><input name="totalcount" style="width: 250px;" required></li><br>
+	          <li style="margin-top: 15px;">평일 1박요금 : <br><input name="dailyprice" style="width: 250px;" value="${ dailyprice }" required>(단위:원)</li>
+	          <li style="margin-top: 15px;">주말 1박요금: <br><input name="weekendprice" style="width: 250px;" value="${ weekendprice }" required>(단위:원)</li>
+	          <li style="margin-top: 15px;">전체 방 개수 : <br><input name="totalcount" style="width: 250px;" value="${ totalcount }" required></li><br>
 	          <li style="margin-top: 15px;">
 	          	<div style="height:420px;">
 	          		사진 : <input type="file" name="photo" id="inputFile">
-	          		<div style="border:1px solid; width:400px; height:400px;"><img id="roomImg" src="#" style="width:400px; height:400px; " alt="사진을 추가해주세요."></div>
+	          		<div style="border:1px solid; width:400px; height:400px;"><img id="roomImg" src="${ photo }" style="width:400px; height:400px; " alt="사진을 추가해주세요."></div>
 	          	</div>
 	          </li><br>
 	          <li style="margin-top: 15px;">수취 계좌(이더지갑): <br><input id="hwallet" style="width: 400px;" value="${ hwallet }" readonly><br>
