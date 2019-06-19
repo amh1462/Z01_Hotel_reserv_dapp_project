@@ -128,5 +128,76 @@ public class RoomDAO {
 		
 		return result;
 	}
-
+	//---------------------userSelectAll---------------------
+	
+	public List<RoomVO> userSelectAll(int pidx, String hotelid){
+		int start = (pidx -1) * 10 + 1;
+		int end = pidx * 10;
+		List<RoomVO> roomlist = new ArrayList<RoomVO>();
+		
+		String pquery = "select * from room where hotelid = '"+hotelid+"'";
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(pquery);
+			
+			while(rs.next()) {
+				RoomVO roomVo = new RoomVO();
+				
+				roomVo.setAllowedman(rs.getString("allowedman"));
+				roomVo.setRoomname(rs.getString("roomname"));
+				roomVo.setDailyprice(rs.getString("dailyprice"));
+				roomVo.setWeekendprice(rs.getString("weekendprice"));
+				roomVo.setTotalcount(rs.getString("totalcount"));
+				roomlist.add(roomVo);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {e.printStackTrace();}
+		return roomlist;
+	}
+	
+	public int lastPageNum(String hotelid) {
+		int result = 0;
+		
+		try {
+			String query = "select count(*) as cnt from room where hotelid = '"+hotelid+"'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+			}
+			
+			result = (int)Math.ceil(result/1.0);
+			stmt.close();
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return result;
+	}
+	
+	public int getEndList(int resIndexParam, String hotelid) {
+		return Math.min(lastPageNum(hotelid), 10);
+	}
+	
+	public List<RoomVO> userSelect(int pidx, String hotelid){
+		int start = (pidx -1) * 10 + 1;
+		int end = pidx * 10;
+		List<RoomVO> rolist = new ArrayList<RoomVO>();
+		
+		String pquery = "select * from room where hotelid = '"+hotelid+"'";
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(pquery);
+			
+			while(rs.next()) {
+				RoomVO roVo = new RoomVO();
+				roVo.setRoomname(rs.getString("roomname"));
+				rolist.add(roVo);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {e.printStackTrace();}
+		return rolist;
+	}
 }

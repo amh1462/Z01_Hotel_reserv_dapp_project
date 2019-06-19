@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
@@ -62,10 +62,14 @@
 
       <div class="col-lg-3">
         <h1 class="my-4">Room List</h1>
-        <div class="list-group">
         
+        <div class="list-group">
+ 
         <c:forEach var="pIdx" begin="${ startList }" end="${ endList }">
-        	<a href="showRoom" class="list-group-item active">객실 : ${roomname}</a>
+        	<c:forEach var="roomVos" items="${rolists}">
+        	<a <c:if test='${param.pIndex == pIdx}'></c:if> 
+        	href="showRoom?pIndex=${pIdx}" class="list-group-item active">객실 : ${roVo.roomname}</a>
+        	</c:forEach>
         </c:forEach>
         
         <!-- 
@@ -78,25 +82,27 @@
       <!-- /.col-lg-3 -->
 
       <div class="col-lg-9">
-		<input type="hidden" value="">
+         <c:forEach var="roomVo" items="${roomlist}">
         <div class="card mt-4">
         	<div class="card-body">
             <h5 style="font-weight: bold;" >호텔 명 : ${ hotelname }</h5>
-            <h5 style="font-weight: bold;" >상세주소 : ${country} ${city} ${ detaladdr }</h5>            
-            <h5 style="font-weight: bold;" >체크 인 : ${ t }</h5>
-            <h5 style="font-weight: bold; display:inline-block;" >체크아웃 : ${ tt }</h5>
-            <h5 style="font-weight: bold; display:inline-block; float: right;" >방 갯수 : ${ roomcount }</h5>
+            <h5 style="font-weight: bold;" >상세주소 : ${country} ${city} ${ detailaddr }</h5>            
+            <h5 style="font-weight: bold;" >체크 인 : ${checkin}</h5>
+            <h5 style="font-weight: bold; display:inline-block;" >체크아웃 : ${ checkout }</h5>
+            <h5 style="font-weight: bold; display:inline-block; float: right;" >방 갯수 : ${ roomVo.totalcount }</h5>
                      
           </div>
           <img class="card-img-top img-fluid" src="https://t4.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/wlQ/image/oOAAtL-P_N2WSPum8fPYgS_ou1c.jpg" alt="">
           <div class="card-body">
-            <h3 class="card-title">${ roomname }</h3>
-            <h4>${dailyprice}</h4>
+            <h3 class="card-title">${ roomVo.roomname }</h3>
+            <h4> 평일 : ${roomVo.dailyprice} 원</h4>
+            <h4>주말 : ${roomVo.weekendprice} 원</h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
             <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
             4.0 stars
           </div>
         </div>
+       	 </c:forEach>
         <!-- /.card -->
 
         <div class="card card-outline-secondary my-4">

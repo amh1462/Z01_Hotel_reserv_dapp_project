@@ -25,6 +25,7 @@
                 <div class="container">
                     <h1 class="slogan">Hotelnara</h1>
                     <form id="search-form" method="POST" action="./showroom">
+                    <input type ="hidden" name ="hotelname" value="여성프라자">
                     <input type ="hidden" name ="hotelid" value="Lottehotel11">
                     <input type ="hidden" name ="country" value="fr">
                     <input type ="hidden" name ="city" value="디나흐">
@@ -41,6 +42,7 @@
                                 <option value="cn">China</option>
                                 <option value="jp">Japan</option>
                                 <option value="uk">England</option>
+                                <option value="fr">France</option>
                                 <option value="aus">Australia</option>
                             </select>
                         </div></center>
