@@ -41,12 +41,8 @@
 	          		<div style="border:1px solid; width:400px; height:400px;"><img id="roomImg" src="#" style="width:400px; height:400px; " alt="사진을 추가해주세요."></div>
 	          	</div>
 	          </li><br>
-	          <li style="margin-top: 15px;">수취 계좌(이더지갑): <br><input id="hwallet" style="width: 250px;" required><br>
-	          	<input id="chkBox" type="checkbox" onclick="getAccount(this.checked)">
-				<label for="chkBox">
-					메타마스크에서 가져오기
-				</label>          
-	          </li>
+	          <li style="margin-top: 15px;">수취 계좌(이더지갑): <br><input id="hwallet" style="width: 400px;" value="${ hwallet }" readonly><br>
+	          <div style="width: 500px">※ 수취 계좌를 변경하시려면 <a href="hotelMain.jsp?contentPage=modify.jsp">호텔 정보</a>에서 수정해주세요.</div>
 	          <br>
 	          <li>
 	          	<span>취소 수수료 정책</span>
@@ -54,15 +50,15 @@
           			<span>당일 취소 : &nbsp;<input style="width:50px" value="${ cancelfee1 }" readonly> %</span><br> 
           			<span>1일전 취소: <input style="width:50px" value="${ cancelfee2 }" readonly> %</span><br>
           			<span>
-          				<input style="width:50px" value="${ cancelday1 }" readonly>일전 취소: 
+          				<input style="width:30px" value="${ cancelday1 }" readonly>일전 취소: 
           				<input style="width:50px" value="${ cancelfee3 }" readonly> %
           			</span><br>
           			<span>
-          				<input style="width:50px" value="${ cancelday2 }" readonly>일전 취소: 
+          				<input style="width:30px" value="${ cancelday2 }" readonly>일전 취소: 
           				<input style="width:50px" value="${ cancelfee4 }" readonly> %
           			</span><br><br>
           		</div>
-          		<div style="width: 500px">※ 취소 수수료를 변경하시려면 호텔 정보에서 수정해주세요.</div>
+          		<div style="width: 500px">※ 취소 수수료를 변경하시려면 <a href="hotelMain.jsp?contentPage=modify.jsp">호텔 정보</a>에서 수정해주세요.</div>
 	          </li>
           </ul>
           <input type="hidden" name="contract">
@@ -72,25 +68,7 @@
     </div>
     <script>
     	function z(id){return document.getElementById(id);}
-    	
     	var web3js;
-		function getAccount(checked){ // 메타마스크에서 지갑 가져오기
-			if(checked){
-				// 메타마스크에 접속되어 있는지 여부(접속되었으면 출력)
-				if(web3js.eth.accounts[0] != null){
-					console.log(web3js.eth.accounts[0]);
-					if(confirm('지갑에서 주소를 불러옵니까?\n주소가 맞는지 잘 확인하세요!'))
-						z('hwallet').value = web3js.eth.accounts[0];
-				}
-				else {
-					alert('메타마스크에 먼저 로그인 해야합니다.');
-					z('chkBox').checked = false;
-				}
-			} 
-			else { // 체크 해제시
-				z('hwallet').value = '';
-			}
-		}
 		
 	    function readURL(input) {
 	        if (input.files && input.files[0]) {
@@ -109,7 +87,7 @@
 	    
 	    function deployContract(){
 	    	var reservContract = web3js.eth.contract(reservation_contract_ABI);
-	    	alert('여기 오냐');
+	    	alert('예약 컨트랙트 배포를 시작합니다. \n메타마스크 계좌에서 약간의 수수료가 지불될 수 있습니다.');
 	    	reservContract.new(document.forms[0].hwallet.value, ${cancelfee1}, ${cancelfee2}, ${cancelfee3}, ${cancelfee4}, ${cancelday1}, ${cancelday2},{
 				data: reservation_contract_bytecode,
 				from: web3js.eth.accounts[0],
@@ -144,7 +122,7 @@
 			}
 			else{
 				console.log('web3인식 X');
-				alert('메타마스크를 설치해주십시오. \n만약 브라우저가 Chrome이 아니라면 실행할 수 없습니다.');
+				alert('컨트랙트 배포를 위해 메타마스크를 설치해주시고 로그인 해주십시오. \n만약 브라우저가 Chrome이 아니라면 실행할 수 없습니다.');
 				window.open("about:blank").location.href = 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ko';
 			}
 		}

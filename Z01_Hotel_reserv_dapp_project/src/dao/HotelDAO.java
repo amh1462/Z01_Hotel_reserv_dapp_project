@@ -25,7 +25,7 @@ public class HotelDAO {
 		
 		String query = "insert into hotel "
 				+ "(hotelno, hotelid, password, hotelname, country, city, detailaddr, phone, hwallet, cancelfee1, cancelfee2, cancelfee3, cancelfee4, cancelday1, cancelday2)"
-				+ "values(hno_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "values(hno_seq.nextval,lower(?),?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			

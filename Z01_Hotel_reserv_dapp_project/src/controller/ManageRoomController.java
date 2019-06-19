@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import dao.HotelDAO;
 import dao.RoomDAO;
 import dto.RoomVO;
 
@@ -21,16 +22,34 @@ public class ManageRoomController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HotelDAO hDao = HotelDAO.getInstance();
+		HttpSession session = request.getSession();
+		String hotelId = (String)session.getAttribute("hotelid");
+		
 		String type = (String)request.getParameter("type");
 		if(type.equals("show")) {
 			RoomDAO rDao = RoomDAO.getInstance();
-			HttpSession session = request.getSession();
-			request.setAttribute("rlist", rDao.selectAll((String)session.getAttribute("hotelid")));
-			
-			RequestDispatcher rd = request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp");
-			rd.forward(request,response);
+			if(request.getParameter("no") == null) {
+				String pidx = request.getParameter("pIndex");
+				
+				int pIndexParam = Integer.parseInt( (pidx!=null) ? pidx : "1" ); //pidx가 없으면 1페이지로 자동으로 가게.. 있으면 해당 페이지로..
+				String category = request.getParameter("searchField");
+				String keyword = request.getParameter("searchKeyword");
+	
+				request.setAttribute("rlist", rDao.selectAll(hotelId, pIndexParam, category, keyword));
+				request.setAttribute("startList", rDao.getStartList(pIndexParam));
+				request.setAttribute("endList", rDao.lastPageNum(hotelId, category, keyword) < rDao.getEndList(pIndexParam) ? 
+						rDao.lastPageNum(hotelId, category, keyword) : rDao.getEndList(pIndexParam));
+				request.setAttribute("lastListNum", rDao.lastPageNum(hotelId, category, keyword));
+				request.setAttribute("pIndex", Integer.toString(pIndexParam));
+				
+				request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp").forward(request,response);
+			} else {
+				
+			}
 		}
 		else if(type.equals("register")) {	
+			request.setAttribute("hwallet", hDao.select(hotelId).getHwallet());
 			request.getRequestDispatcher("./hotelMain.jsp?contentPage=registerRoom.jsp").forward(request, response);
 		}
 	}
@@ -57,7 +76,7 @@ public class ManageRoomController extends HttpServlet {
 		rVo.setWeekendprice(multi.getParameter("weekendprice"));
 		rVo.setTotalcount(multi.getParameter("totalcount"));
 		rVo.setRestcount(multi.getParameter("totalcount"));
-		rVo.setPhoto("uploadFiles/" + multi.getParameter("photo"));
+		rVo.setPhoto("uploadFiles/" + multi.getOriginalFileName("photo"));
 		rVo.setContract(multi.getParameter("contract"));
 		System.out.println(rVo.toString());
 		
