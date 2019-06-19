@@ -49,4 +49,13 @@ public class UserDAO {
 		return hlist;
 		
 	}
+	
+	//----------------------ShowRoom-------------------
+	
+	public List<HotelVO> select(String hotelname) {
+		List<HotelVO> hlist = new ArrayList<HotelVO>();
+		
+		
+		return hlist;
+	}
 }

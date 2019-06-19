@@ -17,7 +17,7 @@ public class ShowRoomController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("�Դ�?");
+		System.out.println("????");
 		RoomDAO rDao = RoomDAO.getInstance();
 		HttpSession session = request.getSession();
 		System.out.println((String)session.getAttribute("hotelid"));
@@ -28,7 +28,7 @@ public class ShowRoomController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("����?");
+		System.out.println("?????");
 	}
 
 }
