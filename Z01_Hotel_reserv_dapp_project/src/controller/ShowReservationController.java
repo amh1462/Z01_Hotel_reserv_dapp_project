@@ -14,17 +14,9 @@ public class ShowReservationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
 		ReservDAO resDao = ReservDAO.getInstance();
-<<<<<<< HEAD
 		String s = request.getParameter("resIndex");
-=======
-		String s = request.getParameter("pIndex");
-<<<<<<< HEAD
-=======
->>>>>>> branch 'develop' of https://github.com/amh1462/Z01_Hotel_reserv_dapp_project
 		
->>>>>>> branch 'develop' of https://github.com/amh1462/Z01_Hotel_reserv_dapp_project
 		int resIndexParam = Integer.parseInt((s !=null) ? s : "1");
 		if(request.getParameter("no") == null) {
 			if(request.getParameter("searchKeyword") !=null) {
