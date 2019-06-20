@@ -17,7 +17,6 @@ public class ShowReservationController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		ReservDAO resDao = ReservDAO.getInstance();
 		String s = request.getParameter("pIndex");
-		
 		int resIndexParam = Integer.parseInt((s !=null) ? s : "1");
 		if(request.getParameter("no") == null) {
 			if(request.getParameter("searchKeyword") !=null) {

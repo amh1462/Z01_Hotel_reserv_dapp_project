@@ -19,7 +19,35 @@ public class ShowRoomController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("get 방식");
-	}
+		request.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession();
+		
+		String hotelid = (String) session.getAttribute("hotelid");
+
+		
+		 RoomDAO roDao = RoomDAO.getInstance();
+		 String s = request.getParameter("pIndex");
+		 
+		 int roomIndexParam = Integer.parseInt((s != null) ? s : "1");
+		 
+		 String rname = request.getParameter("roomname");
+		 
+		 
+		 String rIndexParams = ((rname !=null) ? rname : "스탠다드 더블룸");  
+		 
+		 System.out.println(rIndexParams);
+		 System.out.println(rIndexParams);
+		 if(request.getParameter("no") == null) {
+			 request.setAttribute("roomlist", roDao.userSelectAll(rIndexParams,hotelid));
+			 request.setAttribute("rolist", roDao.userSelect(roomIndexParam, hotelid));
+			 request.setAttribute("startList", roDao.getStartList(roomIndexParam));
+			 request.setAttribute("endList", roDao.getEndList(roomIndexParam,hotelid));
+			 
+		 }
+	
+		request.getRequestDispatcher("userroomlist.jsp").forward(request, response);
+}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -88,6 +116,7 @@ public class ShowRoomController extends HttpServlet {
 			 request.setAttribute("rolist", roDao.userSelect(roomIndexParam, hotelid));
 			 request.setAttribute("startList", roDao.getStartList(roomIndexParam));
 			 request.setAttribute("endList", roDao.getEndList(roomIndexParam,hotelid));
+			 
 		 }
 		
 		 request.getRequestDispatcher("userroomlist.jsp").forward(request, response);

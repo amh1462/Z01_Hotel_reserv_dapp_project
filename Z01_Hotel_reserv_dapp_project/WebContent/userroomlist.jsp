@@ -61,22 +61,14 @@
     <div class="row">
 
       <div class="col-lg-3">
-        <h1 class="my-4">Room List</h1>
+        <h1 class="my-4">Room List </h1>
         
         <div class="list-group">
- 
-        <c:forEach var="pIdx" begin="${ startList }" end="${ endList }">
-        	<c:forEach var="roomVos" items="${rolists}">
-        	<a <c:if test='${param.pIndex == pIdx}'></c:if> 
-        	href="showRoom?pIndex=${pIdx}" class="list-group-item active">객실 : ${roVo.roomname}</a>
-        	</c:forEach>
-        </c:forEach>
-        
-        <!-- 
-          <a href="#" class="list-group-item active">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
-         -->
+ 		
+ 		<c:forEach var="roVo" items="${ rolist }">
+ 			<a href="./showroom?roomname=${roVo.roomname}" class="list-group-item 
+ 			<c:if test='${ param.roomname == roVo.roomname}' >active</c:if> ">${roVo.roomname}</a>
+ 		</c:forEach>
         </div>
       </div>
       <!-- /.col-lg-3 -->
@@ -85,16 +77,16 @@
          <c:forEach var="roomVo" items="${roomlist}">
         <div class="card mt-4">
         	<div class="card-body">
-            <h5 style="font-weight: bold;" >호텔 명 : ${ hotelname }</h5>
+            <h5 style="font-weight: bold;" >호텔 명 : ${ hotelname } ${ pIndex } </h5>
             <h5 style="font-weight: bold;" >상세주소 : ${country} ${city} ${ detailaddr }</h5>            
             <h5 style="font-weight: bold;" >체크 인 : ${checkin}</h5>
             <h5 style="font-weight: bold; display:inline-block;" >체크아웃 : ${ checkout }</h5>
             <h5 style="font-weight: bold; display:inline-block; float: right;" >방 갯수 : ${ roomVo.totalcount }</h5>
                      
           </div>
-          <img class="card-img-top img-fluid" src="https://t4.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/wlQ/image/oOAAtL-P_N2WSPum8fPYgS_ou1c.jpg" alt="">
+          <img style="" class="card-img-top img-fluid" src="https://t4.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/wlQ/image/oOAAtL-P_N2WSPum8fPYgS_ou1c.jpg" alt="">
           <div class="card-body">
-            <h3 class="card-title">${ roomVo.roomname }</h3>
+            <h2 class="card-title">${ roomVo.roomname }</h2>
             <h4> 평일 : ${roomVo.dailyprice} 원</h4>
             <h4>주말 : ${roomVo.weekendprice} 원</h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>

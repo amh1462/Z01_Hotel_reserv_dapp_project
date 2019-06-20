@@ -157,6 +157,31 @@ public class RoomDAO {
 		return roomlist;
 	}
 	
+	public List<RoomVO> userSelectAll(String pidx, String hotelid){
+		List<RoomVO> roomlist = new ArrayList<RoomVO>();
+		
+		String pquery = "select * from room where hotelid = '"+hotelid+"' and roomname = '"+pidx+"'";
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(pquery);
+			
+			while(rs.next()) {
+				RoomVO roomVo = new RoomVO();
+				
+				roomVo.setAllowedman(rs.getString("allowedman"));
+				roomVo.setRoomname(rs.getString("roomname"));
+				roomVo.setDailyprice(rs.getString("dailyprice"));
+				roomVo.setWeekendprice(rs.getString("weekendprice"));
+				roomVo.setTotalcount(rs.getString("totalcount"));
+				roomlist.add(roomVo);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {e.printStackTrace();}
+		return roomlist;
+	}
+	
 	public int lastPageNum(String hotelid) {
 		int result = 0;
 		
@@ -185,6 +210,26 @@ public class RoomDAO {
 		List<RoomVO> rolist = new ArrayList<RoomVO>();
 		
 		String pquery = "select * from room where hotelid = '"+hotelid+"'";
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(pquery);
+			
+			while(rs.next()) {
+				RoomVO roVo = new RoomVO();
+				roVo.setRoomname(rs.getString("roomname"));
+				rolist.add(roVo);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {e.printStackTrace();}
+		return rolist;
+	}
+	
+	public List<RoomVO> userSelect(String pidx, String hotelid){
+		List<RoomVO> rolist = new ArrayList<RoomVO>();
+		
+		String pquery = "select * from room where hotelid = '"+hotelid+"' and roomname = '"+pidx+"'";
 		
 		try {
 			Statement stmt = conn.createStatement();
