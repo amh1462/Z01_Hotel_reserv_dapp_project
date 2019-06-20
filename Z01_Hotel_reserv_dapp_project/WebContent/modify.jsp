@@ -15,48 +15,43 @@
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css?ver=2">
 </head>
 <body>
 	<div class="limiter">
 		<div class="container-login102">
-			<div style="position: absolute; margin-top: -90px;" class="wrap-login100">
+			<div style="margin-top: 0px;" class="wrap-login100">
 				<form class="login100-form validate-form" action="modify" method="post"
 					onsubmit ="return chkValidate2()">
 					<input type="hidden" name="hiddenValue" value="1">
 					
-					<span class="login100-form-title p-b-30">
-						회원 정보수정 
+					<span class="login100-form-title p-b-40">
+						회원 정보수정
 					</span>
-					<div style="display: none;" class="wrap-input100 m-b-16" data-validate = "아이디가 없습니다.">
-						<input class="input100" type="text" name="hotelid" value="${hVo.hotelid}" disabled placeholder="아이디">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<span class="lnr lnr-user"></span>
-						</span>
-					</div>
 					
+					비밀번호
 					<div class="wrap-input100 m-b-16" data-validate = "비밀번호를 수정해주시기 바랍니다.">
-						<input class="input100" type="password" name="password" placeholder="비밀번호" oninput="chkMatchPw2()" >
+						<input class="input100" type="password" name="password" oninput="chkMatchPw()" >
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="lnr lnr-lock"></span>
 						</span>
 					</div>
 
+					비밀번호 확인
 					<div class="wrap-input100 m-b-16" data-validate = "비밀번호가 일치하지 않습니다..">
-						<input class="input100" type="password" name="pw2" placeholder="비밀번호 확인" oninput="chkMatchPw2()">
+						<input class="input100" type="password" name="pw2" oninput="chkMatchPw()">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="lnr lnr-lock"></span>
 						</span>
-						<div id='matchPw' style="color: red; text-align: center;" ></div>
 					</div>
+					<div class="wrap-input100 m-b-16 m-l-50" id='matchPw' style="color: red; text-align: center;" ></div>
 					
 					
-					
+					<div class="wrap-input100">호텔명</div>
 					<div class="wrap-input100 m-b-16">
-						<input class="input100" name="hotelname" placeholder="호텔 명" value="${ hVo.hotelname }" >
+						<input class="input100" name="hotelname" value="${ hVo.hotelname }" >
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="lnr lnr-apartment"></span>
@@ -64,53 +59,88 @@
 					</div>
 					
 					<div class="wrap-input100 m-b-16">
-					<select name="country" class="input100">
-						<option value="" selected>선택</option>
-						<option value="kr">대한민국</option>
-						<option value="us">미국</option>
-						<option value="fr">프랑스</option>
-						<option value="cn">중국</option>
-					</select>
+						나라
+						<select name="country" class="input100">
+							<option value="" selected>선택</option>
+							<option value="kr">대한민국</option>
+							<option value="us">미국</option>
+							<option value="fr">프랑스</option>
+							<option value="cn">중국</option>
+						</select>
 					</div>
 					
+					도시
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "도시를 입력해주세요.">
-						<input class="input100" name="city" placeholder="도시" value="${ hVo.city }" disabled>
+						<input class="input100" name="city" value="${ hVo.city }" disabled>
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span style="position: absolute;" class="lnr lnr-map"></span>
 						</span>
-						<div id='selectCity' style="color: red; text-align: center;"></div>
 					</div>
+					<div id="selectCity" class="wrap-input100 m-b-16 m-l-50" style="color: red; text-align: center;"></div>
 					
+					상세주소
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "상세주소를 입력해주세요.">
-						<input class="input100" name="detailaddr" placeholder="상세주소" value="${ hVo.detailaddr }" >
+						<input class="input100" name="detailaddr" value="${ hVo.detailaddr }" >
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="lnr lnr-map-marker"></span>
 						</span>
 					</div>
 					
+					연락처
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "연락처를 입력해주세요.">
-						<input class="input100" name="phone" placeholder="연락처" value="${ hVo.phone }" >
+						<input class="input100" name="phone" value="${ hVo.phone }" >
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="lnr lnr-phone-handset"></span>
 						</span>
 					</div>
 					
+					이더지갑 주소
 					<div class="wrap-input100 m-b-16">
-						<input class="input100" name="hwallet" placeholder="지갑주소 예) 앞에 0x를 써줘야합니다." value="${ hVo.hwallet }">
+						<input class="input100" name="hwallet" placeholder="앞에 0x를 써줘야합니다." value="${ hVo.hwallet }">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="lnr lnr-database"></span>
 						</span>
 					</div>
 					
-					<div class="contact100-form-checkbox m-l-4">
+					<div class="contact100-form-checkbox m-l-4 m-b-16">
 						<input class="input-checkbox100" id="chkBox" type="checkbox" onclick="getAccount(this.checked)">
 						<label class="label-checkbox100" for="chkBox">
 							메타마스크에서 가져오기
 						</label>
+					</div>
+					
+					<div class="wrap-input100">취소 수수료</div>
+					
+					<div style="border: 3px solid beige" class="wrap-input100">
+						<div class="wrap-input100 m-b-16 m-t-10" style="height:52px;">
+							<span class="m-l-10" style="float: left; line-height: 52px;">당일 취소시:</span> 
+							<span class="m-r-10" style="float: right; line-height: 52px">%</span>
+							<input class="input30-float-r" name="cancelfee1">
+						</div>
+						
+						<div class="wrap-input100 m-b-16" style="height:52px;">
+							<span class="m-l-10" style="float: left; line-height: 52px;">1 일전 취소시:</span> 
+							<span class="m-r-10" style="float: right; line-height: 52px">%</span>
+							<input class="input30-float-r" name="cancelfee2">
+						</div>
+						
+						<div class="wrap-input100 m-b-16" style="height:52px;">
+							<input class="input30-float-l m-l-10" name="cancelday1">
+							<span style="float: left; line-height: 52px;">일전 취소:</span> 
+							<span class="m-r-10" style="float: right; line-height: 52px">%</span>
+							<input class="input30-float-r" name="cancelfee3">
+						</div>
+						
+						<div class="wrap-input100 m-b-16" style="height:52px;">
+							<input class="input30-float-l m-l-10" name="cancelday2">
+							<span style="float: left; line-height: 52px;">일전 취소:</span> 
+							<span class="m-r-10" style="float: right; line-height: 52px">%</span>	
+							<input class="input30-float-r" name="cancelfee4">
+						</div>
 					</div>
 					
 					<div class="container-login100-form-btn p-t-25">

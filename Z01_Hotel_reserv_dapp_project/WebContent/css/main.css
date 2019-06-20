@@ -700,4 +700,22 @@ table td, table th {
   color: black;
 }
 
+/*//////////////////////////////////////////////////////////////////
+추가*/
+
+.input30-float-l {
+	height: 52px; 
+	border-radius: 1px; 
+	padding: 0 0 0 20px; 
+	width:30%;
+	float: left;
+}
+
+.input30-float-r {
+	height: 52px; 
+	border-radius: 1px; 
+	padding: 0 0 0 20px; 
+	width:30%;
+	float: right;
+}
 

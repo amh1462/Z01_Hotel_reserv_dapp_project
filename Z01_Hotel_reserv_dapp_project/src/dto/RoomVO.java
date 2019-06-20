@@ -13,6 +13,7 @@ public class RoomVO {
 	private String restcount;
 	private String photo;
 	private String time;
+	private String contract;
 	
 	
 	public String getRoomno() {
@@ -81,6 +82,19 @@ public class RoomVO {
 	public void setTime(String time) {
 		this.time = time;
 	}
+	public String getContract() {
+		return contract;
+	}
+	public void setContract(String contract) {
+		this.contract = contract;
+	}
 	
+
+	@Override
+	public String toString() {
+		return String.format("roomno = %s, hotelid = %s, roomname = %s, roominfo = %s, allowedman = %s"
+				+ " dailyprice= %s, weekendprice= %s, totalcount = %s, restcount = %s, photo = %s, time = %s, contract = %s",
+				roomno, hotelid, roomname, roominfo, allowedman, dailyprice, weekendprice, totalcount, restcount, photo, time, contract); 
+	}
 	
 }

@@ -32,6 +32,12 @@
 	color: #333;
 }
 
+tr, td {
+	overflow:hidden; 
+	text-overflow:ellipsis; 
+	white-space:nowrap;
+}
+
 </style>
 
 <body>
@@ -39,51 +45,80 @@
 		<div class="container-login101">
 			<div style="position:absolute; top: 10px;" class="wrap-main100">
 				<span class="login100-form-title p-b-30">객실 현황</span>
+				<a href='manageroom?type=register' class='btn_hgray' style='float: left'>객실 등록</a>
 				<div style='text-align: right;'>
-					<form>
+					<form action="manageroom">
+						<input type="hidden" name="type" value="show">
+						<input type="hidden" name="pIndex" value="1">
 						<select name='searchField'>
-							<option value='title'>방 종류</option>
+							<option value='roomname'>방 이름</option>
+							<option value='dailyprice'>평일가</option>
+							<option value='weekendprice'>주말가</option>
+							<option value='restcount'>남은 방</option>
+							<option value='time'>등록날짜</option>
+							<option value='contract'>컨트랙트</option>
 						</select> 
 						<input name='searchKeyword'>
 						<input type='submit' value='검색' style='width: 70px;'>
 					</form>
 				</div><br>
-				<table>
+				<table style="table-layout: fixed; width: 100%">
 					<tr>
-						<th>no</th>
-						<th>방 종류</th>
-						<th>평일요금</th>
-						<th>주말요금</th>
-						<th>남은 방</th>
-						<th>등록날짜</th>
-						<th>수 정</th>
+						<th width="30">no</th>
+						<th width="100">방 사진</th>
+						<th width="250">내용</th>
+						<th width="30">수 정</th>
 					</tr>
 					<c:forEach var="rvo" items="${ rlist }">
 						<tr>
 							<td>${ rvo.roomno }</td>
-							<td>${ rvo.roomname }</td>
-							<td>${ rvo.dailyprice }</td>
-							<td>${ rvo.weekendprice }</td>
-							<td>${ rvo.restcount }</td>
-							<td>${ rvo.time }</td>
-							<td><button>수정</button></td>
+							<td><img style="width:208px; height:300px; padding:10px;" src="${ rvo.photo }"></td>
+							<td style="text-align: left; padding: 10px;">
+								<span style="font-weight: bold">방 이름:</span> ${ rvo.roomname }<br><br>
+								<div style="font-weight: bold">방 설명:</div> ${ rvo.roominfo }<br><br>
+								<span style="font-weight: bold">평일가:</span> ${ rvo.dailyprice } 원<br>
+								<span style="font-weight: bold">주말가:</span> ${ rvo.weekendprice } 원<br>
+								<span style="font-weight: bold">남은 방:</span> ${ rvo.restcount } 개<br>
+								<span style="font-weight: bold">등록 날짜:</span> ${ rvo.time }<br>
+								<span style="font-weight: bold">컨트랙트 주소:</span> ${ rvo.contract }
+							</td>
+							<td><a class='btn_hgray' href="manageroom?type=show&no=${ rvo.roomno }" >수정</a></td>
 						</tr>
 					</c:forEach>
 				</table>
 				<div style="height: 10px;"></div>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <c:if test='${startList == 1}'>disabled</c:if>">
-						<a class="page-link" href="showroom?pIndex=${ startList-1 }"> 
+						<a class="page-link" href="manageroom?type=show
+						<c:if test="${ !empty param.searchField && !empty param.searchKeyword }">
+							&searchField=${ param.searchField }&searchKeyword=${ param.searchKeyword }
+						</c:if>
+						&pIndex=${ startList-1 }"> 
 							<span class="lnr lnr-arrow-left"></span>
 						</a>
 					</li>
-					<li class="page-item <c:if test='${endList % 10 != 0}'> disabled</c:if>">
-						<a class="page-link" href="showroom?pIndex=${ endList+1 }"> 
+					<c:forEach var="pIdx" begin="${ startList }" end="${ endList }">
+						<li class="page-item <c:if test="${ param.pIndex == pIdx }">active</c:if>">
+							<a class="page-link" href="manageroom?type=show
+							<c:if test="${ !empty param.searchField && !empty param.searchKeyword }">
+								&searchField=${ param.searchField }&searchKeyword=${ param.searchKeyword }
+							</c:if>
+							&pIndex=${ pIdx }">
+								${ pIdx }
+							</a>
+						</li>
+					</c:forEach>
+					<li class="page-item <c:if test='${ (endList-lastListNum) / 10 == 0 }'> disabled</c:if>">
+						<a class="page-link" href="manageroom?type=show
+						<c:if test="${ !empty param.searchField && !empty param.searchKeyword }">
+							&searchField=${ param.searchField }&searchKeyword=${ param.searchKeyword }
+						</c:if>
+						&pIndex=${ endList+1 }"> 
 							<span class="lnr lnr-arrow-right"></span>
 						</a>
 					</li>
 				</ul>
-				<a href='registerRoom' class='btn_hgray' style='float: left'>객실 등록</a>
+				<br><br><br><br><br><br>
 			</div>
 		</div>
 	</div>

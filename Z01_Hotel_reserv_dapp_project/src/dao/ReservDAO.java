@@ -96,7 +96,11 @@ public ReservVO select(String resno, String hotelid) {
 		
 		return reslist;
 	}
+<<<<<<< HEAD
 	// �˻����
+=======
+	
+>>>>>>> branch 'develop' of https://github.com/amh1462/Z01_Hotel_reserv_dapp_project
 	public Object selectAll(int resIndexParam, String category, String keyoword, String hotelid) {
 		List<ReservVO> reslist = new ArrayList<ReservVO>();
 		

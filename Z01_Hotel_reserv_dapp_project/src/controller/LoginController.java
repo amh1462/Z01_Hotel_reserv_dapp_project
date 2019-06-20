@@ -28,9 +28,6 @@ public class LoginController extends HttpServlet  {
 		String hotelid = request.getParameter("hotelid");
 		String password = request.getParameter("password");
 		
-		System.out.println(hotelid);
-		System.out.println(password);
-		
 		int matchresult = hDao.MachIdPw(hotelid, password); 
 		if( matchresult == 1){ 
 			HotelVO hVo = hDao.select(hotelid);
@@ -46,7 +43,12 @@ public class LoginController extends HttpServlet  {
 			session.setAttribute("photo3", hVo.getPhoto3());
 			session.setAttribute("photo4", hVo.getPhoto4());
 			session.setAttribute("photo5", hVo.getPhoto5());
-			
+			session.setAttribute("cancelfee1", hVo.getCancelfee1());
+			session.setAttribute("cancelfee2", hVo.getCancelfee2());
+			session.setAttribute("cancelfee3", hVo.getCancelfee3());
+			session.setAttribute("cancelfee4", hVo.getCancelfee4());
+			session.setAttribute("cancelday1", hVo.getCancelday1());
+			session.setAttribute("cancelday2", hVo.getCancelday2());
 			
 			System.out.println(hVo.getPhoto2());
 			response.sendRedirect("hotelMain.jsp?contentPage=hotelInfo.jsp");

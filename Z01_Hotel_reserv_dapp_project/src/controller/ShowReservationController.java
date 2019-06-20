@@ -15,7 +15,11 @@ public class ShowReservationController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ReservDAO resDao = ReservDAO.getInstance();
+<<<<<<< HEAD
 		String s = request.getParameter("resIndex");
+=======
+		String s = request.getParameter("pIndex");
+>>>>>>> branch 'develop' of https://github.com/amh1462/Z01_Hotel_reserv_dapp_project
 		
 		int resIndexParam = Integer.parseInt((s !=null) ? s : "1");
 		if(request.getParameter("no") == null) {

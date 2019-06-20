@@ -39,10 +39,21 @@ public class JoinController extends HttpServlet  {
 		hVo.setPhone(request.getParameter("phone"));
 		hVo.setHwallet(request.getParameter("hwallet"));
 		
+		hVo.setCancelfee1(request.getParameter("cancelfee1"));
+		hVo.setCancelfee2(request.getParameter("cancelfee2"));
+		hVo.setCancelfee3(request.getParameter("cancelfee3"));
+		hVo.setCancelfee4(request.getParameter("cancelfee4"));
+		hVo.setCancelday1(request.getParameter("cancelday1"));
+		hVo.setCancelday2(request.getParameter("cancelday2"));
+		
 		if(hDao.insert(hVo)>0) {
 			response.sendRedirect("./login.html");
 		}else {
-			response.sendRedirect("<script>history.back();</script>");
+			response.setContentType("text/html; charset=utf-8");
+			response.getWriter().println("<script> "
+					+ "alert('죄송합니다. 오류로 인해 회원가입이 취소되었습니다.');"
+					+ "history.back();"
+					+ " </script>");
 			
 		}
 	}

@@ -10,7 +10,7 @@
 	String id = request.getParameter("hotelid");
 	if( id != null){
 		//db에서 id가 있는지 어떻게 체크할까?
-		Statement stmt = DBConn.getInstance().createStatement();				
+		Statement stmt = DBConn.getInstance().createStatement();
 		ResultSet rs = stmt.executeQuery("select * from hotel where hotelid = '"+ id +"'");
 		if(rs.next()){
 			out.write("ajaxResult(1)");

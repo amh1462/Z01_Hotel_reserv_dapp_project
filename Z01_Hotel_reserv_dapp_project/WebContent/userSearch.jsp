@@ -24,7 +24,14 @@
             <div class="row-header">
                 <div class="container">
                     <h1 class="slogan">Hotelnara</h1>
-                    <form id="search-form" method="POST">
+                    <form id="search-form" method="POST" action="./showroom">
+                    <input type ="hidden" name ="hotelid" value="Lottehotel11">
+                    <input type ="hidden" name ="country" value="fr">
+                    <input type ="hidden" name ="city" value="디나흐">
+                    <input type ="hidden" name ="detailaddr" value="금천구 디지털로 1023 남성프라자">
+                    <input type ="hidden" name ="checkin" value="1560870000">
+                    <input type ="hidden" name ="checkout" value="1560956400">
+                    
                         <center><div class="inputs">
                             <input type="text" name="city" placeholder="<%= request.getParameter("city") %>">
                             <select name="country" id="q" style="padding-right: 10px;">
@@ -61,7 +68,7 @@
                                         </div>
                                     </section>
                                     <section class="hotelBtnSection">
-                                        <center><input class="hotelBtn" type="button" value="방 선택"></center>
+                                        <center><button style="height:24px;" class="hotelBtn">방 선택</button></center>
                                     </section>
                                 </div>
                             </article>
