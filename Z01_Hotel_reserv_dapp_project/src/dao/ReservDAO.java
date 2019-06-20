@@ -96,7 +96,7 @@ public ReservVO select(String resno, String hotelid) {
 		
 		return reslist;
 	}
-	
+	// �˻����
 	public Object selectAll(int resIndexParam, String category, String keyoword, String hotelid) {
 		List<ReservVO> reslist = new ArrayList<ReservVO>();
 		

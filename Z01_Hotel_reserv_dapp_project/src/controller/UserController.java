@@ -24,11 +24,19 @@ public class UserController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+<<<<<<< HEAD
+	
+=======
 		
 		HotelDAO hDao = HotelDAO.getInstance();
 		
+<<<<<<< HEAD
+		/*
+		if(request.getParameter("city") != null) { // 검색한 내용이 있다면.
+=======
 		
 		if(request.getParameter("city") != null) { // °Ë»öÇÑ ³»¿ëÀÌ ÀÖ´Ù¸é.
+>>>>>>> branch 'develop' of https://github.com/amh1462/Z01_Hotel_reserv_dapp_project
 			String category = request.getParameter("searchField");
 			String keyword =  request.getParameter("city");
 
@@ -43,8 +51,9 @@ public class UserController extends HttpServlet {
 			request.setAttribute("endList", bDao.getEndList(pIndexParam));
 			request.setAttribute("blist", bDao.selectAll(pIndexParam));
 		}
-		
+		*/
 		//if(request.getParameter(""))
+>>>>>>> branch 'develop' of https://github.com/amh1462/Z01_Hotel_reserv_dapp_project
 	}
 
 }

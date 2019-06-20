@@ -15,7 +15,7 @@ public class ShowReservationController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ReservDAO resDao = ReservDAO.getInstance();
-		String s = request.getParameter("pIndex");
+		String s = request.getParameter("resIndex");
 		
 		int resIndexParam = Integer.parseInt((s !=null) ? s : "1");
 		if(request.getParameter("no") == null) {
