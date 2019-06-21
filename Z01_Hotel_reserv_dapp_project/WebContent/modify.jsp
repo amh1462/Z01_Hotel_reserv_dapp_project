@@ -32,7 +32,7 @@
 			<div style="margin-top: 0px;" class="wrap-login100">
 				<form class="login100-form validate-form" action="modify" method="post"
 					onsubmit ="return chkValidate2()">
-					<input type="hidden" name="hiddenValue" value="1">
+					<input type="hidden" name="hiddenValue" value="hotel">
 					
 					<span class="login100-form-title p-b-40">
 						회원 정보수정

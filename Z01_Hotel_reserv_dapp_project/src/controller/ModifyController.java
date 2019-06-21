@@ -40,7 +40,7 @@ public class ModifyController extends HttpServlet {
 		
 		HotelDAO hDao = HotelDAO.getInstance();
 		HttpSession session = request.getSession();
-		if(request.getParameter("hiddenValue") != null) {
+		if(request.getParameter("hiddenValue").equals("hotel")) {
 			System.out.println(request.getParameter("hiddenValue"));
 			HotelVO hVo = new HotelVO();
 			
@@ -79,7 +79,7 @@ public class ModifyController extends HttpServlet {
 				session.setAttribute("cancelday2", hVo.getCancelday2());
 				
 				response.sendRedirect("hotelMain.jsp?contentPage=hotelInfo.jsp");
-			}else {
+			}else if(request.getParameter("hiddenValue").equals("room")){
 				System.out.println(""+hDao.update(hVo));
 			}
 		}

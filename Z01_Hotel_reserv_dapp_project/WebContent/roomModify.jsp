@@ -71,7 +71,7 @@
 	          </li>
           </ul>
           <input type="hidden" name="contract">
-          <input style=" margin-top: 30px; margin-left: 235px;" id="submitBtn" type="button" value="등록" onclick="deployContract();">
+          <input style=" margin-top: 30px; margin-left: 235px;" id="submitBtn" type="button" value="등록" onclick="update();">
         </form>
       </div>
     </div>
@@ -94,34 +94,34 @@
 	        readURL(this);
 	    };
 	    
-	    function deployContract(){
-	    	var reservContract = web3js.eth.contract(reservation_contract_ABI);
-	    	alert('예약 컨트랙트 배포를 시작합니다. \n메타마스크 계좌에서 약간의 수수료가 지불될 수 있습니다.');
-	    	reservContract.new(document.forms[0].hwallet.value, ${cancelfee1}, ${cancelfee2}, ${cancelfee3}, ${cancelfee4}, ${cancelday1}, ${cancelday2},{
-				data: reservation_contract_bytecode,
-				from: web3js.eth.accounts[0],
-				//gas: web3.eth.estimateGas({data: reservation_contract_bytecode});
-				gas: 1900000
-			}, function(err,res){
-				if(err) {
-					console.log('배포 에러', err);
-					// submit 취소
-					alert('컨트랙트 배포에 실패했습니다. 다시 등록해주십시오.');
+	    
+	    function update() {
+			reservContractObj.updateContract.sendTransaction(document.forms[0].hwallet.value, ${cancelfee1}, ${cancelfee2}, ${cancelfee3}, ${cancelfee4}, ${cancelday1}, ${cancelday2}
+			,function(err,res){
+				if(err) console.log("수정 에러", err);
+				else {
+					console.log("sendTransaction 결과(txid?):",res);
 				}
-				else{
-					if(res.address == null){
-						console.log("트랜잭션 해시",res.transactionHash);
-						console.log("컨트랙트 주소",res.address);
-						// res.address를 DB에 저장.
-					} else {
-						console.log("컨트랙트 주소",res.address);
-						document.forms[0].contract.value = res.address;
-						alert('컨트랙트 배포 완료!');
-						document.forms[0].submit();
-					}
-				}
-			});
-	    };
+				
+				var txChkInterval = setInterval(function(){
+					web3.eth.getTransactionReceipt(res, function(err2,res2){ // 위에 일어난 tx의 해시값을 받아 처리.
+						if(err2) {console.error("에러2",err2); clearInterval(txChkInterval);}
+						if(res2 != null){
+							console.log("트랜잭션결과:",res2.status);
+							if (res2.status == '0x0'){
+								// tx 실패면..
+								console.log("tx 실패!:", res2);
+							}
+							else if( res2 != null && res2.status == '0x1'){
+								// tx 성공이면..
+								console.log("tx 성공!:", res2);
+							}
+							clearInterval(txChkInterval);
+						}
+					})
+				}, 100);
+			})
+		}
 	    
 	    onload = function() {
 			// 메타마스크 
