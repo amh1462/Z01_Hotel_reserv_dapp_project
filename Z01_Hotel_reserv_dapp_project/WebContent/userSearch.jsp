@@ -72,7 +72,7 @@
 								</select>
 							</div>
 						</center>
-						<!-- t-datepicker  -->
+						<!-- t-datepicker --> 
 
 						<div class="t-datepicker">
 							<div class="t-check-in" name="checkIn"></div>
