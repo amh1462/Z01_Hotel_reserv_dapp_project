@@ -16,6 +16,8 @@
     <link rel='stylesheet' href='css/User/jquery.mmenu.all.css' type='text/css' media='all' />
     <link rel='stylesheet' href='css/User/bootstrap-grid.css' type='text/css' media='all' />
     <link rel='stylesheet' href='fonts/web-icons/web-icons.min.css' type='text/css' media='all' />
+    
+    <script type='text/javascript' src='js/User/jquery.js'></script>
 </head>
 
 <body class="loaded">
@@ -34,9 +36,8 @@
                     <input type ="hidden" name ="checkout" value="1560956400">
                     
                         <center><div class="inputs">
-                            <input type="text" name="city" placeholder="<%= request.getParameter("city") %>">
-                            <select name="country" id="q" style="padding-right: 10px;">
-                                <option value="#" selected>국가</option>
+                            <input type="text" name="city" value="<%= request.getParameter("city") %>">
+                            <select name="searchField" id="q" style="padding-right: 10px;">          
                                 <option value="kr">Korea</option>
                                 <option value="us">USA</option>
                                 <option value="cn">China</option>
@@ -44,6 +45,7 @@
                                 <option value="uk">England</option>
                                 <option value="fr">France</option>
                                 <option value="aus">Australia</option>
+                                       
                             </select>
                         </div></center>
                         <center><ul>
@@ -53,19 +55,19 @@
                         </ul></center>
                         <div>
                             <div class="blank_top"></div>
+                            <c:forEach var="hvo" items="${ requestScope.hlist }"> 
                             <article class="hotelSearch">
                                 <div class="">
                                     <section class="imgSection">
                                         <div>
-                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
+                                            <img class="hotelImg" src="${hvo.photo}">
                                         </div>
                                     </section>
                                     <section class="">
                                         <div class="hotelInfo">
-                                            <li class="hotelName">호텔명 : 
-                                                asldjfoajsdslkfjlkajflkjaslkdjflkajsdlkfjadjflkjaslkdjflajsdf</li>
-                                            <li class="hotelName">호텔주소 : </li>
-                                            <li class="hotelName">호텔 연락처 :  </li>
+                                            <li class="hotelName">호텔명 : ${hvo.hotelname}</li>
+                                            <li class="hotelName">호텔주소 : ${hvo.country} ${hvo.city} ${hVo.detailaddr}</li>
+                                            <li class="hotelName">호텔 연락처 : ${hvo.phone } </li>
                                             <li class="hotelName">최소요금 :  </li>
                                         </div>
                                     </section>
@@ -74,61 +76,15 @@
                                     </section>
                                 </div>
                             </article>
-                            <div class="blank_mid"></div>
-                            <article class="hotelSearch">
-                                <div class="">
-                                    <section class="imgSection">
-                                        <div>
-                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
-                                        </div>
-                                    </section>
-                                    <section class="">
-                                        <div class="hotelInfo">
-                                            <div class="hotelInfo">
-                                            <li class="hotelName">호텔명 : 
-                                                asldjfoajsdslkfjlkajflkjaslkdjflkajsdlkfjadjflkjaslkdjflajsdf</li>
-                                            <li class="hotelName">호텔주소 : </li>
-                                            <li class="hotelName">호텔 연락처 :  </li>
-                                            <li class="hotelName">최소요금 :  </li>
-                                        </div>
-                                        </div>
-                                    </section>
-                                    <section class="hotelBtnSection">
-                                        <center><input class="hotelBtn" type="button" value="방 선택"></center>
-                                    </section>
-                                </div>
-                            </article>
-                            <div class="blank_mid"></div>
-                            <article class="hotelSearch">
-                                <div class="">
-                                    <section class="imgSection">
-                                        <div>
-                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
-                                        </div>
-                                    </section>
-                                    <section class="">
-                                        <div class="hotelInfo">
-                                            <div class="hotelInfo">
-                                            <li class="hotelName">호텔명 : 
-                                                asldjfoajsdslkfjlkajflkjaslkdjflkajsdlkfjadjflkjaslkdjflajsdf</li>
-                                            <li class="hotelName">호텔주소 : </li>
-                                            <li class="hotelName">호텔 연락처 :  </li>
-                                            <li class="hotelName">최소요금 :  </li>
-                                        </div>
-                                        </div>
-                                    </section>
-                                    <section class="hotelBtnSection">
-                                        <center><input class="hotelBtn" type="button" value="방 선택"></center>
-                                    </section>
-                                </div>
-                            </article>
+                            </c:forEach>
+                            <div class="blank_mid"></div>                                
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script type='text/javascript' src='js/User/jquery.js'></script>
+    
     <script type='text/javascript' src='js/User/superfish.min.js'></script>
     <script type='text/javascript' src='js/User/jquery.sumoselect.min.js'></script>
     <script type='text/javascript' src='js/User/owl.carousel.min.js'></script>

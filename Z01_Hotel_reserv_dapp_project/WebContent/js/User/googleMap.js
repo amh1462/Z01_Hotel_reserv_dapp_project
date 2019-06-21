@@ -7,7 +7,7 @@ function activatePlacesSearch() { // google api가 이 함수로 들어옴.
     }
     var autocomplete = new google.maps.places.Autocomplete(cityElem, option); // autocomplete 객체 생성
 
-    countryElem.onchange = function () { // 나라 선택
+   // countryElem.onchange = function () { // 나라 선택
         cityElem.value = '';
         
         if (countryElem.value != '') { // 선택했을 시
@@ -22,7 +22,7 @@ function activatePlacesSearch() { // google api가 이 함수로 들어옴.
             cityElem.disabled = true;
             selectedCity = false;
         }
-    }
+    //}
 
     cityElem.onkeypress = function () {
         google.maps.event.trigger(autocomplete, 'place_changed');
