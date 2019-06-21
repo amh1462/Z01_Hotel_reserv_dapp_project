@@ -21,7 +21,12 @@
 		<div class="container-login102">
 			<div class="wrap-login100 p-l-50 p-r-50 p-t-30 p-b-30">
 				<form class="login100-form validate-form" action="./join" method="post" 
-				onsubmit="chkValid()">
+				onsubmit="chkValid()" onkeydown="return notUseEnterKey(event);">
+					<script>
+					    function notUseEnterKey(e){
+					        if(e.keyCode === 13 && e.srcElement.type != 'textarea') e.preventDefault();
+					    }
+				    </script>
 					<span class="login100-form-title p-b-30">
 						회원 가입
 					</span>

@@ -67,6 +67,33 @@ public class RoomDAO {
 		return rlist;
 	}
 	
+	public RoomVO selectOne(String rNum) {
+		RoomVO rVo = new RoomVO();
+		String query = "select * from room where roomno = '" + rNum +"'";
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()) {
+				rVo.setRoomno(rs.getString("roomno"));
+				rVo.setRoomname(rs.getString("roomname"));
+				rVo.setRoominfo(rs.getString("roominfo"));
+				rVo.setAllowedman(rs.getString("allowedman"));
+				rVo.setDailyprice(rs.getString("dailyprice"));
+				rVo.setWeekendprice(rs.getString("weekendprice"));
+				rVo.setTotalcount(rs.getString("totalcount"));
+				rVo.setRestcount(rs.getString("restcount"));
+				rVo.setPhoto(rs.getString("photo"));
+				rVo.setContract(rs.getString("contract"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return rVo;
+	}
+	
 	public int getStartList(int pIndex) {
 		return (pIndex-1) / 10 * 10 + 1;
 	}
@@ -125,6 +152,34 @@ public class RoomDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return result;
+	}
+	
+	public int update(RoomVO rVo) {
+		int result = 0;
+		String query = "update room set roomname=?, roominfo=?, allowedman=?,"
+				+ " dailyprice=?, weekendprice=?, totalcount=?, restcount=?, photo=?"
+				+ " where roomno = ?";
+		
+		try {
+			PreparedStatement pst = conn.prepareStatement(query);
+			pst.setString(1, rVo.getRoomname());
+			pst.setString(2, rVo.getRoominfo());
+			pst.setString(3, rVo.getAllowedman());
+			pst.setString(4, rVo.getDailyprice());
+			pst.setString(5, rVo.getWeekendprice());
+			pst.setString(6, rVo.getTotalcount());
+			pst.setString(7, rVo.getRestcount());
+			pst.setString(8, rVo.getPhoto());
+			pst.setString(9, rVo.getRoomno());
+			
+			result = pst.executeUpdate();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		
 		return result;
 	}

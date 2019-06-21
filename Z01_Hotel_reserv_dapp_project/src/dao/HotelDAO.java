@@ -89,7 +89,7 @@ public class HotelDAO {
 					result = 1;
 				}
 			}
-
+			stmt.close();
 		} catch (Exception e) {e.printStackTrace();}
 		
 		return result;

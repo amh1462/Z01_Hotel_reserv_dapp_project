@@ -29,24 +29,20 @@ public class ManageRoomController extends HttpServlet {
 		String type = (String)request.getParameter("type");
 		if(type.equals("show")) {
 			RoomDAO rDao = RoomDAO.getInstance();
-			if(request.getParameter("no") == null) {
-				String pidx = request.getParameter("pIndex");
-				
-				int pIndexParam = Integer.parseInt( (pidx!=null) ? pidx : "1" ); //pidx가 없으면 1페이지로 자동으로 가게.. 있으면 해당 페이지로..
-				String category = request.getParameter("searchField");
-				String keyword = request.getParameter("searchKeyword");
-	
-				request.setAttribute("rlist", rDao.selectAll(hotelId, pIndexParam, category, keyword));
-				request.setAttribute("startList", rDao.getStartList(pIndexParam));
-				request.setAttribute("endList", rDao.lastPageNum(hotelId, category, keyword) < rDao.getEndList(pIndexParam) ? 
-						rDao.lastPageNum(hotelId, category, keyword) : rDao.getEndList(pIndexParam));
-				request.setAttribute("lastListNum", rDao.lastPageNum(hotelId, category, keyword));
-				request.setAttribute("pIndex", Integer.toString(pIndexParam));
-				
-				request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp").forward(request,response);
-			} else {
-				// room 테이블에서 select해서 room_modify.jsp로 보냄. room_modify.jsp에선 여기서 받은 내용들을 EL로 띄워줌.
-			}
+			String pidx = request.getParameter("pIndex");
+			
+			int pIndexParam = Integer.parseInt( (pidx!=null) ? pidx : "1" ); //pidx가 없으면 1페이지로 자동으로 가게.. 있으면 해당 페이지로..
+			String category = request.getParameter("searchField");
+			String keyword = request.getParameter("searchKeyword");
+
+			request.setAttribute("rlist", rDao.selectAll(hotelId, pIndexParam, category, keyword));
+			request.setAttribute("startList", rDao.getStartList(pIndexParam));
+			request.setAttribute("endList", rDao.lastPageNum(hotelId, category, keyword) < rDao.getEndList(pIndexParam) ? 
+					rDao.lastPageNum(hotelId, category, keyword) : rDao.getEndList(pIndexParam));
+			request.setAttribute("lastListNum", rDao.lastPageNum(hotelId, category, keyword));
+			request.setAttribute("pIndex", Integer.toString(pIndexParam));
+			
+			request.getRequestDispatcher("./hotelMain.jsp?contentPage=statusRoom.jsp").forward(request,response);
 		}
 		else if(type.equals("register")) {	
 			request.getRequestDispatcher("./hotelMain.jsp?contentPage=registerRoom.jsp").forward(request, response);
@@ -55,11 +51,9 @@ public class ManageRoomController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
 		String uploadPath = request.getServletContext().getRealPath("/uploadFiles");
-		
 		int maxPostSize = 10 * 1024 * 1024;
-		
-
 		MultipartRequest multi = new MultipartRequest(request, uploadPath, maxPostSize,
 													 "utf-8", new DefaultFileRenamePolicy());
 		

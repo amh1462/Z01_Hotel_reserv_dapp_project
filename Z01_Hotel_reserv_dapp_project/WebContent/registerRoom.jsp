@@ -22,7 +22,12 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <form action="./manageroom" method="post" enctype="multipart/form-data">
+        <form action="./manageroom" method="post" enctype="multipart/form-data" onkeydown="return notUseEnterKey(event);">
+          <script>
+			  function notUseEnterKey(e){
+			      if(e.keyCode === 13 && e.srcElement.type != 'textarea') e.preventDefault();
+			  }
+		  </script>
           <ul style="list-style-type: none; width: 400px;">
 	          <li>방 이름 : <br><input name="roomname" style="width: 250px;" required></li>  
 	          <li style="margin-top: 15px;">방 설명 : <textarea name="roominfo" cols="70" rows="8" style="resize: none;"></textarea></li>
@@ -93,7 +98,7 @@
 				data: reservation_contract_bytecode,
 				from: web3js.eth.accounts[0],
 				//gas: web3.eth.estimateGas({data: reservation_contract_bytecode});
-				gas: 1900000
+				gas: 2000000
 			}, function(err,res){
 				if(err) {
 					console.log('배포 에러', err);

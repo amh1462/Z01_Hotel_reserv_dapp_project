@@ -96,7 +96,7 @@ tr, td {
 								<span style="font-weight: bold">등록 날짜:</span> ${ rvo.time }<br>
 								<span style="font-weight: bold">컨트랙트 주소:</span> ${ rvo.contract }
 							</td>
-							<td><a class='btn_hgray' href="manageroom?type=show&no=${ rvo.roomno }" >수정</a></td>
+							<td><a class='btn_hgray' href="modify?type=room&no=${ rvo.roomno }" >수정</a></td>
 						</tr>
 					</c:forEach>
 				</table>

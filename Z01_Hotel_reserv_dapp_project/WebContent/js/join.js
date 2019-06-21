@@ -126,8 +126,14 @@ function z(hotelid){ return document.getElementById(hotelid); }
 			var autocomplete = new google.maps.places.Autocomplete(cityElem, option); // autocomplete 객체 생성
 			var clickFlag = false;
 			
+			if(cityElem.value != ''){
+				selectedCity = true;
+				chkSelectCity();
+			}
+			
 			countryElem.onchange = function(){ // 나라 선택
 				cityElem.value = '';
+				selectedCity = false;
 				chkSelectCity();
 				if(countryElem.value != ''){ // 선택했을 시
 					cityElem.disabled = false;
@@ -147,7 +153,10 @@ function z(hotelid){ return document.getElementById(hotelid); }
 				}
 			}
 			
-			cityElem.onkeyup = function(){ // city input에 입력이 들어왔을 때
+			cityElem.onkeyup = function(event){ // city input에 입력이 들어왔을 때
+				if(event.keyCode === 13){
+					cityElem.value = "";
+				}
 				if((typeof autocomplete.getPlace()) != 'undefined'){ // 주소 선택이 한 번 되고 나서 (안 되고 하면 에러뜸)
 					if(cityElem.value != autocomplete.getPlace().name && clickFlag){ // input 내용을 건드리면
 						selectedCity = false;

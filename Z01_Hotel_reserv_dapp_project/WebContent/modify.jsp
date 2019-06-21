@@ -30,10 +30,14 @@
 	<div class="limiter">
 		<div class="container-login102">
 			<div style="margin-top: 0px;" class="wrap-login100">
-				<form class="login100-form validate-form" action="modify" method="post"
-					onsubmit ="return chkValidate2()">
+				<form class="login100-form validate-form" action="modify" method="post" onkeydown="return notUseEnterKey(event);"
+					onsubmit ="document.forms[0].city.disabled = false; return chkValidate2()" enctype="multipart/form-data">
+					<script>
+						function notUseEnterKey(e){
+							if(e.keyCode === 13 && e.srcElement.type != 'textarea') e.preventDefault();
+						}
+					</script>
 					<input type="hidden" name="hiddenValue" value="hotel">
-					
 					<span class="login100-form-title p-b-40">
 						회원 정보수정
 					</span>
@@ -88,7 +92,7 @@
 					
 					도시
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "도시를 입력해주세요.">
-						<input class="input100" name="city" value="${ city }" disabled>
+						<input class="input100" name="city" value="${ city }">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span style="position: absolute;" class="lnr lnr-map"></span>

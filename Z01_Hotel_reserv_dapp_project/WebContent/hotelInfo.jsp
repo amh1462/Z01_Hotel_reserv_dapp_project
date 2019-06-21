@@ -20,7 +20,7 @@
 </head>
 <script type="text/javascript">
 	function move() {
-		location.href = "modify";
+		location.href = "modify?type=hotel";
 	}
 	
 	function popup() {
