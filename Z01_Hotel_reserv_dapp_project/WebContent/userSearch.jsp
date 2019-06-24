@@ -9,6 +9,7 @@
 <html>
 
 <head>
+	<title>호텔나라</title>
 	<meta charset="UTF-8">
 	<link rel='stylesheet' href='css/User/userSearch.css' type='text/css'
 		media='all' />
@@ -44,11 +45,11 @@
 </head>
 
 <body class="loaded">
-	<nav class="navbar"></nav>
 	<div class="site-all">
 		<div id="header">
 			<div class="row-header">
 				<div class="container">
+					<a style="margin-left: 90%; margin-top:1%;" href="index.jsp">메인으로 가기</a>
 					<h1 class="slogan">HotelNara</h1>
 					
 					<!-- form1: 검색용 -->

@@ -6,13 +6,11 @@
 <html>
 
 <head>
-
+  <title>호텔나라</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
-  <title>HotelNara</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -145,7 +143,13 @@
   		
   		var paymentCompleteEvent = reservContractObj.PaymentCompleteEvent();
   		// 이벤트 발생시 submit까지
-  		paymentEventWatch();
+  		paymentCompleteEvent.watch(function(err,res){
+			if(err) console.log("지불완료이벤트에러",err);
+			else { // 전송 진짜 완료
+				console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
+				document.forms[0].submit();
+			}
+		})
   	}
   	
   	
@@ -155,26 +159,20 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" style="color: white;" >예약 하기</a>
+      <a class="navbar-brand" style="color: white;" >예약 창</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="userIndex.html">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="bookConfirm.jsp">예약확인</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="userIndex.html">호텔검색</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+     <div class="collapse navbar-collapse" id="navbarResponsive">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item active"><a class="nav-link"
+				href="userIndex.html">Home <span class="sr-only">(current)</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="bookConfirm.jsp">예약확인</a></li>
+		</ul>
+	</div>
+   </div>
   </nav>
 
   <!-- Page Content -->
@@ -314,17 +312,6 @@
 			else console.log("왠callback? ", res);
 		});
 	}
-	
-  	// 이더 전송 완료시 발생하는 이벤트 캐치
-	function paymentEventWatch(){
-		paymentCompleteEvent.watch(function(err,res){
-			if(err) console.log("지불완료이벤트에러",err);
-			else { // 전송 진짜 완료
-				console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
-				document.forms[0].submit();
-			}
-		})
-	}
   </script>
   
   
@@ -334,7 +321,7 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   
-  <script src="js/reservation_contract_abi2.js"></script>
+  <script src="js/reservation_contract_abi3.js"></script>
   <script src="js/reservation_contract_bytecode.js"></script>
   
 </body>

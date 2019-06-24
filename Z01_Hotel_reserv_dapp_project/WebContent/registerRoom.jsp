@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>객실 등록</title>
+  <title>호텔나라</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -147,7 +147,7 @@
   <script language="javascript" type="text/javascript" src="https://github.com/ethereum/web3.js/blob/master/dist/web3.min.js"></script>
   
   <!-- abi, bytecode -->
-  <script src="js/reservation_contract_abi2.js?ver=1"></script>
+  <script src="js/reservation_contract_abi3.js?ver=1"></script>
   <script src="js/reservation_contract_bytecode.js?ver=1"></script>
 
 </body>

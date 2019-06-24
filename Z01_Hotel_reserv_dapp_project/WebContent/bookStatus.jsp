@@ -64,12 +64,31 @@
 			var td0 = tr.children().eq(0);
 			var contract = td0.text();
 			var uwallet = tr.children().eq(1).text();
+			var resno = tr.children().eq(2).text();
 			console.log("contract:",contract);
+			console.log("resno", resno);
 			
 			reservContractObj = web3js.eth.contract(reservation_contract_ABI).at(contract);
 			withdraw(uwallet);
 			var paymentCompleteEvent = reservContractObj.PaymentCompleteEvent();
-	  		paymentEventWatch();
+			paymentCompleteEvent.watch(function(err,res){
+				if(err) console.error("지불 이벤트 발생 에러",err);
+				else{
+					console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
+					alert('이더 받을 계좌: '+res.args.account+'\n이더량: '+res.args.amount+'ether\n컨트랙트 이더 보유여부: '+res.args.isContractHasEther);
+					$.ajax({
+						url: 'showreservation?withdrawOk=1&resno='+resno,
+						success:function(data, statusTxt, xhr){
+							// isWithdraw => 1로 처리 성공했을 시
+							console.log('/'+data+'/');
+							alert(data);
+							location.reload();
+						},
+						error: function(xhr,statusTxt,c){ console.log("통신에 실패했습니다."); }
+					});
+					
+				}
+			})
 		})
 	}
 	
@@ -88,21 +107,12 @@
 							if(res2.statue == '0x0')/*실패*/ console.log("트랜잭션 실패(txid):", res2);
 							else if(res2 != null && res2.status == '0x1'){
 								console.log("트랜잭션 성공(txid):", res2);
+								clearInterval(txChkInterval);
 							}
+							clearInterval(txChkInterval);
 						}
 					})
 				},100); //0.1초마다 실행
-			}
-		})
-	}
-	
-	function paymentEventWatch(){
-		paymentCompleteEvent.watch(function(err,res){
-			if(err) console.error("지불 이벤트 발생 에러",err);
-			else{
-				console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
-				alert('이더 받을 계좌: '+res.args.account+'\n이더량: '+res.args.amount+'ether\n컨트랙트 이더 보유여부: '+res.args.isContractHasEther);
-				location.reload();
 			}
 		})
 	}
@@ -143,6 +153,7 @@
 	          <tr>
 	          	<td style="display:none;">${ resVo.contract }</td>
 	          	<td style="display:none;">${ resVo.uwallet }</td>
+	          	<td style="display:none;">${ resVo.resno }</td>
 	        	<td>${ resVo.guestname }</td>
 	        	<td>${ resVo.roomno }</td>
 	        	<td>${ resVo.totalprice }</td>
@@ -191,7 +202,7 @@
   
 
   
-  <script src="js/reservation_contract_abi2.js"></script>
+  <script src="js/reservation_contract_abi3.js"></script>
   <script src="js/reservation_contract_bytecode.js"></script>
   
   <script src="vendor/jquery/jquery-3.2.1.min.js"></script>

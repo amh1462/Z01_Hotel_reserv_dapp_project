@@ -18,7 +18,12 @@ public class ShowReservationController extends HttpServlet {
 		String s = request.getParameter("resIndex");
 		
 		int resIndexParam = Integer.parseInt((s !=null) ? s : "1");
-		if(request.getParameter("no") == null) {
+		if(request.getParameter("withdrawOk") != null) {
+			String msg = resDao.updateIsWithdraw(request.getParameter("resno"));
+			response.getWriter().println(msg); 	
+
+		}
+		else if(request.getParameter("no") == null) {
 			if(request.getParameter("searchKeyword") !=null) {
 				String category = request.getParameter("searchField");
 				String keyword = request.getParameter("searchKeyword");
@@ -37,7 +42,7 @@ public class ShowReservationController extends HttpServlet {
 			}
 			
 			request.getRequestDispatcher("hotelMain.jsp?contentPage=bookStatus.jsp").forward(request, response);
-		}else {
+		}else if(request.getParameter("no") != null) {
 			request.setAttribute("resVo", resDao.select(request.getParameter("no"),request.getParameter("hotelid")));
 			System.out.println("no");
 			request.getRequestDispatcher("hotelMain.jsp").forward(request, response);		

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>테스트</title>
+	<title>호텔나라</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
   	<meta name="description" content="">
@@ -44,7 +44,7 @@
 	</c:if>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info fixed-top">
    <div class="container">
-      <a class="navbar-brand" style="color:white;">HotelNara</a>
+      <a class="navbar-brand" style="color:white;" href="hotelMain.jsp?contentPage=hotelInfo.jsp">HotelNara</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

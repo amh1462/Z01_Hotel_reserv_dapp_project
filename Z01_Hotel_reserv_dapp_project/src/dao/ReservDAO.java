@@ -262,6 +262,27 @@ public ReservVO select(String resno, String hotelid) {
 		return result;
 	}
 	
+	public String updateIsWithdraw(String resno) {
+		String msg = null;
+		int result = 0;
+		String query = "update reservation set iswithdraw = 1 where resno = " + resno;
+		
+		try {
+			Statement stmt = conn.createStatement();
+			result = stmt.executeUpdate(query);
+			if(result>0) {
+				msg = "정산이 완료되었습니다.";
+			} else {
+				msg = "정산에 오류가 발생했습니다.";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return msg;
+	}
+	
 	//--------------------------------User-------------------------------------------------------
 	
 	public List<ReservVO> userSelectAll(int pidx, String guestname, String phone, String email){
@@ -283,6 +304,7 @@ public ReservVO select(String resno, String hotelid) {
 			
 			while(rs.next()) {
 				ReservVO uresVo = new ReservVO();
+				uresVo.setResno(rs.getString("resno"));
 				uresVo.setHotelname(rs.getString("hotelname"));
 				uresVo.setRoomno(rs.getString("roomname"));
 				uresVo.setTotalprice("0" + rs.getString("totalprice"));
