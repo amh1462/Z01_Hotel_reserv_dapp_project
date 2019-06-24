@@ -21,7 +21,6 @@ public class RoomDAO {
 	
 	public List<RoomVO> selectAll(String hotelid, int pIndex, String category, String keyword){
 		List<RoomVO> rlist = new ArrayList<RoomVO>();
-		
 		int pSize = 3;
 		int startIdx = (pIndex-1) * pSize + 1;
 		int endIdx = pIndex * pSize;
@@ -38,6 +37,39 @@ public class RoomDAO {
 					+ "(select * from room where hotelid='" + hotelid + "' order by roomno desc) v1)"
 					+ "where r1 between " + startIdx + " and "+ endIdx;
 		}
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()) {
+				RoomVO rVo = new RoomVO();
+				rVo.setRoomno(rs.getString("roomno"));
+				rVo.setHotelid(rs.getString("hotelid"));
+				rVo.setRoomname(rs.getString("roomname"));
+				rVo.setRoominfo(rs.getString("roominfo"));
+				rVo.setAllowedman(rs.getString("allowedman"));
+				rVo.setDailyprice(rs.getString("dailyprice"));
+				rVo.setWeekendprice(rs.getString("weekendprice"));
+				rVo.setTotalcount(rs.getString("totalcount"));
+				rVo.setRestcount(rs.getString("restcount"));
+				rVo.setPhoto(rs.getString("photo"));
+				long formatted = Long.parseLong(rs.getString("time") + "000");
+				String time = new SimpleDateFormat("yyyy-MM-dd a hh시 mm분 ss초").format(formatted);
+				rVo.setTime(time);
+				rVo.setContract(rs.getString("contract"));
+				rlist.add(rVo);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rlist;
+	}
+	
+	public List<RoomVO> selectAll(String hotelid){
+		List<RoomVO> rlist = new ArrayList<RoomVO>();
+		String query = "select * from room where hotelid = '"+hotelid+"'";
+		
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -86,12 +118,45 @@ public class RoomDAO {
 				rVo.setPhoto(rs.getString("photo"));
 				rVo.setContract(rs.getString("contract"));
 			}
+			rs.close();
+			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
 		return rVo;
+	}
+	
+	public List<RoomVO> selectOneList(String rNum) {
+		List<RoomVO> rlist = new ArrayList<RoomVO>();
+		String query = "select * from room where roomno = '" + rNum +"'";
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()) {
+				RoomVO rVo = new RoomVO();
+				rVo.setRoomno(rs.getString("roomno"));
+				rVo.setHotelid(rs.getString("hotelid"));
+				rVo.setRoomname(rs.getString("roomname"));
+				rVo.setRoominfo(rs.getString("roominfo"));
+				rVo.setAllowedman(rs.getString("allowedman"));
+				rVo.setDailyprice(rs.getString("dailyprice"));
+				rVo.setWeekendprice(rs.getString("weekendprice"));
+				rVo.setTotalcount(rs.getString("totalcount"));
+				rVo.setRestcount(rs.getString("restcount"));
+				rVo.setPhoto(rs.getString("photo"));
+				long formatted = Long.parseLong(rs.getString("time") + "000");
+				String time = new SimpleDateFormat("yyyy-MM-dd a hh시 mm분 ss초").format(formatted);
+				rVo.setTime(time);
+				rVo.setContract(rs.getString("contract"));
+				rlist.add(rVo);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rlist;
 	}
 	
 	public int getStartList(int pIndex) {
@@ -183,121 +248,5 @@ public class RoomDAO {
 		
 		return result;
 	}
-	//---------------------userSelectAll---------------------
 	
-	public List<RoomVO> userSelectAll(int pidx, String hotelid){
-		int start = (pidx -1) * 10 + 1;
-		int end = pidx * 10;
-		List<RoomVO> roomlist = new ArrayList<RoomVO>();
-		
-		String pquery = "select * from room where hotelid = '"+hotelid+"'";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(pquery);
-			
-			while(rs.next()) {
-				RoomVO roomVo = new RoomVO();
-				
-				roomVo.setAllowedman(rs.getString("allowedman"));
-				roomVo.setRoomname(rs.getString("roomname"));
-				roomVo.setDailyprice(rs.getString("dailyprice"));
-				roomVo.setWeekendprice(rs.getString("weekendprice"));
-				roomVo.setTotalcount(rs.getString("totalcount"));
-				roomlist.add(roomVo);
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {e.printStackTrace();}
-		return roomlist;
-	}
-	
-	public List<RoomVO> userSelectAll(String pidx, String hotelid){
-		List<RoomVO> roomlist = new ArrayList<RoomVO>();
-		
-		String pquery = "select * from room where hotelid = '"+hotelid+"' and roomname = '"+pidx+"'";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(pquery);
-			
-			while(rs.next()) {
-				RoomVO roomVo = new RoomVO();
-				
-				roomVo.setAllowedman(rs.getString("allowedman"));
-				roomVo.setRoomname(rs.getString("roomname"));
-				roomVo.setDailyprice(rs.getString("dailyprice"));
-				roomVo.setWeekendprice(rs.getString("weekendprice"));
-				roomVo.setTotalcount(rs.getString("totalcount"));
-				roomlist.add(roomVo);
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {e.printStackTrace();}
-		return roomlist;
-	}
-	
-	public int lastPageNum(String hotelid) {
-		int result = 0;
-		
-		try {
-			String query = "select count(*) as cnt from room where hotelid = '"+hotelid+"'";
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-			if(rs.next()) {
-				result = rs.getInt("cnt");
-			}
-			
-			result = (int)Math.ceil(result/1.0);
-			stmt.close();
-		} catch (Exception e) {e.printStackTrace();}
-		
-		return result;
-	}
-	
-	public int getEndList(int resIndexParam, String hotelid) {
-		return Math.min(lastPageNum(hotelid), 10);
-	}
-	
-	public List<RoomVO> userSelect(int pidx, String hotelid){
-		int start = (pidx -1) * 10 + 1;
-		int end = pidx * 10;
-		List<RoomVO> rolist = new ArrayList<RoomVO>();
-		
-		String pquery = "select * from room where hotelid = '"+hotelid+"'";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(pquery);
-			
-			while(rs.next()) {
-				RoomVO roVo = new RoomVO();
-				roVo.setRoomname(rs.getString("roomname"));
-				rolist.add(roVo);
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {e.printStackTrace();}
-		return rolist;
-	}
-	
-	public List<RoomVO> userSelect(String pidx, String hotelid){
-		List<RoomVO> rolist = new ArrayList<RoomVO>();
-		
-		String pquery = "select * from room where hotelid = '"+hotelid+"' and roomname = '"+pidx+"'";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(pquery);
-			
-			while(rs.next()) {
-				RoomVO roVo = new RoomVO();
-				roVo.setRoomname(rs.getString("roomname"));
-				rolist.add(roVo);
-			}
-			rs.close();
-			stmt.close();
-		} catch (Exception e) {e.printStackTrace();}
-		return rolist;
-	}
 }

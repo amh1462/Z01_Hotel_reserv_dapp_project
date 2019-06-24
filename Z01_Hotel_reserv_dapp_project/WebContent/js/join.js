@@ -26,6 +26,7 @@ function z(hotelid){ return document.getElementById(hotelid); }
 		function chkValid2(){ // 비밀번호 내용이 불일치할 때, submit 못하게 함.
 			if(document.forms[0].password.value != document.forms[0].pw2.value){
 				alert('비밀번호 확인이 필요합니다.');
+				event.preventDefault();
 			} else if(!selectedCity){
 				alert('도시 선택을 해야합니다.');
 				event.preventDefault();
@@ -124,46 +125,39 @@ function z(hotelid){ return document.getElementById(hotelid); }
 					types: ['(cities)'] // 도시 정보만 가져오는 옵션
 			}
 			var autocomplete = new google.maps.places.Autocomplete(cityElem, option); // autocomplete 객체 생성
-			var clickFlag = false;
 			
-			if(cityElem.value != ''){
+			if(cityElem.value != ''){ // 회원수정 창일 때
 				selectedCity = true;
 				chkSelectCity();
 			}
 			
-			countryElem.onchange = function(){ // 나라 선택
+			countryElem.onchange = function(){ // 나라를 선택하면
 				cityElem.value = '';
 				selectedCity = false;
 				chkSelectCity();
 				if(countryElem.value != ''){ // 선택했을 시
 					cityElem.disabled = false;
-					autocomplete.setComponentRestrictions({'country': countryElem.value}); // 해당 국가만
-					google.maps.event.addListener(autocomplete, 'place_changed', function(){ // 도시 정보를 자동 완성하는데, 주소가 클릭될 때마다 이벤트가 발생
-						if((typeof autocomplete.getPlace()) != 'undefined' && !clickFlag){
-							cityElem.value = autocomplete.getPlace().name;
-							console.log('클릭으로 getPlace()에 문자가 담김.');
-							selectedCity = true;
-							chkSelectCity();
-							clickFlag = true;
-						}
-					})
+					autocomplete.setComponentRestrictions({'country': countryElem.value}); // 국가 선택시, 해당 국가 내의 지역만 검색.
 				} else{ // 국가 선택 안 했을 시
 					cityElem.disabled = true;
-					selectedCity = false;
 				}
 			}
 			
-			cityElem.onkeyup = function(event){ // city input에 입력이 들어왔을 때
-				if(event.keyCode === 13){
+			google.maps.event.addListener(autocomplete, 'place_changed', function(){ // 주소가 클릭될 때마다 이벤트가 발생
+				if((typeof autocomplete.getPlace()) != 'undefined'){
+					cityElem.value = autocomplete.getPlace().name;
+					console.log('클릭으로 getPlace()에 문자가 담김.');
+					selectedCity = true;
+					chkSelectCity();
+				}
+			})
+			
+			cityElem.onkeyup = function(){ // city input에 입력이 들어왔을 때
+				if(event.keyCode === 13){ // 엔터는 안 씀.
 					cityElem.value = "";
 				}
-				if((typeof autocomplete.getPlace()) != 'undefined'){ // 주소 선택이 한 번 되고 나서 (안 되고 하면 에러뜸)
-					if(cityElem.value != autocomplete.getPlace().name && clickFlag){ // input 내용을 건드리면
-						selectedCity = false;
-						chkSelectCity();
-						clickFlag = false;
-					}
-				}
+				selectedCity = false; // 클릭으로 선택한 도시 말고는 다 못 씀.
+				chkSelectCity();
 			}
 		}
 

@@ -124,13 +124,14 @@
 	    		if(err) console.log("상태변수 호출 에러",err);
 	    		else {
 		    		if(document.forms[0].hwallet.value == res[0] && ${cancelfee1} == res[1] && ${cancelfee2} == res[2] && ${cancelfee3} == res[3] && 
-		    				${cancelfee4} == res[4] && ${cancelday1} == res[5] && ${cancelday2} == res[6]){
-		    			console.log('참인데?')
+		    				${cancelfee4} == res[4] && ${cancelday1} == res[5] && ${cancelday2} == res[6]){ 
+		    			// 호텔 계좌, 취소수수료같은 컨트랙트에 넣을 요소는 그대로일 때
+		    			console.log('컨트랙트를 바꾸지 않아도 됨.')
 		    			document.forms[0].submit();
 		    		}
 		    		else {
 		    			// 상태변수 업데이트하는 컨트랙트의 함수 실행.
-		    			reservContractObj.updateContract.sendTransaction(document.forms[0].hwallet.value, ${cancelfee1}, ${cancelfee2}, ${cancelfee3}, ${cancelfee4}, ${cancelday1}, ${cancelday2}
+		    			reservContractObj.updateStateValue.sendTransaction(document.forms[0].hwallet.value, ${cancelfee1}, ${cancelfee2}, ${cancelfee3}, ${cancelfee4}, ${cancelday1}, ${cancelday2}
 		    			,function(err,res){
 		    				if(err) console.log("수정 에러", err);
 		    				else {
@@ -157,15 +158,15 @@
 		    				}, 100);
 		    			}) // updateContract.sendTransaction
 		    		} // else
-	    		}
+	    		} // if(err) -> else
 	    	}); // getStateValue.call
 		} 
 	    
 	    z('submitBtn').onclick = function(){
-	    	if(isSameHotelData()){
-	    		document.forms[0].submit();
+	    	if(web3js.eth.accounts[0] == null){
+	    		alert('먼저 메타마스크에 로그인해주세요.\n 수정시 결제할 지갑이 필요합니다.');
 	    	}
-	    	else 
+	    	else
 	    		update();
 	    }
 	    
@@ -182,6 +183,7 @@
 			}
 			
 			reservContractObj = web3js.eth.contract(reservation_contract_ABI).at( '${ requestScope.rvo.contract }' );
+			console.log("예약컨트랙트객체:", reservContractObj);
 		}
     </script>
   </div>

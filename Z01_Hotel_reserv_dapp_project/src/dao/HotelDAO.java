@@ -140,7 +140,6 @@ public class HotelDAO {
 			Statement stmt = conn.createStatement();
 			
 			String pwStr = hVo.getPassword() == null ? "" : String.format("password='%s',", hVo.getPassword());
-			
 			String sql = "update hotel set " + pwStr + "hotelname = '" + hVo.getHotelname() + "', " + "country = '"
 						+ hVo.getCountry() + "', city = '" + hVo.getCity() + "', detailaddr = '"
 						+ hVo.getDetailaddr() + "', hwallet = '" + hVo.getHwallet() + "', cancelfee1 ='" 

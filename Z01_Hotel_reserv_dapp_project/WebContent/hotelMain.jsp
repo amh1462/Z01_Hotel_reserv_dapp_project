@@ -6,12 +6,13 @@
 <head>
 	<title>테스트</title>
 	<meta charset="utf-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1, 	shrink-to-fit=no">	
+  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
   	<meta name="description" content="">
   	<meta name="author" content="">
 
   	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   	<link href="css/modern-business.css" rel="stylesheet">
+  	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
 <style type="text/css">
@@ -41,17 +42,16 @@
 			location.href = './logout' // session이 없으면 알아서 로그아웃 처리..
 		</script>
 	</c:if>
-
-	 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand">Hotel</a>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info fixed-top">
+   <div class="container">
+      <a class="navbar-brand" style="color:white;">HotelNara</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li>
-          	<a class="nav-link" href="logout">Logout</a>
+          	<a class="nav-link" style="color:white;" href="logout">Logout</a>
           </li>
         </ul>
       </div>

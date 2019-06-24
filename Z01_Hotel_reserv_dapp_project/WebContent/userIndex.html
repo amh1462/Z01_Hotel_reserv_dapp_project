@@ -21,18 +21,53 @@
 	<script type="text/javascript" src="js/User/calendar.js"></script>
 
 	<!-- googleMap.js -->
-	<script src="js/User/googleMap.js"></script>
+	<script src="js/User/googleMap.js?ver=2"></script>
 	
 
 </head>
-
+<style>
+	.btn{
+		 text-align: center;
+		 border-radius: .25rem;
+		 line-height: 1.5;
+		 font-size: 1rem;
+		 padding: .375rem .75rem;
+		 border: 1px solid transparent;
+		 user-select : none;
+		 font-weight:400;
+	}
+	btn:hover{
+  		background-color: white; 
+ 		color: black; 
+ 		border: 2px solid #008CBA;
+	}
+	.btn-primary{
+		color: #ffff;
+		background-color: #007bff;
+		border-color: #007bff;
+	}
+</style>
+<script type="text/javascript">
+	function popup() {
+		var url = "bookConfirm.jsp";
+		var name = "confirm"
+		var option = "width = 680px, height = 500px, top = 150 left = 700 location = no"
+		window.open(url,confirm, option);
+	}
+</script>
 <body class="loaded">
 	<div class="site-all">
 		<div id="header">
 			<div class="row-header">
+				<input class="btn btn-primary hover" style="margin-left: 90%; margin-top:1%;" type="button" onclick="popup()" value ="예약확인">
 				<div class="container">
-					<h1 class="slogan">Hotelnara</h1>
-					<form id="search-form" method="POST" action="UserSearch">
+					<h1 class="slogan">HotelNara</h1>
+					<form id="search-form" method="POST" action="UserSearch" onkeydown="return notUseEnterKey(event);">
+			          <script>
+						  function notUseEnterKey(e){
+						      if(e.keyCode === 13 && e.srcElement.type != 'textarea') e.preventDefault();
+						  }
+					  </script>
 						<div class="inputs">
 							<input type="text" name="city" placeholder="검색">
 							<select name="country" id="q" style="padding-right: 10px;">								
@@ -51,9 +86,7 @@
 						</div>
 						<script>
 							$(function () {
-								$('.t-datepicker').tDatePicker({
-									$(this).attr('value', $('.t-datepicker').val())
-								});
+								$('.t-datepicker').tDatePicker('update','');
 							});
 						</script>
 

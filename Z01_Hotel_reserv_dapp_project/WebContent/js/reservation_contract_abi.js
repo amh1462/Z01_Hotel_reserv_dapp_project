@@ -61,6 +61,15 @@ var reservation_contract_ABI = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [],
+		"name": "deleteCheckIn_roomPrice",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "hotelAccount",
@@ -138,44 +147,6 @@ var reservation_contract_ABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "hotel",
-				"type": "address"
-			},
-			{
-				"name": "cancelPercentTheday",
-				"type": "uint256"
-			},
-			{
-				"name": "cancelPercent1day",
-				"type": "uint256"
-			},
-			{
-				"name": "setCancelPercent1",
-				"type": "uint256"
-			},
-			{
-				"name": "setCancelPercent2",
-				"type": "uint256"
-			},
-			{
-				"name": "setCancelPeriod1",
-				"type": "uint256"
-			},
-			{
-				"name": "setCancelPeriod2",
-				"type": "uint256"
-			}
-		],
-		"name": "updateContract",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [],
 		"name": "getStateValue",
@@ -211,6 +182,44 @@ var reservation_contract_ABI = [
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "hotel",
+				"type": "address"
+			},
+			{
+				"name": "cancelPercentTheday",
+				"type": "uint256"
+			},
+			{
+				"name": "cancelPercent1day",
+				"type": "uint256"
+			},
+			{
+				"name": "setCancelPercent1",
+				"type": "uint256"
+			},
+			{
+				"name": "setCancelPercent2",
+				"type": "uint256"
+			},
+			{
+				"name": "setCancelPeriod1",
+				"type": "uint256"
+			},
+			{
+				"name": "setCancelPeriod2",
+				"type": "uint256"
+			}
+		],
+		"name": "updateStateValue",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -30,12 +30,12 @@ public class UserDAO {
 			while(rs.next()) {
 				
 				HotelVO hVo = new HotelVO();
+				hVo.setHotelid(rs.getString("hotelid"));
 				hVo.setHotelname(rs.getString("hotelname"));
 				hVo.setCity(rs.getString("city"));
 				hVo.setDetailaddr(rs.getString("detailaddr"));
 				hVo.setPhone(rs.getString("phone"));
 				hVo.setPhoto(rs.getString("photo"));
-				hVo.setHotelname(rs.getString("hotelname"));
 				hVo.setCountry(rs.getString("country"));
 				hlist.add(hVo);
 			}

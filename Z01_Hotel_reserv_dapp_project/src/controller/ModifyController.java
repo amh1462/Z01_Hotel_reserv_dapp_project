@@ -66,7 +66,7 @@ public class ModifyController extends HttpServlet {
 			HotelVO hVo = new HotelVO();
 			
 			if(multi.getParameter("password").trim().length() !=0) {
-				hVo.setPassword(request.getParameter("password"));
+				hVo.setPassword(multi.getParameter("password"));
 			}
 			
 			hVo.setHotelname(multi.getParameter("hotelname"));

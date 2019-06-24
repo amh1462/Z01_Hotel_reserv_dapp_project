@@ -30,7 +30,7 @@
 		  </script>
           <ul style="list-style-type: none; width: 400px;">
 	          <li>방 이름 : <br><input name="roomname" style="width: 250px;" required></li>  
-	          <li style="margin-top: 15px;">방 설명 : <textarea name="roominfo" cols="70" rows="8" style="resize: none;"></textarea></li>
+	          <li style="margin-top: 15px;">방 설명 : <textarea name="roominfo" cols="70" rows="8" style="resize: none; border: 1px solid;"></textarea></li>
 	          <li style="margin-top: 15px;">허용 인원: <br>
 	          	<select name="allowedman" style="width: 50px">
 	          		<c:forEach var="i" begin="2" end="9">
@@ -94,30 +94,33 @@
 	    function deployContract(){
 	    	var reservContract = web3js.eth.contract(reservation_contract_ABI);
 	    	alert('예약 컨트랙트 배포를 시작합니다. \n메타마스크 계좌에서 약간의 수수료가 지불될 수 있습니다.');
-	    	reservContract.new(document.forms[0].hwallet.value, ${cancelfee1}, ${cancelfee2}, ${cancelfee3}, ${cancelfee4}, ${cancelday1}, ${cancelday2},{
-				data: reservation_contract_bytecode,
-				from: web3js.eth.accounts[0],
-				//gas: web3.eth.estimateGas({data: reservation_contract_bytecode});
-				gas: 2000000
-			}, function(err,res){
-				if(err) {
-					console.log('배포 에러', err);
-					// submit 취소
-					alert('컨트랙트 배포에 실패했습니다. 다시 등록해주십시오.');
-				}
-				else{
-					if(res.address == null){
-						console.log("트랜잭션 해시",res.transactionHash);
-						console.log("컨트랙트 주소",res.address);
-						// res.address를 DB에 저장.
-					} else {
-						console.log("컨트랙트 주소",res.address);
-						document.forms[0].contract.value = res.address;
-						alert('컨트랙트 배포 완료!');
-						document.forms[0].submit();
+	    	if(web3js.eth.accounts[0] == null) alert('먼저 메타마스크에 로그인해주세요.\n 방 등록시 결제할 지갑이 필요합니다.');
+	    	else{
+		    	reservContract.new(document.forms[0].hwallet.value, ${cancelfee1}, ${cancelfee2}, ${cancelfee3}, ${cancelfee4}, ${cancelday1}, ${cancelday2},{
+					data: reservation_contract_bytecode,
+					from: web3js.eth.accounts[0],
+					//gas: web3.eth.estimateGas({data: reservation_contract_bytecode});
+					gas: 2000000
+				}, function(err,res){
+					if(err) {
+						console.log('배포 에러', err);
+						// submit 취소
+						alert('컨트랙트 배포에 실패했습니다. 다시 등록해주십시오.');
 					}
-				}
-			});
+					else{
+						if(res.address == null){
+							console.log("트랜잭션 해시",res.transactionHash);
+							console.log("컨트랙트 주소",res.address);
+							// res.address를 DB에 저장.
+						} else {
+							console.log("컨트랙트 주소",res.address);
+							document.forms[0].contract.value = res.address;
+							alert('컨트랙트 배포 완료!');
+							document.forms[0].submit();
+						}
+					}
+				}); // reservContract.new
+	    	} // else
 	    };
 	    
 	    onload = function() {
@@ -130,6 +133,7 @@
 				console.log('web3인식 X');
 				alert('컨트랙트 배포를 위해 메타마스크를 설치해주시고 로그인 해주십시오. \n만약 브라우저가 Chrome이 아니라면 실행할 수 없습니다.');
 				window.open("about:blank").location.href = 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ko';
+				history.back();
 			}
 		}
     </script>
@@ -143,8 +147,8 @@
   <script language="javascript" type="text/javascript" src="https://github.com/ethereum/web3.js/blob/master/dist/web3.min.js"></script>
   
   <!-- abi, bytecode -->
-  <script src="js/reservation_contract_abi.js"></script>
-  <script src="js/reservation_contract_bytecode.js"></script>
+  <script src="js/reservation_contract_abi.js?ver=1"></script>
+  <script src="js/reservation_contract_bytecode.js?ver=1"></script>
 
 </body>
 </html>

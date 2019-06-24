@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -221,5 +222,106 @@ public ReservVO select(String resno, String hotelid) {
 	
 	public Object getEndList(int resIndexParam, String category, String keyword, String hotelid) {
 		return Math.min(lastPageNum(category, keyword,hotelid), (resIndexParam -1) / 10 * 10 +10);
+	}
+	
+	public int insert(ReservVO resVo) {
+		int result = 0;
+		String query = "insert into reservation values (resno_seq.nextval,?,?,?,?,?,?,?,?,?,0,0,?,?,?)";
+		// resno, roomno, guestname, email, phone, uwallet, totalprice, ordernum, checkin, checkout, iscancel, iswithdraw, time, hotelid, contract
+		
+		String now = "" + System.currentTimeMillis() / 1000;
+		
+		try {
+			PreparedStatement pst = conn.prepareStatement(query);
+			pst.setString(1, resVo.getRoomno());
+			pst.setString(2, resVo.getGuestname());
+			pst.setString(3, resVo.getEmail());
+			pst.setString(4, resVo.getPhone());
+			pst.setString(5, resVo.getUwallet());
+			pst.setString(6, resVo.getTotalprice());
+			pst.setString(7, resVo.getOrdernum());
+			pst.setString(8, resVo.getCheckin());
+			pst.setString(9, resVo.getCheckout());
+			pst.setString(10, now);
+			pst.setString(11, resVo.getHotelid());
+			pst.setString(12, resVo.getContract());
+			
+			result = pst.executeUpdate();
+			pst.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+	
+	//--------------------------------User-------------------------------------------------------
+	
+	public List<ReservVO> userSelectAll(int pidx, String guestname, String phone, String email){
+		List<ReservVO> ureslist = new ArrayList<ReservVO>() ;
+		int start = (pidx -1) * 10 + 1;
+		int end = pidx*10;
+		String pquery = "";
+		if(phone !=null && guestname !=null && email == "") {
+			pquery = "select * from (select rownum r1, v1.* from (select res.*, rm.roomname, ho.hotelname from reservation res, room rm, hotel ho where res.roomno = rm.roomno and rm.hotelid = ho.hotelid and res.GUESTNAME = '"+ guestname + "' and res.phone = '"+ phone +"' order by res.resno desc) v1) where r1 between " + start +" and "+ end;
+		}else if(phone !=null && email !=null && guestname == "") {
+			pquery = "select * from (select rownum r1, v1.* from (select res.*, rm.roomname, ho.hotelname from reservation res, room rm, hotel ho where res.roomno = rm.roomno and rm.hotelid = ho.hotelid and res.email= '"+ email + "' and res.phone = '"+ phone +"' order by res.resno desc) v1) where r1 between " + start +" and "+ end;
+		}else if(phone !=null && email !=null && guestname !=null){
+			pquery = "select * from (select rownum r1, v1.* from (select res.*, rm.roomname, ho.hotelname from reservation res, room rm, hotel ho where res.roomno = rm.roomno and rm.hotelid = ho.hotelid and res.email= '"+ email + "' and res.phone = '"+ phone +"' and res.guestname = '"+guestname+"' order by res.resno desc) v1) where r1 between " + start +" and "+ end;
+		}
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(pquery);
+			
+			while(rs.next()) {
+				ReservVO uresVo = new ReservVO();
+				uresVo.setHotelname(rs.getString("hotelname"));
+				uresVo.setRoomno(rs.getString("roomname"));
+				uresVo.setTotalprice("0" + rs.getString("totalprice"));
+				uresVo.setIscancel(rs.getString("iscancel"));
+				
+				long formatted2 = Long.parseLong(rs.getString("checkin")+"000");
+				String t2 = new SimpleDateFormat("yy-MM-dd").format(formatted2);
+				uresVo.setCheckin(t2);
+				
+				long formatted3 = Long.parseLong(rs.getString("checkout")+"000");
+				String t3 = new SimpleDateFormat("yy-MM-dd").format(formatted3);
+				uresVo.setCheckout(t3);
+
+				ureslist.add(uresVo);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return ureslist;
+	}
+	
+	public int userLastPageNum(String phone) {
+		int result = 0;
+		try {
+			String query = "select count(*) as cnt from (select res.*, rm.roomname from reservation res, room rm where res.roomno = rm.roomno and res.phone= '"+phone+"' order by res.resno desc) v1";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+			}
+			result = (int)Math.ceil(result/10.0);
+			stmt.close();
+		} catch (SQLException e) { e.printStackTrace(); }
+		
+		return result;
+	}
+	
+	public int getUserEndList(int resIndexParam, String guestname) {
+		
+		return Math.min(userLastPageNum(guestname), (resIndexParam - 1)/ 10 * 10 + 10);
+	}
+	
+	public int usetGetEndList(int resIndexParam, String phone) {
+		
+		return Math.min(userLastPageNum(phone), (resIndexParam - 1)/ 10 * 10 + 10);
 	}
 }

@@ -33,9 +33,9 @@ public class UserController extends HttpServlet {
 
 		String keyword = request.getParameter("city");
 
-		request.setAttribute("lastListNum", uDao.lastPageNum(keyword));
-		request.setAttribute("startList", uDao.getStartList(pIndexParam));
-		request.setAttribute("endList", uDao.getEndList(pIndexParam, keyword));
+//		request.setAttribute("lastListNum", uDao.lastPageNum(keyword));
+//		request.setAttribute("startList", uDao.getStartList(pIndexParam));
+//		request.setAttribute("endList", uDao.getEndList(pIndexParam, keyword));
 		request.setAttribute("hlist", uDao.selectAll(keyword));
 		
 		RequestDispatcher rd = request.getRequestDispatcher("userSearch.jsp");

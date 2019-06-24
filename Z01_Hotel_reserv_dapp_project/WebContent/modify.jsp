@@ -31,7 +31,7 @@
 		<div class="container-login102">
 			<div style="margin-top: 0px;" class="wrap-login100">
 				<form class="login100-form validate-form" action="modify" method="post" onkeydown="return notUseEnterKey(event);"
-					onsubmit ="document.forms[0].city.disabled = false; return chkValidate2()" enctype="multipart/form-data">
+					onsubmit ="document.forms[0].city.disabled = false; return chkValid2()" enctype="multipart/form-data">
 					<script>
 						function notUseEnterKey(e){
 							if(e.keyCode === 13 && e.srcElement.type != 'textarea') e.preventDefault();
@@ -60,7 +60,7 @@
 						</span>
 					</div>
 					<div class="wrap-input100 m-b-16 m-l-50" id='matchPw' style="color: red; text-align: center;" ></div>
-					
+
 					
 					<div class="wrap-input100">호텔명</div>
 					<div class="wrap-input100 m-b-16">
@@ -183,7 +183,7 @@
 	<script src="https://github.com/ethereum/web3.js/blob/master/dist/web3.min.js"></script>
 	
 	<!-- js ì²ë¦¬ íì¼ -->
-	<script src="js/join.js"></script>
+	<script src="js/join.js?ver=1"></script>
 	
 	<!-- google places api import -->
 	<script src="https://maps.googleapis.com/maps/api/js?
