@@ -32,7 +32,7 @@
           <input type="hidden" name="roomno" value="${ requestScope.rvo.roomno }">
           <ul style="list-style-type: none; width: 400px;">
 	          <li>방 이름 : <br><input name="roomname" style="width: 250px;" value="${ requestScope.rvo.roomname }" required></li>  
-	          <li style="margin-top: 15px;">방 설명 : <textarea name="roominfo" cols="70" rows="8" style="resize: none;">${ requestScope.rvo.roominfo }</textarea></li>
+	          <li style="margin-top: 15px;">방 설명 : <textarea name="roominfo" cols="70" rows="8" style="resize: none; border: 1px solid;">${ requestScope.rvo.roominfo }</textarea></li>
 	          <li style="margin-top: 15px;">허용 인원: <br>
 	          	<select name="allowedman" style="width: 50px">
 	          		<c:forEach var="i" begin="2" end="9">
@@ -88,6 +88,10 @@
     	var web3js;
 		var reservContractObj; // onload 후에 설정했음.
 		
+		z('inputFile').onchange = function() {
+	        readURL(this);
+	    };    
+		
 	    function readURL(input) {
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();
@@ -98,26 +102,6 @@
 	            reader.readAsDataURL(input.files[0]); //이게 onload보다 먼저
 	        }
 	    }
-
-	    z('inputFile').onchange = function() {
-	        readURL(this);
-	    };
-	    
-	    function isSameHotelData(){ // 올려놓은 컨트랙트에 들어있는 호텔 정보와 현재 호텔 정보가 같을 때(방만 수정했을 경우 굳이 컨트랙트 업데이트할 필요 없음.)
-	    	// 상태변수를 다 가져와서 비교해봄.
-	    	reservContractObj.getStateValue.call(function(err,res){
-	    		if(err) console.log("상태변수 호출 에러",err);
-	    		else {
-		    		if(document.forms[0].hwallet.value == res[0] && ${cancelfee1} == res[1] && ${cancelfee2} == res[2] && ${cancelfee3} == res[3] && 
-		    				${cancelfee4} == res[4] && ${cancelday1} == res[5] && ${cancelday2} == res[6]){
-		    			console.log('참인데?')
-		    			return true;
-		    		}
-		    		else return false;
-	    		}
-	    	});
-	    }
-	    
 	    
 	    function update() {
 	    	reservContractObj.getStateValue.call(function(err,res){
@@ -196,7 +180,7 @@
   <script language="javascript" type="text/javascript" src="https://github.com/ethereum/web3.js/blob/master/dist/web3.min.js"></script>
   
   <!-- abi, bytecode -->
-  <script src="js/reservation_contract_abi.js"></script>
+  <script src="js/reservation_contract_abi2.js"></script>
   <script src="js/reservation_contract_bytecode.js"></script>
 
 </body>

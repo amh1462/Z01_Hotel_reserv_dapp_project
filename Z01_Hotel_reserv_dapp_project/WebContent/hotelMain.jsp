@@ -75,7 +75,7 @@
         <div class="list-group">
           <a href="hotelMain.jsp?contentPage=hotelInfo.jsp" class="list-group-item">호텔 정보</a>
           <a href="manageroom?type=show&pIndex=1" class="list-group-item">객실 현황</a>
-          <a href="showrservation" class="list-group-item">예약 현황</a>
+          <a href="showreservation" class="list-group-item">예약 현황</a>
           <a href="hotelMain.jsp?contentPage=faq.jsp" class="list-group-item">FAQ</a>
         </div>
       </div>

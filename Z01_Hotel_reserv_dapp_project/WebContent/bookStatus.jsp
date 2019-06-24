@@ -41,7 +41,72 @@
 }
 
 </style>
-
+<script>
+	function z(id){return document.getElementById(id);}
+	var reservContractObj; // onload 후에 설정했음.
+	var web3js;
+	
+	onload = function(){
+		if(typeof web3 !== 'undefined'){ // !==는 타입까지 체크
+			console.log('web3 인식 성공');
+			web3js = new Web3(web3.currentProvider);
+		}
+		else{
+			console.log('web3인식 X');
+			alert('취소 및 정산을 위해 메타마스크를 설치해주시고 로그인 해주십시오. \n만약 브라우저가 Chrome이 아니라면 실행할 수 없습니다.');
+			window.open("about:blank").location.href = 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ko';
+			history.back();
+		}
+		
+		$('#withdrawBtn').on('click',function(){
+			var withdrawBtn = $(this);
+			var tr = withdrawBtn.parent().parent();
+			var td0 = tr.children().eq(0);
+			var contract = td0.text();
+			var uwallet = tr.children().eq(1).text();
+			console.log("contract:",contract);
+			
+			reservContractObj = web3js.eth.contract(reservation_contract_ABI).at(contract);
+			withdraw(uwallet);
+			var paymentCompleteEvent = reservContractObj.PaymentCompleteEvent();
+	  		paymentEventWatch();
+		})
+	}
+	
+	function withdraw(uwallet){
+		reservContractObj.withDrawal.sendTransaction(uwallet,function(err,res){
+			if(err) console.error("정산 트랜잭션 에러",err);
+			else{
+				console.log("sendTransaction 결과(txid):",res);
+				
+				var txChkInterval = setInterval(function(){
+					// 트랜잭션 발생이 성공인지 실패인지 알기 위해
+					web3.eth.getTransactionReceipt(res, function(err2,res2){
+						if(err2) console.error("getTransactionReceipt에러",err2);
+						else{
+							console.log("getTransactionReceipt결과:",res2.status);
+							if(res2.statue == '0x0')/*실패*/ console.log("트랜잭션 실패(txid):", res2);
+							else if(res2 != null && res2.status == '0x1'){
+								console.log("트랜잭션 성공(txid):", res2);
+							}
+						}
+					})
+				},100); //0.1초마다 실행
+			}
+		})
+	}
+	
+	function paymentEventWatch(){
+		paymentCompleteEvent.watch(function(err,res){
+			if(err) console.error("지불 이벤트 발생 에러",err);
+			else{
+				console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
+				alert('이더 받을 계좌: '+res.args.account+'\n이더량: '+res.args.amount+'ether\n컨트랙트 이더 보유여부: '+res.args.isContractHasEther);
+				location.reload();
+			}
+		})
+	}
+</script>
 <body>
   <div class="limiter">
     <div class="container-login101">
@@ -67,7 +132,7 @@
           <tr>
             <th>예약자 명</th>
             <th>방 종류</th>
-            <th>요 금</th>
+            <th>요 금(eth)</th>
             <th>예약날짜</th>
             <th>체크인</th>
             <th>체크아웃</th>
@@ -76,6 +141,8 @@
           </tr>
 	        <c:forEach var="resVo" items="${ reslist }">
 	          <tr>
+	          	<td style="display:none;">${ resVo.contract }</td>
+	          	<td style="display:none;">${ resVo.uwallet }</td>
 	        	<td>${ resVo.guestname }</td>
 	        	<td>${ resVo.roomno }</td>
 	        	<td>${ resVo.totalprice }</td>
@@ -83,11 +150,11 @@
 	        	<td>${ resVo.checkin}</td>
 	        	<td>${ resVo.checkout}</td>
 	        	<c:choose>
-	        		<c:when test="${ resVo.iscancel eq 0 }"><td><a href="" >취 소</a></td></c:when>
-	        		<c:when test="${ resVo.iscancel eq 1 }"><td><a>취 소</a></td></c:when>		
+	        		<c:when test="${ resVo.iscancel eq 0 }"><td><button id="cancelBtn" class="btn_hgray">취 소</button></td></c:when>
+	        		<c:when test="${ resVo.iscancel eq 1 }"><td><a>취소 완료</a></td></c:when>		
 	        	</c:choose>
 	        	<c:choose>
-		        	<c:when test="${ resVo.iswithdraw eq 0 }"><td><a href="" >정 산</a></td></c:when>
+		        	<c:when test="${ resVo.iswithdraw eq 0 }"><td><button id="withdrawBtn"class="btn_hgray">정 산</button></c:when>
 	        		<c:when test="${ resVo.iswithdraw eq 1 }"><td><a>정산 완료</a></td></c:when>	 				
 	        	</c:choose>
 	        	</tr>
@@ -97,19 +164,19 @@
 	         <td>${ resVo.iswithdraw}</td> -->
         <ul class="pagination justify-content-center">
 					<li class="page-item <c:if test='${startList == 1}'>disabled</c:if>">
-						<a class="page-link" href="showrservation?pIndex=${ startList-1 }"> <span
+						<a class="page-link" href="showreservation?pIndex=${ startList-1 }"> <span
 							class="lnr lnr-arrow-left"></span>
 					</a>
 					</li>
 					<c:forEach var="pIdx" begin="${ startList }" end="${ endList }">
 						<li
 							class="page-item <c:if test='${param.pIndex == pIdx}'> active</c:if>">
-							<a class="page-link" href="showrservation?pIndex=${ pIdx }">${ pIdx }</a>
+							<a class="page-link" href="showreservation?pIndex=${ pIdx }">${ pIdx }</a>
 						</li>
 					</c:forEach>
 					<li
 						class="page-item <c:if test='${endList % 10 != 0}'> disabled</c:if>">
-						<a class="page-link" href="showrservation?pIndex=${ endList+1 }"> <span
+						<a class="page-link" href="showrserevation?pIndex=${ endList+1 }"> <span
 							class="lnr lnr-arrow-right"></span>
 					</a>
 					</li>
@@ -123,6 +190,9 @@
   </div>
   
 
+  
+  <script src="js/reservation_contract_abi2.js"></script>
+  <script src="js/reservation_contract_bytecode.js"></script>
   
   <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

@@ -39,6 +39,8 @@ public ReservVO select(String resno, String hotelid) {
 				resVo.setCheckout(rs.getString("checkout"));
 				resVo.setIscancel(rs.getString("iscancel"));
 				resVo.setIswithdraw(rs.getString("iswithdraw"));
+				resVo.setContract(rs.getString("contract"));
+				resVo.setUwallet(rs.getString("uwallet"));
 			}
 			rs.close();
 		} catch (Exception e) {e.printStackTrace();}
@@ -73,9 +75,11 @@ public ReservVO select(String resno, String hotelid) {
 				resVo.setResno(rs.getString("resno"));
 				resVo.setGuestname(rs.getString("guestname"));
 				resVo.setRoomno(rs.getString("roomname"));
-				resVo.setTotalprice(rs.getString("totalprice"));
+				resVo.setTotalprice("0"+ rs.getString("totalprice"));
 				resVo.setIscancel(rs.getString("iscancel"));
 				resVo.setIswithdraw(rs.getString("iswithdraw"));
+				resVo.setContract(rs.getString("contract"));
+				resVo.setUwallet(rs.getString("uwallet"));
 				
 				long formatted = Long.parseLong(rs.getString("time")+"000");
 				String t = new SimpleDateFormat("yy-MM-dd").format(formatted);
@@ -154,6 +158,8 @@ public ReservVO select(String resno, String hotelid) {
 				resVo.setTotalprice(rs.getString("totalprice"));
 				resVo.setIscancel(rs.getString("iscancel"));
 				resVo.setIswithdraw(rs.getString("iswithdraw"));
+				resVo.setContract(rs.getString("contract"));
+				resVo.setUwallet(rs.getString("uwallet"));
 				
 				long formatted = Long.parseLong(rs.getString("time")+"000");
 				String t = new SimpleDateFormat("yy-MM-dd").format(formatted);
@@ -281,6 +287,8 @@ public ReservVO select(String resno, String hotelid) {
 				uresVo.setRoomno(rs.getString("roomname"));
 				uresVo.setTotalprice("0" + rs.getString("totalprice"));
 				uresVo.setIscancel(rs.getString("iscancel"));
+				uresVo.setContract(rs.getString("contract"));
+				uresVo.setUwallet(rs.getString("uwallet"));
 				
 				long formatted2 = Long.parseLong(rs.getString("checkin")+"000");
 				String t2 = new SimpleDateFormat("yy-MM-dd").format(formatted2);

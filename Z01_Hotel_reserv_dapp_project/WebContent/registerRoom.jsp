@@ -147,7 +147,7 @@
   <script language="javascript" type="text/javascript" src="https://github.com/ethereum/web3.js/blob/master/dist/web3.min.js"></script>
   
   <!-- abi, bytecode -->
-  <script src="js/reservation_contract_abi.js?ver=1"></script>
+  <script src="js/reservation_contract_abi2.js?ver=1"></script>
   <script src="js/reservation_contract_bytecode.js?ver=1"></script>
 
 </body>

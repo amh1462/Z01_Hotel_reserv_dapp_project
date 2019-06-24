@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import dao.ReservDAO;
 
-@WebServlet("/showrservation")
+@WebServlet("/showreservation")
 public class ShowReservationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

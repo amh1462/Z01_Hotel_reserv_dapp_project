@@ -25,6 +25,7 @@
 	var web3js;
 	
   	onload = function(){
+  		//이더->원화 변환
 	  	$.ajax({
 	  		url:'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=KRW',
 			success:function(data, statusTxt, xhr){
@@ -34,12 +35,14 @@
 			},
 			error: function(xhr,statusTxt,c){ console.log("통신에 실패했습니다."); }
 	  	});
+  		
+  		//원화->이더 변환
 	  	$.ajax({
 	  		url:'https://min-api.cryptocompare.com/data/price?fsym=KRW&tsyms=ETH',
 			success:function(data2, statusTxt, xhr){
 				console.log('/',data2,'/');
 				z('totalPriceToEther').style.color = 'blue';
-				totalPrice = Math.round((Number(${ requestScope.totalprice }) * data2.ETH)*10000) / 10000; // 소숫점 5째자리에서 반올림.
+				totalPrice = Math.floor((Number(${ requestScope.totalprice }) * data2.ETH)*10000) / 10000; // 소숫점 5째자리에서 반올림.
 				console.log("토탈프라이스",totalPrice);
 				z('totalPriceToEther').innerHTML = totalPrice;
 				document.forms[0].totalprice.value = totalPrice;
@@ -47,6 +50,7 @@
 			error: function(xhr,statusTxt,c){ console.log("통신에 실패했습니다."); }
 	  	});
 	  	
+  		//WEB3 설정
 	  	if(typeof web3 !== 'undefined'){ // !==는 타입까지 체크
 			console.log('web3 인식 성공');
 			web3js = new Web3(web3.currentProvider);
@@ -60,7 +64,9 @@
 	  	reservContractObj = web3js.eth.contract(reservation_contract_ABI).at('${ requestScope.roominfo.contract }');
 	  	console.log("예약컨트랙트 객체:", reservContractObj);
   	}
+  	
   	var isWalletLogin = false;
+  	// 메타마스크 로그인 실시간 확인
   	var accountInterval = setInterval(function() {
   		if(web3js.eth.accounts[0] == null){
   			document.forms[0].uwallet.value = '';
@@ -74,9 +80,13 @@
 		}
 	}, 100); // 0.1초마다 실행.
 	
- 	// checkValid (account, setCheckInOutPrice)
+ 	// 유효성 검사
   	function chkValid(){
-		if(!isWalletLogin){
+		if(document.forms[0].guestname.value=='' || document.forms[0].phone.value=='' || document.forms[0].email.value==''){
+			alert('예약자명, 연락처, 이메일을 작성해주세요.');
+			event.preventDefault();
+		}
+		else if(!isWalletLogin){
 			alert('메타마스크 이더지갑에 먼저 로그인해주세요.\n만약 등록 후 지갑을 바꿨다면 다시 등록해야합니다.');
 			event.preventDefault();
 		}
@@ -92,112 +102,53 @@
 		}
 	}
  
- 	// setCheckIn_totalPrice(web3)
+	//체크인, 총가격 컨트랙트에 등록
 	function setCheckInPrice(){
 		if(!isWalletLogin){
 			alert('먼저 메타마스크에 로그인해주세요.\n결제가 가능한 이더지갑이어야 합니다.');
-		} else{
+		} 
+		else if(totalPrice == 0) alert('잠시 뒤에 다시 실행해 주십시오.\n이 알림이 계속 뜬다면 새로고침을 해 주십시오.');
+		else{
 			// contract set
 			console.log('체크인, 총가격 올리기 시작');
 			var unixTimeCheckIn = new Date('${ requestScope.checkin }').getTime()/1000 - 32400;
 			console.log('체크인시간:', unixTimeCheckIn);
-			reservContractObj.setCheckIn_roomPrice.sendTransaction(unixTimeCheckIn, totalPrice, function(err,res){
-				if(err) console.error("체크인, 총 가격 올리기 에러",err);
-				else{
-					console.log("sendTransaction 결과(txid?):",res);
-					
-					// txid를 interval하여.. 블록체인에 들어가면 성공처리
-					var txChkInterval = setInterval(function(){
-						// 0.1초마다 tx정보를 얻자!
-						web3.eth.getTransactionReceipt(res, function(err2,res2){ // 위에 일어난 tx의 해시값을 받아 처리.
-							if(err2) {console.error("트랜잭션 정보 얻기 실패",err2); clearInterval(txChkInterval);}
-							if(res2 != null){
-								console.log("트랜잭션결과:",res2.status);
-								if (res2.status == '0x0'){
-									// tx 실패면..
-									console.log("트랜잭션 실패(txid):", res2);
-								}
-								else if( res2 != null && res2.status == '0x1'){
-									// tx 성공이면..
-									console.log("트랜잭션 성공(txid):", res2);
-									// 성공 시 등록 완료, 예약하기 버튼 활성화 및 red div display:none
-									z('reservBtn').classList.remove('btn-secondary');
-									z('reservBtn').classList.add('btn-primary');
-									z('reservBtn').disabled = false;
-									z('registerFirst').style.display = 'none';
-									
-									z('registerBtn').style.display = 'none';
-									z('regCancelBtn').style.display = 'inline-block';
-								}
-								clearInterval(txChkInterval);
-							}
-						})
-					}, 100); // setInterval
-				} // if(err) else
-			}) // sendTransaction
-		} // if(!isWalletLogin) else
-	} // setCheckInPrice()
-	
-	function deleteCheckInPrice(){
-		reservContractObj.deleteCheckIn_roomPrice(function(err,res){
-			if(err) console.error("체크인, 총 가격 올리기 에러",err);
-			else{
-				console.log("sendTransaction 결과(txid?):",res);
-				
-				// txid를 interval하여.. 블록체인에 들어가면 성공처리
-				var txChkInterval = setInterval(function(){
-					// 0.1초마다 tx정보를 얻자!
-					web3.eth.getTransactionReceipt(res, function(err2,res2){ // 위에 일어난 tx의 해시값을 받아 처리.
-						if(err2) {console.error("트랜잭션 정보 얻기 실패",err2); clearInterval(txChkInterval);}
-						if(res2 != null){
-							console.log("트랜잭션결과:",res2.status);
-							if (res2.status == '0x0'){
-								// tx 실패면..
-								console.log("트랜잭션 실패(txid):", res2);
-							}
-							else if( res2 != null && res2.status == '0x1'){
-								// tx 성공이면..
-								console.log("트랜잭션 성공(txid):", res2);
-								// 성공 시 등록 완료, 예약하기 버튼 활성화 및 red div display:none
-								z('reservBtn').classList.add('btn-secondary');
-								z('reservBtn').classList.remove('btn-primary');
-								z('reservBtn').disabled = true;
-								z('registerFirst').style.display = 'block';
-								
-								z('registerBtn').style.display = 'inline-block';
-								z('regCancelBtn').style.display = 'none';
-							}
-							clearInterval(txChkInterval);
-						}
-					})
-				}, 100); // setInterval
-			} // if(err) else
-		}) // sendTransaction
+			console.log('총 가격', totalPrice);
+			// 등록 트랜잭션 발생 함수
+			setTransaction(unixTimeCheckIn, totalPrice);
+			
+		}
 	}
- 	
-  	// transferEther(web3)
+	
+  	// 총 가격만큼의 이더 전송
   	function sendEther(){
   		// send Ether to Contract
   		alert('예약을 시작합니다.');
-  		web3.eth.sendTransaction({
-  			from: web3js.eth.accounts[0],
-  			to: '${ requestScope.roominfo.contract }',
-  			value: web3.toWei(totalPrice, 'ether'),
-  			gas: 100000
-  		},function(err,res){ // callback
-  			if(err) console.log("여기서 에러?");
-			else console.log("왠callback? ", res);
-  		});
-  		
-  		var paymentCompleteEvent = reservContractObj.PaymentCompleteEvent();
-		paymentCompleteEvent.watch(function(err,res){
-			if(err) console.log("지불완료이벤트에러",err);
-			else { // 전송 진짜 완료
-				console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
-				document.forms[0].submit();
+  		reservContractObj.getCheckIn_roomPrice_myPayment.call(function(err,res){
+			if(err) console.error('체크인,총요금,내 지불금 가져오기 에러',err);
+			else {
+				console.log('체크인,총요금:',res[0]+','+res[1]+','+res[2]+','+res[3]);
+				var checkInDate = new Date(res[0]*1000);
+				var nowDate = new Date(res[1]*1000);
+				console.log('체크인날짜: '+ checkInDate.getFullYear()+'년 '+(checkInDate.getMonth()+1)+'월 '+checkInDate.getDate() + '일 '
+				+'현재시간: '+ nowDate.getFullYear()+'년 '+(nowDate.getMonth()+1)+'월 '+nowDate.getDate() + '일 '
+				+'총요금: '+web3.fromWei(res[2],'ether')
+				+'내 지불금: '+web3.fromWei(res[3],'ether'));
 			}
 		})
+  		
+  		console.log("총가격:",totalPrice);
+  		console.log("투웨이", typeof web3.toWei(totalPrice, 'ether'));
+  		
+  		// 이더 전송 트랜잭션 발생 함수
+  		etherSendTransaction(totalPrice);
+  		
+  		var paymentCompleteEvent = reservContractObj.PaymentCompleteEvent();
+  		// 이벤트 발생시 submit까지
+  		paymentEventWatch();
   	}
+  	
+  	
  </script>
 <body>
 
@@ -271,9 +222,9 @@
             <label style="padding-left: 100px">전체 요금 : </label>
             <label style="padding-left: 10px;"><fmt:formatNumber value="${requestScope.totalprice}" pattern="#,###.##"/>원</label>
             <hr>
-            <span style="font-size: 10px">예약하기 전에 먼저 컨트랙트에 등록이 필요합니다.<br> 한 번 등록 후, 취소할 수 없으니 주의하세요.</span>
-            <button style="float:right; margin-right: 20px; display: none;" id="registerBtn" class="btn btn-primary" type="button" onclick="setCheckInPrice();">등록하기 &rarr;</button>
-            <button style="float:right; margin-right: 20px;" id="regCancelBtn" class="btn btn-primary" type="button" onclick="deleteCheckInPrice();">등록해제 &rarr;</button>
+            <span style="font-size: 10px">예약하기 전에 먼저 컨트랙트에 등록이 필요합니다.</span>
+            <button style="float:right; margin-right: 20px;" id="registerBtn" class="btn btn-primary" type="button" onclick="setCheckInPrice();">등록하기 &rarr;</button>
+            <!--<button style="float:right; margin-right: 20px; display: none;" id="regCancelBtn" class="btn btn-primary" type="button" onclick="deleteCheckInPrice();">등록해제 &rarr;</button>-->
             <br><br><hr><br>
             <h4 style="display: inline-block; font-weight:bold" class="card-text">취소 수수료 정책</h4>
             <hr>
@@ -308,6 +259,74 @@
     </form>
   </div>
   
+  <script>
+  
+  	// 이더리움 관련 함수들
+  	
+  	// 체크인, 총가격 등록 트랜잭션
+  	function setTransaction(unixTimeCheckIn, totalPrice){
+		reservContractObj.setCheckIn_roomPrice.sendTransaction(unixTimeCheckIn, web3.toWei(totalPrice,'ether'), function(err,res){
+			if(err) console.error("체크인, 총 가격 올리기 에러",err);
+			else{
+				console.log("sendTransaction 결과(txid?):",res);
+				
+				// txid를 interval하여.. 블록체인에 들어가면 성공처리
+				var txChkInterval = setInterval(function(){
+					// 0.1초마다 tx정보를 얻자!
+					web3.eth.getTransactionReceipt(res, function(err2,res2){ // 위에 일어난 tx의 해시값을 받아 처리.
+						if(err2) {console.error("트랜잭션 정보 얻기 실패",err2); clearInterval(txChkInterval);}
+						if(res2 != null){
+							console.log("트랜잭션결과:",res2.status);
+							if (res2.status == '0x0'){
+								// tx 실패면..
+								console.log("트랜잭션 실패(txid):", res2);
+							}
+							else if( res2 != null && res2.status == '0x1'){
+								// tx 성공이면..
+								console.log("트랜잭션 성공(txid):", res2);
+								// 성공 시 등록 완료, 예약하기 버튼 활성화 및 red div display:none
+								z('reservBtn').classList.remove('btn-secondary');
+								z('reservBtn').classList.add('btn-primary');
+								z('reservBtn').disabled = false;
+								z('registerFirst').style.display = 'none';
+								
+								z('registerBtn').classList.remove('btn-primary');
+								z('registerBtn').classList.add('btn-secondary');
+								z('registerBtn').disabled = true;
+							}
+							clearInterval(txChkInterval);
+						}
+					})
+				}, 100); // setInterval
+			} // if(err) else
+		}) // sendTransaction
+	}
+  	
+  	// 총 가격만큼 이더 전송
+  	function etherSendTransaction(totalPrice){
+		web3.eth.sendTransaction({
+			from: web3js.eth.accounts[0],
+			to: '${ requestScope.roominfo.contract }',
+			value: web3.toWei(totalPrice, 'ether'),
+			gas: 100000
+		},function(err,res){ // callback
+			if(err) console.log("여기서 에러?");
+			else console.log("왠callback? ", res);
+		});
+	}
+	
+  	// 이더 전송 완료시 발생하는 이벤트 캐치
+	function paymentEventWatch(){
+		paymentCompleteEvent.watch(function(err,res){
+			if(err) console.log("지불완료이벤트에러",err);
+			else { // 전송 진짜 완료
+				console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
+				document.forms[0].submit();
+			}
+		})
+	}
+  </script>
+  
   
   <!-- jquery 사용 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -315,7 +334,7 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   
-  <script src="js/reservation_contract_abi.js"></script>
+  <script src="js/reservation_contract_abi2.js"></script>
   <script src="js/reservation_contract_bytecode.js"></script>
   
 </body>

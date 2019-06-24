@@ -26,8 +26,7 @@
 	
 <script type="text/javascript">
 	function popup() {
-		opener.document.location.href="userIndex.html";
-		self.close();
+		location.href="index.jsp";
 	}
 </script>	
 	
