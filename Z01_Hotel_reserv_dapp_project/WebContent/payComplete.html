@@ -4,12 +4,20 @@
 		<meta charset="UTF-8">
 		<title>HotelNara</title>
 	</head>
+	<script>
+		function popup() {
+			var url = "bookConfirm.jsp";
+			var name = "confirm"
+			var option = "width = 680px, height = 500px, top = 150 left = 700 location = no"
+			window.open(url,confirm, option);
+		}
+	</script>
 	<body>
 		<div style="width: 500px; margin: auto; padding-top: 200px; text-align: center;">
 			<h1 style="color: green;">예약이 완료되었습니다.</h1>
 			<div style="border: 1px red solid;">
 				<h3><a href="userIndex.html">메인 페이지</a>로 이동 </h3>
-				<h3><a href="bookConfirm.jsp">예약확인 페이지</a>로 이동</h3>
+				<h3><a href="#" onclick="popup()">예약확인 페이지</a>로 이동</h3>
 			</div>
 		</div>
 	</body>

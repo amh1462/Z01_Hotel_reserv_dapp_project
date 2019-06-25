@@ -42,13 +42,18 @@ table td, table th {
   text-align: center;
 }
 </style>
-
+<script type="text/javascript">
+	function popup() {
+		opener.document.location.href="userIndex.html";
+		self.close();
+	}
+</script>	
+	
 <body>
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">예약확인</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

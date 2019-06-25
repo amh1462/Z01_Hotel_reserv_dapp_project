@@ -65,6 +65,7 @@
 			var contract = td0.text();
 			var uwallet = tr.children().eq(1).text();
 			var resno = tr.children().eq(2).text();
+			var count = 0;
 			console.log("contract:",contract);
 			console.log("resno", resno);
 			
@@ -81,8 +82,10 @@
 						success:function(data, statusTxt, xhr){
 							// isWithdraw => 1로 처리 성공했을 시
 							console.log('/'+data+'/');
-							alert(data);
-							location.reload();
+							if(count!=1){
+								alert(data);
+								location.reload();
+							}
 						},
 						error: function(xhr,statusTxt,c){ console.log("통신에 실패했습니다."); }
 					});

@@ -28,7 +28,14 @@ table {
 	width: 100%;
 }
 </style>
-
+<script type="text/javascript">
+	function popup() {
+		var url = "bookConfirm.jsp";
+		var name = "confirm"
+		var option = "width = 680px, height = 500px, top = 150 left = 700 location = no"
+		window.open(url,confirm, option);
+	}
+</script>
 <body>
 
 	<!-- Navigation -->
@@ -43,10 +50,10 @@ table {
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link"
-						href="userIndex.html">Home <span class="sr-only">(current)</span>
+						href="userIndex.html">Home<span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="bookConfirm.jsp">예약확인</a></li>
+						onclick="popup()">예약확인</a></li>
 				</ul>
 			</div>
 		</div>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>OO호텔에 오신 것을 환영합니다.</title>
+<title>호텔나라</title>
 <link rel="stylesheet" type="text/css" href="css/main.css?ver=1">
 </head>
 

@@ -43,14 +43,22 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-
+<style>
+html,body {
+	background: url('images/content/header-bg.jpg') no-repeat center center fixed; 
+	height:100%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+</style>
 <body class="loaded">
 	<div class="site-all">
 		<div id="header">
 			<div class="row-header">
 				<div class="container">
-					<a style="margin-left: 90%; margin-top:1%;" href="index.jsp">메인으로 가기</a>
-					<h1 class="slogan">HotelNara</h1>
+					<a href="index.jsp" style="text-decoration:none"><h1 class="slogan">HotelNara</h1></a>
 					
 					<!-- form1: 검색용 -->
 					<form id="search-form" method="post" action="./UserSearch" onkeydown="return notUseEnterKey(event);">
@@ -69,8 +77,8 @@
 
 						<center>
 							<div class="inputs">
-								<input type="text" name="city" value="<%=request.getParameter("city")%>"> 
-								<select name="country" id="q" style="padding-right: 10px;">
+								<input type="text" name="city" value="<%=request.getParameter("city")%>" style="color:black"> 
+								<select name="country" id="q" style="padding-right: 10px; color: black">
 									<option value="kr">Korea</option>
 									<option value="us">USA</option>
 									<option value="cn">China</option>
@@ -94,7 +102,7 @@
 						</script>
 						<center>
 							<div class="inputs">
-								<input name="roomCount" type="text" value="<%= request.getParameter("roomCount") %>"> <input type="submit" value="">
+								<input name="roomCount" type="text" value="<%= request.getParameter("roomCount") %>" style="color:black"> <input type="submit" value="">
 							</div>
 						</center>
 					</form>
@@ -104,7 +112,7 @@
 						<div>
 							<div class="blank_top"></div>
 							<c:forEach var="hvo" items="${ requestScope.hlist }">
-								<article class="hotelSearch">
+								<article class="hotelSearch" style="background-color:white">
 									<div class="">
 										<section class="imgSection">
 											<div>

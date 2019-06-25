@@ -20,6 +20,7 @@ public class ShowReservationController extends HttpServlet {
 		int resIndexParam = Integer.parseInt((s !=null) ? s : "1");
 		if(request.getParameter("withdrawOk") != null) {
 			String msg = resDao.updateIsWithdraw(request.getParameter("resno"));
+			response.setContentType("text/html; charset=utf-8");
 			response.getWriter().println(msg); 	
 
 		}
