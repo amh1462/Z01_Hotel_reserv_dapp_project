@@ -52,7 +52,7 @@ table {
 					<li class="nav-item active"><a class="nav-link"
 						href="userIndex.html">Home<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item"><a class="nav-link" style="cursor:pointer"
 						onclick="popup()">예약확인</a></li>
 				</ul>
 			</div>
