@@ -65,7 +65,7 @@
 			var contract = td0.text();
 			var uwallet = tr.children().eq(1).text();
 			var resno = tr.children().eq(2).text();
-			var count = 0;
+			var flag = false;
 			console.log("contract:",contract);
 			console.log("resno", resno);
 			
@@ -82,7 +82,8 @@
 						success:function(data, statusTxt, xhr){
 							// isWithdraw => 1로 처리 성공했을 시
 							console.log('/'+data+'/');
-							if(count!=1){
+							if(!flag){
+								flag = true;
 								alert(data);
 								location.reload();
 							}
