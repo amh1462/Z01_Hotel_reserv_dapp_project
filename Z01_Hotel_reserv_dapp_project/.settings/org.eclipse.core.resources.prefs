@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
 encoding//WebContent/userSearch.jsp=UTF-8
-encoding//src/controller/LoginController.java=UTF-8
+encoding//src/controller/hotel/LoginController.java=UTF-8
 encoding//src/dao/HotelDAO.java=UTF-8
 encoding/<project>=UTF-8

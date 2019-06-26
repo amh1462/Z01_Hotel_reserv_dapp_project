@@ -1,4 +1,4 @@
-package controller;
+package controller.hotel;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
