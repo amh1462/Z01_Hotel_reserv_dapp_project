@@ -56,7 +56,7 @@ public class LoginController extends HttpServlet  {
 		}else if(matchresult == 0){ // 로그인 매치 
 			response.setContentType("text/html; charset=utf-8");
 			response.getWriter().println("<script> "
-					+ "alert('아이디를 다시 확인하세요.');"
+					+ "alert('아이디나 비밀번호를 다시 확인하세요.');"
 					+ "history.back();"
 					+ " </script>");
 		}

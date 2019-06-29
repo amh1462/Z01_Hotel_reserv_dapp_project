@@ -32,7 +32,7 @@ table {
 	function popup() {
 		var url = "bookConfirm.jsp";
 		var name = "confirm"
-		var option = "width = 680px, height = 500px, top = 150 left = 700 location = no"
+		var option = "width = 800px, height = 600px, top = 150 left = 700 location = no"
 		window.open(url,confirm, option);
 	}
 </script>

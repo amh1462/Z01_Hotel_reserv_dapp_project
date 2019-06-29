@@ -24,6 +24,11 @@ public class ShowReservationController extends HttpServlet {
 			response.getWriter().println(msg); 	
 
 		}
+		else if(request.getParameter("cancelOk") != null) {
+			String msg = resDao.updateIsCancel(request.getParameter("resno"));
+			response.setContentType("text/html; charset=utf-8");
+			response.getWriter().println(msg);
+		}
 		else if(request.getParameter("no") == null) {
 			if(request.getParameter("searchKeyword") !=null) {
 				String category = request.getParameter("searchField");

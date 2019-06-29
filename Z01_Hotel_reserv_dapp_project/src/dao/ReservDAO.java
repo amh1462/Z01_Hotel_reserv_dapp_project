@@ -275,11 +275,30 @@ public ReservVO select(String resno, String hotelid) {
 			} else {
 				msg = "정산에 오류가 발생했습니다.";
 			}
+			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return msg;
+	}
+	
+	public String updateIsCancel(String resno) {
+		String msg = null;
+		int result = 0;
+		String query = "update reservation set iscancel = 1 where resno = " + resno;
 		
-		
+		try {
+			Statement stmt = conn.createStatement();
+			result = stmt.executeUpdate(query);
+			if(result>0) {
+				msg = "전액 취소가 완료되었습니다.";
+			} else {
+				msg = "전액 취소에 오류가 발생했습니다.";
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return msg;
 	}
 	
@@ -305,19 +324,21 @@ public ReservVO select(String resno, String hotelid) {
 			while(rs.next()) {
 				ReservVO uresVo = new ReservVO();
 				uresVo.setResno(rs.getString("resno"));
+				uresVo.setHotelid(rs.getString("hotelid"));
 				uresVo.setHotelname(rs.getString("hotelname"));
 				uresVo.setRoomno(rs.getString("roomname"));
 				uresVo.setTotalprice("0" + rs.getString("totalprice"));
 				uresVo.setIscancel(rs.getString("iscancel"));
+				uresVo.setIswithdraw(rs.getString("iswithdraw"));
 				uresVo.setContract(rs.getString("contract"));
 				uresVo.setUwallet(rs.getString("uwallet"));
 				
 				long formatted2 = Long.parseLong(rs.getString("checkin")+"000");
-				String t2 = new SimpleDateFormat("yy-MM-dd").format(formatted2);
+				String t2 = new SimpleDateFormat("yyyy-MM-dd").format(formatted2);
 				uresVo.setCheckin(t2);
 				
 				long formatted3 = Long.parseLong(rs.getString("checkout")+"000");
-				String t3 = new SimpleDateFormat("yy-MM-dd").format(formatted3);
+				String t3 = new SimpleDateFormat("yyyy-MM-dd").format(formatted3);
 				uresVo.setCheckout(t3);
 
 				ureslist.add(uresVo);

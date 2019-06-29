@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import dto.HotelVO;
@@ -20,9 +21,7 @@ public class HotelDAO {
 	// 회원가입 
 	
 	public int insert(HotelVO hVo) {
-		
 		int result = 0;
-		
 		String query = "insert into hotel "
 				+ "(hotelno, hotelid, password, hotelname, country, city, detailaddr, phone, hwallet, cancelfee1, cancelfee2, cancelfee3, cancelfee4, cancelday1, cancelday2)"
 				+ "values(hno_seq.nextval,lower(?),?,?,?,?,?,?,?,?,?,?,?,?,?)";
