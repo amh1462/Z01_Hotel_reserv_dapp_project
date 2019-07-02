@@ -61,7 +61,7 @@ html,body {
 					<a href="index.jsp" style="text-decoration:none"><h1 class="slogan">HotelNara</h1></a>
 					
 					<!-- form1: 검색용 -->
-					<form id="search-form" method="post" action="./UserSearch" onkeydown="return notUseEnterKey(event);">
+					<form id="search-form" method="post" action="./userSearch" onkeydown="return notUseEnterKey(event);">
 			          <script>
 						  function notUseEnterKey(e){
 						      if(e.keyCode === 13 && e.srcElement.type != 'textarea') e.preventDefault();
@@ -96,6 +96,7 @@ html,body {
 						</div>
 						<script type="text/javascript">
 							$(document).ready(function () {
+								// t-datepicker 오픈 소스 설명 참고
 								$('.t-datepicker').tDatePicker('updateCI', '<%=request.getParameter("t-start")%>');
 								$('.t-datepicker').tDatePicker('updateCO', '<%=request.getParameter("t-end")%>');
 							});
@@ -108,7 +109,7 @@ html,body {
 					</form>
 					
 					<!-- form2: 다음페이지로 이동할 때 데이터 전송용 -->
-					<form id="forward-form" action="./showroom">
+					<form id="forward-form" action="./showRoom">
 						<div>
 							<div class="blank_top"></div>
 							<c:forEach var="hvo" items="${ requestScope.hlist }">
@@ -129,7 +130,7 @@ html,body {
 										</section>
 										<section class="hotelBtnSection">
 											<center>
-												<a style="height: 38px;" class="hotelBtn" href="showroom?hotelId=${ hvo.hotelid }
+												<a style="height: 38px;" class="hotelBtn" href="showRoom?hotelId=${ hvo.hotelid }
 												&checkIn=<%=request.getParameter("t-start")%>&checkOut=<%=request.getParameter("t-end")%>
 												&roomCount=<%=request.getParameter("roomCount")%>">방 선택</a>
 											</center>
@@ -141,19 +142,19 @@ html,body {
 							
 							<%-- <ul class="pagination justify-content-center">
 								<li class="page-item <c:if test='${ startList == 1 }'>disabled</c:if>">
-									<a href="UserSearch?pIndex=${ startList+1 }">
+									<a href="userSearch?pIndex=${ startList+1 }">
 										<span class="lnr lnr-arrow-left"></span>
 									</a>
 								</li>
 								<c:forEach var="pIdx" begin="${ startList }" end="${ endList }">
 									<li class="page-item <c:if test='${ param.pIndex == pIdx }'>active</c:if>">
-										<a href="UserSearch?pIndex=${ pIdx }">
+										<a href="userSearch?pIndex=${ pIdx }">
 											${ pIdx }
 										</a>
 									</li>
 								</c:forEach>
 								<li class="page-item <c:if test='${ (endList - lastPageNum) / 10 == 0 }'>disabled</c:if>">
-									<a href="UserSearch?pIndex=${ endList+1 }">
+									<a href="userSearch?pIndex=${ endList+1 }">
 										<span class="lnr lnr-arrow-right"></span>
 									</a>
 								</li>

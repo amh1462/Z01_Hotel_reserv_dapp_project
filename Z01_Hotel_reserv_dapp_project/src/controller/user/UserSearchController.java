@@ -10,11 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.HotelDAO;
-import dao.UserDAO;
-import oracle.net.aso.s;
 
-@WebServlet("/UserSearch")
-public class UserController extends HttpServlet {
+@WebServlet("/userSearch")
+public class UserSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -26,19 +24,18 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 
-		UserDAO uDao = UserDAO.getInstance();
+		HotelDAO hDao = HotelDAO.getInstance();
 
-		String s = request.getParameter("pIndex");
-		int pIndexParam = Integer.parseInt((s != null) ? s : "1");
+		// userSearch.html에서 도시를 검색했을 때
+		String pIdx = request.getParameter("pIndex");
+		int pIndexParam = Integer.parseInt((pIdx != null) ? pIdx : "1");
 
 		String keyword = request.getParameter("city");
 
-//		request.setAttribute("lastListNum", uDao.lastPageNum(keyword));
-//		request.setAttribute("startList", uDao.getStartList(pIndexParam));
-//		request.setAttribute("endList", uDao.getEndList(pIndexParam, keyword));
-		request.setAttribute("hlist", uDao.selectAll(keyword));
+		// keyword(도시 이름)에 맞는 호텔을 List로 전달.
+		request.setAttribute("hlist", hDao.selectAll(keyword));
 		
-		RequestDispatcher rd = request.getRequestDispatcher("userSearch.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("userHotelList.jsp");
 		rd.forward(request, response);
 
 	}

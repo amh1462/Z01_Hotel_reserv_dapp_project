@@ -29,8 +29,9 @@ table {
 }
 </style>
 <script type="text/javascript">
-	function popup() {
-		var url = "bookConfirm.jsp";
+	// 예약확인 버튼을 눌렀을 때
+	function reservConfirm() {
+		var url = "userReservConfirm.jsp";
 		var name = "confirm"
 		var option = "width = 800px, height = 600px, top = 150 left = 700 location = no"
 		window.open(url,confirm, option);
@@ -50,10 +51,10 @@ table {
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link"
-						href="userIndex.html">Home<span class="sr-only">(current)</span>
+						href="userSearch.html">Home<span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link" style="cursor:pointer"
-						onclick="popup()">예약확인</a></li>
+						onclick="reservConfirm()">예약확인</a></li>
 				</ul>
 			</div>
 		</div>
@@ -70,7 +71,7 @@ table {
 				<div class="list-group">
 
 					<c:forEach var="roVo" items="${ roomNameList }">
-						<a href="./showroom?roomno=${roVo.roomno}&hotelId=${ requestScope.hotelinfo.hotelid }&checkIn=${requestScope.checkIn}
+						<a href="./showRoom?roomno=${roVo.roomno}&hotelId=${ requestScope.hotelinfo.hotelid }&checkIn=${requestScope.checkIn}
 								&checkOut=${requestScope.checkOut}&roomCount=${requestScope.roomCount}" 
 								class="list-group-item <c:if test='${ param.roomno == roVo.roomno}' >active</c:if> ">
 							${roVo.roomname}
@@ -80,7 +81,7 @@ table {
 			</div>
 			<!-- /.col-lg-3 -->
 			<form style="margin-top: 10px;" class="col-lg-9" method="get"
-				action="./registerbook">
+				action="./registerReserv">
 				<div class="col-lg-9">
 					<div class="card mt-4">
 						<div class="card-body">

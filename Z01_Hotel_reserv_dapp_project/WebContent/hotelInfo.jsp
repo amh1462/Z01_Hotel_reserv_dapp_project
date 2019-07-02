@@ -5,12 +5,12 @@
 <html>
 <head>
 
-	<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>호텔 정보 메인 페이지</title>
+  <title>호텔나라</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -19,12 +19,14 @@
   <link href="css/modern-business.css" rel="stylesheet">
 </head>
 <script type="text/javascript">
-	function move() {
+	// 수정버튼 눌렀을 때
+	function modify() {
 		location.href = "modify?type=hotel";
 	}
 	
-	function popup() {
-		var url = "photoinsert.jsp";
+	// 사진 올리기 버튼 눌렀을 때
+	function photoInsert() {
+		var url = "hotelPhotoInsert.jsp";
 		var name = "photos"
 		var option = "width = 400, height = 255, top = 150 left = 700"
 					 + "location = no"
@@ -52,8 +54,8 @@
           <li style="margin-top: 15px;">지갑주소 : <input style="width: 200px;" type="text" onfocus="this.blur()" value="${hwallet}"></li>
           <li style="margin-top: 15px;">연 락 처 : <input style="width: 200px; margin-left: 8px;" type="text" onfocus="this.blur()" value="${phone}"></li>
         </ul>
-        <input style=" margin-top: 30px; margin-left: 150px;" type="button" value="사진 올리기" onclick="popup()" >
-        <input style=" margin-top: 30px; margin-left: 20px;" type="button" value="수정" onclick="move()" >
+        <input style=" margin-top: 30px; margin-left: 150px;" type="button" value="사진 올리기" onclick="photoInsert()" >
+        <input style=" margin-top: 30px; margin-left: 20px;" type="button" value="수정" onclick="modify()" >
       </div>
 
     </div>

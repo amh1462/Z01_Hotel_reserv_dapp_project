@@ -1,5 +1,5 @@
 /*
- join.html에 쓰이는 javascript 파일.
+ hotelJoin.html에 쓰이는 javascript 파일.
 */
 
 function z(hotelid){ return document.getElementById(hotelid); }

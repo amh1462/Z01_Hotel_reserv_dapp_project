@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.HotelDAO;
 import dao.RoomDAO;
 
-@WebServlet("/showroom")
+@WebServlet("/showRoom")
 public class ShowRoomController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -25,24 +25,24 @@ public class ShowRoomController extends HttpServlet {
 		HotelDAO hDao = HotelDAO.getInstance();
 		RoomDAO rDao = RoomDAO.getInstance();
 
+		// 이전 페이지에서 가져온 hotelId, checkIn 등을 다시 다음페이지에 들어갈 request에 넣어줌. 
 		request.setAttribute("hotelinfo", hDao.select(hotelId));
 		request.setAttribute("checkIn", request.getParameter("checkIn"));
 		request.setAttribute("checkOut", request.getParameter("checkOut"));
 		request.setAttribute("roomCount", request.getParameter("roomCount"));
 		request.setAttribute("country", countryNameChange(hDao.select(hotelId).getCountry()));
 		
-		if(request.getParameter("roomno") == null) {
+		if(request.getParameter("roomno") == null) { // roomList 전체 보여줌.
 			request.setAttribute("roomlist", rDao.selectAll(hotelId));
 			request.setAttribute("roomNameList", rDao.selectAll(hotelId));
-			//request.setAttribute("stayPeriod", );
 			
-			request.getRequestDispatcher("userroomlist.jsp").forward(request, response);
-		} else {
+			request.getRequestDispatcher("userRoomList.jsp").forward(request, response);
+		} else { // 선택한 room만 보여줌.
 			 request.setAttribute("roomlist", rDao.selectOneList(request.getParameter("roomno")));
 			 request.setAttribute("roomNameList", rDao.selectAll(hotelId));
 			 request.setAttribute("roomno", request.getParameter("roomno"));
 			 
-			 request.getRequestDispatcher("userroomlist.jsp").forward(request, response);
+			 request.getRequestDispatcher("userRoomList.jsp").forward(request, response);
 		}
 	}
 	

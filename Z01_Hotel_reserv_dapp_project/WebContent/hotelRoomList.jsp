@@ -47,9 +47,9 @@ tr, td {
 		<div class="container-login101">
 			<div style="position:absolute; top: 10px;" class="wrap-main100">
 				<span class="login100-form-title p-b-30">객실 현황</span>
-				<a href='manageroom?type=register' class='btn_hgray' style='float: left'>객실 등록</a>
+				<a href='manageRoom?type=register' class='btn_hgray' style='float: left'>객실 등록</a>
 				<div style='text-align: right;'>
-					<form action="manageroom">
+					<form action="manageRoom">
 						<input type="hidden" name="type" value="show">
 						<input type="hidden" name="pIndex" value="1">
 						<select name='searchField'>
@@ -103,7 +103,7 @@ tr, td {
 				<div style="height: 10px;"></div>
 				<ul class="pagination justify-content-center">
 					<li class="page-item <c:if test='${startList == 1}'>disabled</c:if>">
-						<a class="page-link" href="manageroom?type=show
+						<a class="page-link" href="manageRoom?type=show
 						<c:if test="${ !empty param.searchField && !empty param.searchKeyword }">
 							&searchField=${ param.searchField }&searchKeyword=${ param.searchKeyword }
 						</c:if>
@@ -113,7 +113,7 @@ tr, td {
 					</li>
 					<c:forEach var="pIdx" begin="${ startList }" end="${ endList }">
 						<li class="page-item <c:if test="${ param.pIndex == pIdx }">active</c:if>">
-							<a class="page-link" href="manageroom?type=show
+							<a class="page-link" href="manageRoom?type=show
 							<c:if test="${ !empty param.searchField && !empty param.searchKeyword }">
 								&searchField=${ param.searchField }&searchKeyword=${ param.searchKeyword }
 							</c:if>
@@ -123,7 +123,7 @@ tr, td {
 						</li>
 					</c:forEach>
 					<li class="page-item <c:if test='${ (endList-lastListNum) / 10 == 0 }'> disabled</c:if>">
-						<a class="page-link" href="manageroom?type=show
+						<a class="page-link" href="manageRoom?type=show
 						<c:if test="${ !empty param.searchField && !empty param.searchKeyword }">
 							&searchField=${ param.searchField }&searchKeyword=${ param.searchKeyword }
 						</c:if>

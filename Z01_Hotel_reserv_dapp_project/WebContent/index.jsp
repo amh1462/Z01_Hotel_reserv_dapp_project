@@ -10,10 +10,10 @@
 
 <script>
 	function navigator1() {
-		location.href="./userIndex.html"
+		location.href="./userSearch.html"
 	}
 	function navigator2() {
-		location.href="./login.html"
+		location.href="./hotelLogin.html"
 	}
 </script>
 

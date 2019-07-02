@@ -83,6 +83,7 @@
 						<script>
 							var sel = document.forms[0].country;
 							for(i=0; i<sel.options.length; i++){
+								// 선택했던 나라로 select되어있게
 								if(sel.options[i].value == '${ country }'){
 									sel.options[i].selected = true;
 								}

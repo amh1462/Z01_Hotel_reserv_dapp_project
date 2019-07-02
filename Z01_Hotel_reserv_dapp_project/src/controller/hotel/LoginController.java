@@ -14,7 +14,6 @@ import dto.HotelVO;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet  {
-	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
@@ -29,7 +28,7 @@ public class LoginController extends HttpServlet  {
 		String password = request.getParameter("password");
 		
 		int matchresult = hDao.MachIdPw(hotelid, password); 
-		if( matchresult == 1){ 
+		if( matchresult == 1 ){ 
 			HotelVO hVo = hDao.select(hotelid);
 			HttpSession session = request.getSession();
 			session.setAttribute("hotelid", hotelid);
@@ -50,7 +49,6 @@ public class LoginController extends HttpServlet  {
 			session.setAttribute("cancelday1", hVo.getCancelday1());
 			session.setAttribute("cancelday2", hVo.getCancelday2());
 			
-			System.out.println(hVo.getPhoto2());
 			response.sendRedirect("hotelMain.jsp?contentPage=hotelInfo.jsp");
 			
 		}else if(matchresult == 0){ // 로그인 매치 

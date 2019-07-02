@@ -1,35 +1,37 @@
 package controller.hotel;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import dao.ReservDAO;
 
-@WebServlet("/showreservation")
+@WebServlet("/showReservation")
 public class ShowReservationController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ReservDAO resDao = ReservDAO.getInstance();
 		String s = request.getParameter("resIndex");
 		
 		int resIndexParam = Integer.parseInt((s !=null) ? s : "1");
-		if(request.getParameter("withdrawOk") != null) {
+		
+		if(request.getParameter("withdrawOk") != null) { // ajax로 withdraw여부 체크
 			String msg = resDao.updateIsWithdraw(request.getParameter("resno"));
 			response.setContentType("text/html; charset=utf-8");
 			response.getWriter().println(msg); 	
 
 		}
-		else if(request.getParameter("cancelOk") != null) {
+		else if(request.getParameter("cancelOk") != null) { // ajax로 cancel여부 체크
 			String msg = resDao.updateIsCancel(request.getParameter("resno"));
 			response.setContentType("text/html; charset=utf-8");
 			response.getWriter().println(msg);
 		}
-		else if(request.getParameter("no") == null) {
+		else { // 예약 현황 눌렀을 때
 			if(request.getParameter("searchKeyword") !=null) {
 				String category = request.getParameter("searchField");
 				String keyword = request.getParameter("searchKeyword");
@@ -47,11 +49,7 @@ public class ShowReservationController extends HttpServlet {
 				request.setAttribute("reslist", resDao.selectAll(resIndexParam,hotelid));
 			}
 			
-			request.getRequestDispatcher("hotelMain.jsp?contentPage=bookStatus.jsp").forward(request, response);
-		}else if(request.getParameter("no") != null) {
-			request.setAttribute("resVo", resDao.select(request.getParameter("no"),request.getParameter("hotelid")));
-			System.out.println("no");
-			request.getRequestDispatcher("hotelMain.jsp").forward(request, response);		
+			request.getRequestDispatcher("hotelMain.jsp?contentPage=hotelReservList.jsp").forward(request, response);
 		}
 	}
 

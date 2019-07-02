@@ -22,7 +22,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <form action="./manageroom" method="post" enctype="multipart/form-data" onkeydown="return notUseEnterKey(event);">
+        <form action="./manageRoom" method="post" enctype="multipart/form-data" onkeydown="return notUseEnterKey(event);">
           <script>
 			  function notUseEnterKey(e){
 			      if(e.keyCode === 13 && e.srcElement.type != 'textarea') e.preventDefault();
@@ -48,7 +48,7 @@
 	          	</div>
 	          </li><br>
 	          <li style="margin-top: 15px;">수취 계좌(이더지갑): <br><input id="hwallet" style="width: 400px;" value="${ hwallet }" readonly><br>
-	          <div style="width: 500px">※ 수취 계좌를 변경하시려면 <a href="hotelMain.jsp?contentPage=modify.jsp">호텔 정보</a>에서 수정해주세요.</div>
+	          <div style="width: 500px">※ 수취 계좌를 변경하시려면 <a href="hotelMain.jsp?contentPage=hotelModify.jsp">호텔 정보</a>에서 수정해주세요.</div>
 	          <br>
 	          <li>
 	          	<span>취소 수수료 정책</span>
@@ -64,7 +64,7 @@
           				<input style="width:50px" value="${ cancelfee4 }" readonly> %
           			</span><br><br>
           		</div>
-          		<div style="width: 500px">※ 취소 수수료를 변경하시려면 <a href="hotelMain.jsp?contentPage=modify.jsp">호텔 정보</a>에서 수정해주세요.</div>
+          		<div style="width: 500px">※ 취소 수수료를 변경하시려면 <a href="hotelMain.jsp?contentPage=hotelModify.jsp">호텔 정보</a>에서 수정해주세요.</div>
 	          </li>
           </ul>
           <input type="hidden" name="contract">
@@ -79,6 +79,7 @@
 	    function readURL(input) {
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();
+	         	// 사진 선택한 것을 바로 img태그에 띄워줌.
 	            reader.onload = function(e) {
 	                $('#roomImg').attr('src', e.target.result);
 	                console.log('e?', e.target.result);
@@ -96,6 +97,7 @@
 	    	alert('예약 컨트랙트 배포를 시작합니다. \n메타마스크 계좌에서 약간의 수수료가 지불될 수 있습니다.');
 	    	if(web3js.eth.accounts[0] == null) alert('먼저 메타마스크에 로그인해주세요.\n 방 등록시 결제할 지갑이 필요합니다.');
 	    	else{
+	    		// 컨트랙트 배포
 		    	reservContract.new(document.forms[0].hwallet.value, ${cancelfee1}, ${cancelfee2}, ${cancelfee3}, ${cancelfee4}, ${cancelday1}, ${cancelday2},{
 					data: reservation_contract_bytecode,
 					from: web3js.eth.accounts[0],
@@ -111,8 +113,8 @@
 						if(res.address == null){
 							console.log("트랜잭션 해시",res.transactionHash);
 							console.log("컨트랙트 주소",res.address);
-							// res.address를 DB에 저장.
-						} else {
+							
+						} else { // res.address를 DB에 저장.
 							console.log("컨트랙트 주소",res.address);
 							document.forms[0].contract.value = res.address;
 							alert('컨트랙트 배포 완료!');
@@ -124,7 +126,7 @@
 	    };
 	    
 	    onload = function() {
-			// 메타마스크 
+			// 메타마스크 설치 체크
 			if(typeof web3 !== 'undefined'){ // !==는 타입까지 체크
 				console.log('web3 인식 성공');
 				web3js = new Web3(web3.currentProvider);

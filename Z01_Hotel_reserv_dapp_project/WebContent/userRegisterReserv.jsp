@@ -40,7 +40,7 @@
 			success:function(data2, statusTxt, xhr){
 				console.log('/',data2,'/');
 				z('totalPriceToEther').style.color = 'blue';
-				totalPrice = Math.floor((Number(${ requestScope.totalprice }) * data2.ETH)*10000) / 10000; // 소숫점 5째자리에서 반올림.
+				totalPrice = Math.floor((Number(${ requestScope.totalprice }) * data2.ETH)*10000) / 10000; // 소숫점 5째자리에서 내림.
 				console.log("토탈프라이스",totalPrice);
 				z('totalPriceToEther').innerHTML = totalPrice;
 				document.forms[0].totalprice.value = totalPrice;
@@ -56,16 +56,17 @@
 		else{
 			console.log('web3인식 X');
 			alert('컨트랙트 등록 및 이더 전송을 위해 메타마스크를 설치해주시고 로그인 해주십시오. \n만약 브라우저가 Chrome이 아니라면 실행할 수 없습니다.');
+			// 새 탭에서 메타마스크 다운로드 띄우기
 			window.open("about:blank").location.href = 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ko';
 			history.back();
 		}
 	  	reservContractObj = web3js.eth.contract(reservation_contract_ABI).at('${ requestScope.roominfo.contract }');
-	  	console.log("예약컨트랙트 객체:", reservContractObj);
   	}
   	
   	var isWalletLogin = false;
   	// 메타마스크 로그인 실시간 확인
   	var accountInterval = setInterval(function() {
+  		// 로그인 됐으면 경고문 없애기
   		if(web3js.eth.accounts[0] == null){
   			document.forms[0].uwallet.value = '';
   			z('walletLogin').style.display = 'block';
@@ -152,8 +153,9 @@
 		})
   	}
   	
-  	function popup() {
-		var url = "bookConfirm.jsp";
+ 	// 예약확인 버튼을 눌렀을 때
+  	function reservConfirm() {
+		var url = "userReservConfirm.jsp";
 		var name = "confirm"
 		var option = "width = 800px, height = 600px, top = 150 left = 700 location = no"
 		window.open(url,confirm, option);
@@ -172,10 +174,10 @@
      <div class="collapse navbar-collapse" id="navbarResponsive">
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item active"><a class="nav-link"
-				href="userIndex.html">Home <span class="sr-only">(current)</span>
+				href="userSearch.html">Home <span class="sr-only">(current)</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link" style="cursor:pointer"
-				onclick="popup()">예약확인</a></li>
+				onclick="reservConfirm()">예약확인</a></li>
 		</ul>
 	</div>
    </div>
@@ -183,7 +185,7 @@
 
   <!-- Page Content -->
   <div style="padding-top: 100px; padding-left: 15%;" class="container">
-    <form method="post" action="./registerbook">
+    <form method="post" action="./registerReserv">
     
     <input type="hidden" name="hotelid" value="${ requestScope.hotelinfo.hotelid }">
     <input type="hidden" name="roomno" value="${ requestScope.roominfo.roomno }">

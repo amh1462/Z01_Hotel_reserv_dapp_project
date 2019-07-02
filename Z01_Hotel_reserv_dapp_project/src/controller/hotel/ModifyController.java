@@ -27,6 +27,7 @@ public class ModifyController extends HttpServlet {
 			HttpSession session = request.getSession();
 			String hotelId = (String)session.getAttribute("hotelid");
 			
+			// hotelModify.jsp 페이지에 띄워줄 '원래 저장돼있는 값' 전달.
 			request.setAttribute("hotelname", hDao.select(hotelId).getHotelname());
 			request.setAttribute("country", hDao.select(hotelId).getCountry());
 			request.setAttribute("city", hDao.select(hotelId).getCity());
@@ -40,20 +41,21 @@ public class ModifyController extends HttpServlet {
 			request.setAttribute("cancelday1", hDao.select(hotelId).getCancelday1());
 			request.setAttribute("cancelday2", hDao.select(hotelId).getCancelday2());
 			
-			request.getRequestDispatcher("hotelMain.jsp?contentPage=modify.jsp").forward(request, response);
+			request.getRequestDispatcher("hotelMain.jsp?contentPage=hotelModify.jsp").forward(request, response);
 		} else if(type.equals("room")){
 			// 객실 수정 눌렀을 때 여기로 오니까 수정 창에 객실 정보 담아서 보내주면 됨.
 			RoomDAO rDao = RoomDAO.getInstance();
 			String rNum = (String)request.getParameter("no");
 			request.setAttribute("rvo", rDao.selectOne(rNum));
-			request.getRequestDispatcher("hotelMain.jsp?contentPage=roomModify.jsp").forward(request, response);
+			request.getRequestDispatcher("hotelMain.jsp?contentPage=hotelRoomModify.jsp").forward(request, response);
 		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("utf-8");
 		String uploadPath = request.getServletContext().getRealPath("/uploadFiles");
+		
+		// 호텔은 쓰지 않지만, 방 수정시 필요하기 때문에 request를 Multipart로 바꿔서 사용.
 		MultipartRequest multi = new MultipartRequest(request, uploadPath, 10 * 1024 * 1024 /*(1MB)*/ ,
 													 "utf-8", new DefaultFileRenamePolicy());
 		
@@ -65,10 +67,12 @@ public class ModifyController extends HttpServlet {
 			HotelDAO hDao = HotelDAO.getInstance();
 			HotelVO hVo = new HotelVO();
 			
+			// 비밀번호 입력시
 			if(multi.getParameter("password").trim().length() !=0) {
 				hVo.setPassword(multi.getParameter("password"));
 			}
 			
+			// hotelModify.jsp에서 바꾼 내용을 hVo에 담음.
 			hVo.setHotelname(multi.getParameter("hotelname"));
 			hVo.setCountry(multi.getParameter("country"));
 			hVo.setCity(multi.getParameter("city"));
@@ -112,6 +116,8 @@ public class ModifyController extends HttpServlet {
 			// room modify
 			RoomDAO rDao = RoomDAO.getInstance();
 			RoomVO rVo = new RoomVO();
+			
+			// hotelRoomModify.jsp에서 바꾼 내용들을 rVo에 담음.
 			rVo.setRoomno(multi.getParameter("roomno"));
 			rVo.setRoomname(multi.getParameter("roomname"));
 			rVo.setRoominfo(multi.getParameter("roominfo"));
@@ -129,11 +135,9 @@ public class ModifyController extends HttpServlet {
 			}
 			//rVo.setContract(multi.getParameter("contract")); // 어차피 컨트랙트는 그대로..
 			
-			System.out.println(rVo.toString());
-			
 			if(rDao.update(rVo) > 0) {
 				response.setContentType("text/html; charset=utf-8");
-				response.getWriter().println("<script>alert('방 수정이 완료되었습니다.'); location.href='manageroom?type=show';</script>");
+				response.getWriter().println("<script>alert('방 수정이 완료되었습니다.'); location.href='manageRoom?type=show';</script>");
 			} else {
 				response.setContentType("text/html; charset=utf-8");
 				response.getWriter().println("<script>alert('DB 등록에 오류가 발생했습니다.\\n 다시 수정해주십시오.'); history.back();</script>");

@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -9,8 +7,6 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
 
   <title>호텔나라</title>
 
@@ -19,20 +15,11 @@
 
 </head>
 
-<script type="text/javascript">
-	function checkphone() {
-		if(document.forms[0].phone.value == null){
-			alert('휴대폰 입력은 필수 입니다.');
-			event.preventDefault();
-		}
-	}
-</script>
-
 <body>
 
   <!-- Page Content -->
   <div style="margin-top: 8%; margin-left: 20%;" class="container">
-    <form method="post" action="./bookconfirm">
+    <form method="post" action="./reservConfirm">
     <div class="row">
     	<h1 style="font-weight: 300;" class="my-4">예약확인</h1>
       <div class="col-lg-12">

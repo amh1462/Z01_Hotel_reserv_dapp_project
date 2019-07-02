@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>호텔나라</title>
 </head>
 
 <body>
-	<form action="photoinsert" method="post" enctype="multipart/form-data">
+	<form action="photoInsert" method="post" enctype="multipart/form-data">
 	<div style="margin-top:5px;">	 
 		<div style="margin-left:13px; margin-top:15px;">
     		<input type="file" name="photo">

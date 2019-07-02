@@ -16,7 +16,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dao.HotelDAO;
 import dto.HotelVO;
 
-@WebServlet("/photoinsert")
+@WebServlet("/photoInsert")
 public class PhotoInsertController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	

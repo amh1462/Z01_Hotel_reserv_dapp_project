@@ -19,14 +19,8 @@ import dto.ReservVO;
 import dto.RoomVO;
 
 
-@WebServlet("/registerbook")
-public class RegisterbookController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-    public RegisterbookController() {
-        super();
-    }
-
+@WebServlet("/registerReserv")
+public class RegisterReservController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
@@ -36,6 +30,7 @@ public class RegisterbookController extends HttpServlet {
 		Date checkInDate = null;
 		Date checkOutDate = null;
 		try {
+			// yyyy-MM-dd 형태의 날짜를 unixtime 형태로 바꾸기 위해
 			checkInDate = sdf.parse(request.getParameter("checkin"));
 			checkOutDate = sdf.parse(request.getParameter("checkout"));
 		} catch (ParseException e) {
@@ -47,10 +42,11 @@ public class RegisterbookController extends HttpServlet {
 		int roomcount= Integer.parseInt(request.getParameter("roomcount"));
 		int stayNight = (int)((checkout - checkin) / 86400); // 1일은 86400초, 몇 밤 묵냐를 세야해서 +1 안 해줘도 됨.
 		int dailyprice = Integer.parseInt(request.getParameter("dailyprice"));
-		int totalprice = dailyprice * stayNight * roomcount;
+		int totalprice = dailyprice * stayNight * roomcount; // 주말 가격은 치지 않기로 함..
 		HotelVO selectedHotelVO = hDao.select(request.getParameter("hotelid"));
 		RoomVO selectedRoomVO = rDao.selectOne(request.getParameter("roomno"));
 		
+		// userRoomList.jsp에서 방을 선택해 '예약하기'를 눌렀을 때 이 정보들을 예약 창으로 보내는 것.
 		request.setAttribute("stayNight", Integer.toString(stayNight));
 		request.setAttribute("totalprice", Integer.toString(totalprice));
 		request.setAttribute("checkin", request.getParameter("checkin"));
@@ -70,7 +66,7 @@ public class RegisterbookController extends HttpServlet {
 		request.setAttribute("cancelPriceSetDay1", (int)cancelPriceSetDay1);
 		request.setAttribute("cancelPriceSetDay2", (int)cancelPriceSetDay2);
 		
-		request.getRequestDispatcher("registerbook.jsp").forward(request, response);
+		request.getRequestDispatcher("userRegisterReserv.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,6 +75,7 @@ public class RegisterbookController extends HttpServlet {
 		ReservDAO resDao = ReservDAO.getInstance();
 		ReservVO resVo = new ReservVO();
 		
+		// userRegisterReserv.jsp에서 받은 정보들을 resVo에 저장.
 		resVo.setRoomno(request.getParameter("roomno"));
 		resVo.setHotelid(request.getParameter("hotelid"));
 		resVo.setGuestname(request.getParameter("guestname"));
@@ -93,6 +90,7 @@ public class RegisterbookController extends HttpServlet {
 		Date checkInDate = null;
 		Date checkOutDate = null;
 		try {
+			// DB에 unixtime으로 저장하기 위해 변형시킴.
 			checkInDate = sdf.parse(request.getParameter("checkin"));
 			checkOutDate = sdf.parse(request.getParameter("checkout"));
 		} catch (ParseException e) {
@@ -108,7 +106,7 @@ public class RegisterbookController extends HttpServlet {
 			response.setContentType("text/html; charset=utf-8");
 			response.getWriter().println("<script> "
 					+ "alert('예약이 완료되었습니다.');"
-					+ "location.href='./payComplete.html';"
+					+ "location.href='./userPayComplete.html';"
 					+ " </script>");
 		}else {
 			response.setContentType("text/html; charset=utf-8");

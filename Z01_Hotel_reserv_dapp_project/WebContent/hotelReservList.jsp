@@ -48,6 +48,7 @@
 	var tr, contract, uwallet, resno;
 	
 	onload = function(){
+		// Provider(메타마스크) 등록
 		if(typeof web3 !== 'undefined'){ // !==는 타입까지 체크
 			console.log('web3 인식 성공');
 			web3js = new Web3(web3.currentProvider);
@@ -59,13 +60,13 @@
 			history.back();
 		}
 		
+		// 정산 버튼을 눌렀을 때
 		$('.withdrawBtn').on('click',function(){
 			var withdrawBtn = $(this);
 			tr = withdrawBtn.parent().parent();
 			contract = tr.children().eq(0).text();
 			uwallet = tr.children().eq(1).text();
 			resno = tr.children().eq(2).text();
-			var withdrawFlag = false;
 			console.log("contract: " + contract + ", uwallet: " + uwallet + ", resno: " + resno);
 			
 			reservContractObj = web3js.eth.contract(reservation_contract_ABI).at(contract);
@@ -73,15 +74,15 @@
 			var paymentCompleteEvent = reservContractObj.PaymentCompleteEvent();
 			paymentCompleteEvent.watch(function(err,res){
 				if(err) console.error("지불 이벤트 발생 에러",err);
-				else if(!withdrawFlag){
+				else {
 					console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
 					alert('이더 받을 계좌: '+res.args.account+'\n이더량: '+res.args.amount+'ether\n컨트랙트 이더 보유여부: '+res.args.isContractHasEther);
 					$.ajax({
-						url: 'showreservation?withdrawOk=1&resno='+resno,
+						url: 'showReservation?withdrawOk=1&resno='+resno,
+						async: false,
 						success:function(data, statusTxt, xhr){
 							// isWithdraw => 1로 처리 성공했을 시
 							console.log('/'+data+'/');
-							withdrawFlag = true;
 							alert(data);
 							location.reload();
 						},
@@ -92,13 +93,13 @@
 			})
 		})
 		
+		// 취소 버튼을 눌렀을 때
 		$('.cancelBtn').on('click',function(){
 			var cancelBtn = $(this);
 			tr = cancelBtn.parent().parent();
 			contract = tr.children().eq(0).text();
 			uwallet = tr.children().eq(1).text();
 			resno = tr.children().eq(2).text();
-			var cancelFlag = false;
 			console.log("contract: " + contract + ", uwallet: " + uwallet + ", resno: " + resno);
 			
 			reservContractObj = web3js.eth.contract(reservation_contract_ABI).at(contract);
@@ -106,14 +107,14 @@
 			var cancelEvent = reservContractObj.CancelEvent();
 			cancelEvent.watch(function(err,res){
 				if(err) console.error('cancelEvent 에러');
-				else if(!cancelFlag){
+				else {
 					console.log("이벤트에서 받은 값: 게스트 지갑 주소: " + res.args.guest + ", 취소 수수료: " + res.args.cancelFee + " , 호텔의 전액환불인지: " + res.args.inevitable);
 					alert("게스트 지갑 주소: " + res.args.guest + "\n취소 수수료: " + res.args.cancelFee + "\n호텔의 전액환불인지: " + res.args.inevitable);
 					$.ajax({
-						url: "showreservation?cancelOk=1&resno="+resno,
+						url: "showReservation?cancelOk=1&resno="+resno,
+						async: false,
 						success: function(data, statusTxt, xhr){
 							console.log('/'+data+'/');
-							cancelFlag = true;
 							alert(data);
 							location.reload();
 						},
@@ -125,6 +126,7 @@
 	}
 	
 	function withdraw(uwallet){
+		// 정산 - 해당 날짜(현재는 체크인날짜)가 되면 컨트랙트에 보관된 예약금을 호텔 계좌에 받는 작업.
 		reservContractObj.withDrawal.sendTransaction(uwallet,function(err,res){
 			if(err) console.error("정산 트랜잭션 에러",err);
 			else{
@@ -149,7 +151,9 @@
 		})
 	}
 	
+	
 	function cancel(uwallet){
+		// 불가피한 취소 - 게스트가 어쩔 수 없는 사정으로 취소했다고 참작됐을 때 100% 환불
 		reservContractObj.inevitableCancel.sendTransaction(uwallet, function(err,res){
 			if(err) console.error('취소 에러');
 			else{
@@ -234,14 +238,14 @@
 	         <td>${ resVo.iswithdraw}</td> -->
         <ul class="pagination justify-content-center">
 					<li class="page-item <c:if test='${startList == 1}'>disabled</c:if>">
-						<a class="page-link" href="showreservation?pIndex=${ startList-1 }"> <span
+						<a class="page-link" href="showReservation?pIndex=${ startList-1 }"> <span
 							class="lnr lnr-arrow-left"></span>
 					</a>
 					</li>
 					<c:forEach var="pIdx" begin="${ startList }" end="${ endList }">
 						<li
 							class="page-item <c:if test='${param.pIndex == pIdx}'> active</c:if>">
-							<a class="page-link" href="showreservation?pIndex=${ pIdx }">${ pIdx }</a>
+							<a class="page-link" href="showReservation?pIndex=${ pIdx }">${ pIdx }</a>
 						</li>
 					</c:forEach>
 					<li

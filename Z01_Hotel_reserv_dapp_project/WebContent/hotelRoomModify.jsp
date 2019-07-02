@@ -57,7 +57,7 @@
 	          	</div>
 	          </li><br>
 	          <li style="margin-top: 15px;">수취 계좌(이더지갑): <br><input id="hwallet" style="width: 400px;" value="${ hwallet }" readonly><br>
-	          <div style="width: 500px">※ 수취 계좌를 변경하시려면 <a href="hotelMain.jsp?contentPage=modify.jsp">호텔 정보</a>에서 수정해주세요.</div>
+	          <div style="width: 500px">※ 수취 계좌를 변경하시려면 <a href="hotelMain.jsp?contentPage=hotelModify.jsp">호텔 정보</a>에서 수정해주세요.</div>
 	          <br>
 	          <li>
 	          	<span>취소 수수료 정책</span>
@@ -73,11 +73,11 @@
           				<input style="width:50px" value="${ cancelfee4 }" readonly> %
           			</span><br><br>
           		</div>
-          		<div style="width: 500px">※ 취소 수수료를 변경하시려면 <a href="hotelMain.jsp?contentPage=modify.jsp">호텔 정보</a>에서 수정해주세요.</div>
+          		<div style="width: 500px">※ 취소 수수료를 변경하시려면 <a href="hotelMain.jsp?contentPage=hotelModify.jsp">호텔 정보</a>에서 수정해주세요.</div>
 	          </li>
           </ul>
           <input style=" margin-top: 30px; margin-left: 235px;" id="submitBtn" type="button" value="등록">
-          <input id="cancelBtn" type="button" value="취소" onclick="location.href='manageroom?type=show&pIndex=1'">
+          <input id="cancelBtn" type="button" value="취소" onclick="location.href='manageRoom?type=show&pIndex=1'">
         </form>
       </div>
     </div>
@@ -93,6 +93,7 @@
 	    function readURL(input) {
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();
+	         	// 사진 선택한 것을 바로 img태그에 띄워줌.
 	            reader.onload = function(e) {
 	                $('#roomImg').attr('src', e.target.result);
 	                console.log('e?', e.target.result);
@@ -102,6 +103,7 @@
 	    }
 	    
 	    function update() {
+	    	// 취소수수료가 바뀌었는지를 체크하기 위해, 컨트랙트에 등록된 상태변수를 불러옴.
 	    	reservContractObj.getStateValue.call(function(err,res){
 	    		if(err) console.log("상태변수 호출 에러",err);
 	    		else {

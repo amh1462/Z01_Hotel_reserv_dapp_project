@@ -14,11 +14,8 @@ import dto.HotelVO;
 
 @WebServlet("/join")
 public class JoinController extends HttpServlet  {
-	private static final long serialVersionUID = 1L;
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		RequestDispatcher rd = request.getRequestDispatcher("join.html");
+		RequestDispatcher rd = request.getRequestDispatcher("hotelJoin.html");
 		rd.forward(request, response);
 	}
 
@@ -30,6 +27,7 @@ public class JoinController extends HttpServlet  {
 		
 		HotelVO hVo = new HotelVO();
 		
+		// hotelJoin.html에서 받은 정보들을 hVo에 넣음.
 		hVo.setHotelid(request.getParameter("hotelid"));
 		hVo.setPassword(request.getParameter("password"));
 		hVo.setHotelname(request.getParameter("hotelname"));
@@ -46,8 +44,9 @@ public class JoinController extends HttpServlet  {
 		hVo.setCancelday1(request.getParameter("cancelday1"));
 		hVo.setCancelday2(request.getParameter("cancelday2"));
 		
+		// hVo를 insert 함수에 전달.
 		if(hDao.insert(hVo)>0) {
-			response.sendRedirect("./login.html");
+			response.sendRedirect("./hotelLogin.html");
 		}else {
 			response.setContentType("text/html; charset=utf-8");
 			response.getWriter().println("<script> "
