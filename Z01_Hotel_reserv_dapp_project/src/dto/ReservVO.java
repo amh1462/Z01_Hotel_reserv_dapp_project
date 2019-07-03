@@ -15,6 +15,9 @@ public class ReservVO {
 	private String iscancel;
 	private String iswithdraw;
 	private String time;
+	private String hotelname;
+	private String hotelid;
+	private String contract;
 	
 	public String getResno() {
 		return resno;
@@ -94,6 +97,24 @@ public class ReservVO {
 	}
 	public void setTime(String time) {
 		this.time = time;
+	}
+	public String getHotelname() {
+		return hotelname;
+	}
+	public void setHotelname(String hotelname) {
+		this.hotelname = hotelname;
+	}
+	public String getHotelid() {
+		return hotelid;
+	}
+	public void setHotelid(String hotelid) {
+		this.hotelid = hotelid;
+	}
+	public String getContract() {
+		return contract;
+	}
+	public void setContract(String contract) {
+		this.contract = contract;
 	}
 	
 	@Override

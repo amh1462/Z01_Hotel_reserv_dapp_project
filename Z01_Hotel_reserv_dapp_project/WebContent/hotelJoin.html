@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>호텔나라</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css?ver=2">
+</head>
+
+<body>
+	
+	<div class="limiter">
+		<div class="container-login102">
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-30 p-b-30">
+				<form class="login100-form validate-form" action="./join" method="post" 
+				onsubmit="chkValid()" onkeydown="return notUseEnterKey(event);">
+					<script>
+					    function notUseEnterKey(e){
+					        if(e.keyCode === 13 && e.srcElement.type != 'textarea') e.preventDefault();
+					    }
+				    </script>
+					<span class="login100-form-title p-b-30">
+						회원 가입
+					</span>
+					아이디
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "아이디가 없습니다.">
+						<input class="input100" name="hotelid" oninput='ajaxChkDuplicate(this.value);' >
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-user"></span>
+						</span>
+					</div>
+					<div id='duplicateResult' class="wrap-input100 m-b-16" style='color: red; text-align: center;'></div>
+					
+					비밀번호
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "비밀번호는 필수입력 사항입니다.">
+						<input class="input100" type="password" name="password" oninput="chkMatchPw()" >
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-lock"></span>
+						</span>
+					</div>
+					
+					비밀번호 확인
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "비밀번호가 일치하지 않습니다.">
+						<input class="input100" type="password" name="pw2" oninput="chkMatchPw()">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-lock"></span>
+						</span>
+					</div>
+					<div id='matchPw' class="wrap-input100 m-b-16" style="color: red; text-align: center;" ></div>
+					
+					호텔명
+					<div class="wrap-input100 m-b-16">
+						<input class="input100" name="hotelname">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-apartment"></span>
+						</span>
+					</div>
+					
+					나라
+					<div class="wrap-input100 m-b-16">
+					<select name="country" class="input100">
+						<option value="" selected>선택</option>
+						<option value="kr">대한민국</option>
+						<option value="us">미국</option>
+						<option value="fr">프랑스</option>
+						<option value="cn">중국</option>
+					</select>
+					</div>
+					
+					도시
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "도시를 입력해주세요.">
+						<input class="input100" name="city" disabled>
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-map"></span>
+						</span>
+					</div>
+					<div id='selectCity' class="wrap-input100 m-b-16" style="color: red; text-align: center;"></div>
+					
+					상세주소
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "상세주소를 입력해주세요.">
+						<input class="input100" name="detailaddr">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-map-marker"></span>
+						</span>
+					</div>
+					
+					연락처
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "연락처를 입력해주세요.">
+						<input class="input100" name="phone">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-phone-handset"></span>
+						</span>
+					</div>
+
+					이더지갑 주소
+					<div class="wrap-input100 m-b-16">
+						<input class="input100" name="hwallet" placeholder="앞에 0x를 써줘야합니다.">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="lnr lnr-database"></span>
+						</span>
+					</div>
+					
+					<div class="contact100-form-checkbox m-l-4 m-b-16" style="display: block;">
+						<input class="input-checkbox100" id="chkBox" type="checkbox" onclick="getAccount(this.checked)">
+						<label class="label-checkbox100" for="chkBox">
+							메타마스크에서 가져오기
+						</label>
+					</div>
+					
+					<div class="wrap-input100">취소 수수료</div>
+					
+					<div style="border: 3px solid beige" class="wrap-input100">
+						<div class="wrap-input100 m-b-16 m-t-10" style="height:52px;">
+							<span class="m-l-10" style="float: left; line-height: 52px;">당일 취소시:</span> 
+							<span class="m-r-10" style="float: right; line-height: 52px">%</span>
+							<input class="input30-float-r" name="cancelfee1">
+						</div>
+						
+						<div class="wrap-input100 m-b-16" style="height:52px;">
+							<span class="m-l-10" style="float: left; line-height: 52px;">1 일전 취소시:</span> 
+							<span class="m-r-10" style="float: right; line-height: 52px">%</span>
+							<input class="input30-float-r" name="cancelfee2">
+						</div>
+						
+						<div class="wrap-input100 m-b-16" style="height:52px;">
+							<input class="input30-float-l m-l-10" name="cancelday1">
+							<span style="float: left; line-height: 52px;">일전 취소:</span> 
+							<span class="m-r-10" style="float: right; line-height: 52px">%</span>
+							<input class="input30-float-r" name="cancelfee3">
+						</div>
+						
+						<div class="wrap-input100 m-b-16" style="height:52px;">
+							<input class="input30-float-l m-l-10" name="cancelday2">
+							<span style="float: left; line-height: 52px;">일전 취소:</span> 
+							<span class="m-r-10" style="float: right; line-height: 52px">%</span>	
+							<input class="input30-float-r" name="cancelfee4">
+						</div>
+					</div>
+					
+					
+					<div class="container-login100-form-btn p-t-25">
+						<button class="login100-form-btn">
+							회원가입
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	
+	<!-- jquery 사용 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<!-- web3 import -->
+	<script src="https://github.com/ethereum/web3.js/blob/master/dist/web3.min.js"></script>
+	
+	<!-- js 처리 파일 -->
+	<script src="js/Hotel/join.js"></script>
+	
+	<!-- google places api import -->
+	<script src="https://maps.googleapis.com/maps/api/js?
+	key=AIzaSyAxyGBL5WEFEwsRjIDYuXLPpXeiUXY5zj0&libraries=places&callback=activatePlacesSearch"></script>
+	
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/Hotel/main.js"></script>
+
+</body>
+</html>

@@ -1,118 +1,118 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-    <link rel='stylesheet' href='css/User/userSearch.css' type='text/css' media='all' />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='css/User/jquery.rateyo.min.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='css/User/jquery.mmenu.all.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='css/User/bootstrap-grid.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='fonts/web-icons/web-icons.min.css' type='text/css' media='all' />
-</head>
+	<title>호텔나라</title>
+	<meta charset="UTF-8">
+	<link rel='stylesheet' href='fonts/web-icons/web-icons.min.css' type='text/css' media='all' />
+	<link rel='stylesheet' href='css/User/bootstrap-grid.css' type='text/css' media='all' />
+	<link rel='stylesheet' href='css/User/jquery.mmenu.all.css' type='text/css' media='all' />
+	<link rel='stylesheet' href='css/User/jquery.rateyo.min.css' type='text/css' media='all' />
+	<link rel='stylesheet' href='css/User/main3.css' type='text/css' media='all' />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
+	<!-- t-datepicker -->
+	<link href="css/User/t-datepicker.min.css" rel="stylesheet" type="text/css">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+		crossorigin="anonymous"></script>
+	<script src="js/User/t-datepicker.min.js"></script>
+
+	<link href="css/User/theme/t-datepicker-bluegrey.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="js/User/calendar.js"></script>
+
+	<!-- googleMap.js -->
+	<script src="js/User/googleMap.js?ver=2"></script>
+	
+
+</head>
+<style>
+	.btn-primary{
+		 text-align: center;
+		 border-radius: .25rem;
+		 line-height: 1.5;
+		 font-size: 1rem;
+		 padding: .375rem .75rem;
+		 border: 1px solid transparent;
+		 user-select : none;
+		 font-weight:400;
+	}
+	.btn-primary:hover{
+ 		color: #fff; 
+  		background-color: #0069d9; 
+ 		border-color: #0062cc;
+ 		text-decoration: none;
+	}
+	.btn-primary{
+		color: #ffff;
+		background-color: #007bff;
+		border-color: #007bff;
+	}
+</style>
+<script type="text/javascript">
+	//예약확인 버튼을 눌렀을 때
+	function reservConfirm() {
+		var url = "userReservConfirm.jsp";
+		var name = "confirm"
+		var option = "width = 800px, height = 600px, top = 150 left = 700 location = no"
+		window.open(url,confirm, option);
+	}
+</script>
 <body class="loaded">
-    <div class="site-all">
-        <div id="header">
-            <div class="row-header">
-                <div class="container">
-                    <h1 class="slogan">Hotelnara</h1>
-                    <form id="search-form">
-                        <div class="inputs">
-                            <input type="text" name="city" placeholder="검색">
-                            <select name="country" id="q" style="padding-right: 10px;">
-                                <option value="#" selected>국가</option>
-                                <option value="kr">Korea</option>
-                                <option value="us">USA</option>
-                                <option value="cn">China</option>
-                                <option value="jp">Japan</option>
-                                <option value="uk">England</option>
-                                <option value="aus">Australia</option>
-                            </select>
-                        </div>
-                        <ul>
-                            <label>Check In : <%= request.getParameter("checkIn") %></label>
-                            <label>Check Out : <%= request.getParameter("checkOut") %></label>
-                            <label>방 갯수 : <%= request.getParameter("roomCount") %></label>
-                        </ul>
-                        <div>
-                            <div class="blank_top"></div>
-                            <article class="hotelSearch">
-                                <div class="">
-                                    <section class="imgSection">
-                                        <div>
-                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
-                                        </div>
-                                    </section>
-                                    <section class="">
-                                        <div class="hotelInfo">
-                                            <li class="hotelName">호텔명 :
-                                                asldjfoajsdslkfjlkajflkjaslkdjflkajsdlkfjadjflkjaslkdjflajsdf</li>
-                                            <li class="hotelName">호텔 주소 : </li>
-                                            <li class="hotelName">호텔 연락처 : </li>
-                                            <li class="hotelName">최소요금 : </li>
-                                        </div>
-                                    </section>
-                                    <section class="hotelBtnSection">
-                                        <center><input class="hotelBtn" type="button" value="방 선택"></center>
-                                    </section>
-                                </div>
-                            </article>
-                            <div class="blank_mid"></div>
-                            <article class="hotelSearch">
-                                <div class="">
-                                    <section class="imgSection">
-                                        <div>
-                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
-                                        </div>
-                                    </section>
-                                    <section class="">
-                                        <div class="hotelInfo">
-                                            <li class="hotelName">호텔명 :
-                                                asldjfoajsdslkfjlkajflkjaslkdjflkajsdlkfjadjflkjaslkdjflajsdf</li>
-                                            <li class="hotelName">호텔 주소 : </li>
-                                            <li class="hotelName">호텔 연락처 : </li>
-                                            <li class="hotelName">최소요금 : </li>
-                                        </div>
-                                    </section>
-                                    <section class="hotelBtnSection">
-                                        <center><input class="hotelBtn" type="button" value="방 선택"></center>
-                                    </section>
-                                </div>
-                            </article>
-                            <div class="blank_mid"></div>
-                            <article class="hotelSearch">
-                                <div class="">
-                                    <section class="imgSection">
-                                        <div>
-                                            <img class="hotelImg" src="images/content/hotelSample.jpg">
-                                        </div>
-                                    </section>
-                                    <section class="">
-                                        <div class="hotelInfo">
-                                            <li class="hotelName">호텔명 :
-                                                asldjfoajsdslkfjlkajflkjaslkdjflkajsdlkfjadjflkjaslkdjflajsdf</li>
-                                            <li class="hotelName">호텔 주소 : </li>
-                                            <li class="hotelName">호텔 연락처 : </li>
-                                            <li class="hotelName">최소요금 : </li>
-                                        </div>
-                                    </section>
-                                    <section class="hotelBtnSection">
-                                        <center><input class="hotelBtn" type="button" value="방 선택"></center>
-                                    </section>
-                                </div>
-                            </article>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script type='text/javascript' src='js/User/jquery.js'></script>
-    <script type='text/javascript' src='js/User/superfish.min.js'></script>
-    <script type='text/javascript' src='js/User/jquery.sumoselect.min.js'></script>
-    <script type='text/javascript' src='js/User/owl.carousel.min.js'></script>
-    <script type='text/javascript' src='js/User/init.js'></script>
+	<div class="site-all">
+		<div id="header">
+			<div class="row-header">
+				<input class="btn-primary" style="margin-left: 90%; margin-top:1%;" type="button" onclick="reservConfirm()" value ="예약확인">
+				<div class="container">
+					<a href="index.jsp"><h1 class="slogan">HotelNara</h1></a>
+					<form id="search-form" method="POST" action="userSearch" onkeydown="return notUseEnterKey(event);">
+			          <script>
+						  function notUseEnterKey(e){
+						      if(e.keyCode === 13 && e.srcElement.type != 'textarea') e.preventDefault();
+						  }
+					  </script>
+						<div class="inputs">
+							<input type="text" name="city" placeholder="검색" style="color:black">
+							<select name="country" id="q" style="padding-right: 10px; color:black">								
+								<option value="kr" selected>Korea</option>
+								<option value="us">USA</option>
+								<option value="cn">China</option>
+								<option value="jp">Japan</option>
+								<option value="uk">England</option>
+								<option value="aus">Australia</option>
+							</select>
+						</div>
+						<!-- t-datepicker -->
+						<div class="t-datepicker">
+							<div class="t-check-in" name="checkIn"></div>
+							<div class="t-check-out" name="checkOut"></div>
+						</div>
+						<script>
+							$(function () {
+								$('.t-datepicker').tDatePicker('update','');
+							});
+						</script>
+
+						<div class="inputs">
+							<input name="roomCount" type='number' placeholder="방 갯수" min='1' max='99' style="color:black">
+
+							<input type="submit" value="">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--jQuery-->
+	<script type='text/javascript' src='js/User/jquery.js'></script>
+	<script type='text/javascript' src='js/User/superfish.min.js'></script>
+	<script type='text/javascript' src='js/User/jquery.sumoselect.min.js'></script>
+	<script type='text/javascript' src='js/User/owl.carousel.min.js'></script>
+	<script type='text/javascript' src='js/User/init.js'></script>
+
+	<!-- google map api -->
+	<script src="https://maps.googleapis.com/maps/api/js?
+	key=AIzaSyAxyGBL5WEFEwsRjIDYuXLPpXeiUXY5zj0&libraries=places&callback=activatePlacesSearch"></script>
 </body>
 
 </html>
