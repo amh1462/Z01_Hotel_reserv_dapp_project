@@ -28,13 +28,13 @@ contract Reservation {
     }
 
     function () payable external {
-		if(msg.value >= 0 && (msg.value > myTotalPrice[msg.sender] || msg.value < myTotalPrice[msg.sender])){ //스마트컨트랙트로 직접 돈을 보낼 경우
-			msg.sender.transfer(msg.value);
-		}
-		else if(msg.value == myTotalPrice[msg.sender]){ // 예약자에게 책정된 금액과 받은 돈이 일치할 경우
-			myPayment[msg.sender] = msg.value;
-			emit PaymentCompleteEvent(msg.sender, msg.value, true);
-		}
+	if(msg.value >= 0 && (msg.value > myTotalPrice[msg.sender] || msg.value < myTotalPrice[msg.sender])){ //스마트컨트랙트로 직접 돈을 보낼 경우
+		msg.sender.transfer(msg.value);
+	}
+	else if(msg.value == myTotalPrice[msg.sender]){ // 예약자에게 책정된 금액과 받은 돈이 일치할 경우
+		myPayment[msg.sender] = msg.value;
+		emit PaymentCompleteEvent(msg.sender, msg.value, true);
+	}
     }
     
     function updateStateValue( 
