@@ -87,12 +87,12 @@
 	        	<c:choose>
 	        		<c:when test="${ resVo.iscancel eq 1 }"><td><a>취소 완료</a></td></c:when>		
 	        		<c:when test="${ resVo.iswithdraw eq 1 }"><td><a>정산 완료</a></td></c:when>		
-	        		<c:when test="${ resVo.iscancel eq 0 }"><td><button class="btn_hgray cancelBtn">취 소</button></td></c:when>
+	        		<c:when test="${ resVo.iscancel eq 0 }"><td><button class="btn_hgray" onclick="cancelBtnClick(this);">취 소</button></td></c:when>
 	        	</c:choose>
 	        	<c:choose>
 	        		<c:when test="${ resVo.iswithdraw eq 1 }"><td><a>정산 완료</a></td></c:when>	 				
 	        		<c:when test="${ resVo.iscancel eq 1 }"><td><a>취소 완료</a></td></c:when>	 				
-		        	<c:when test="${ resVo.iswithdraw eq 0 }"><td><button class="btn_hgray withdrawBtn">정 산</button></c:when>
+		        	<c:when test="${ resVo.iswithdraw eq 0 }"><td><button class="btn_hgray" onclick="withdrawBtnClick(this);">정 산</button></c:when>
 	        	</c:choose>
 	        	</tr>
 	        </c:forEach>
@@ -141,7 +141,7 @@
   <script src="js/Hotel/main.js"></script>
   
   <!-- js 처리 파일 -->
-  <script src="js/Hotel/hotelReservList.js"></script>
+  <script src="js/Hotel/hotelReservList.js?ver=1"></script>
 
 </body>
 </html>

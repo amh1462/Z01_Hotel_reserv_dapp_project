@@ -35,7 +35,7 @@ public class ShowRoomController extends HttpServlet {
 		if(request.getParameter("roomno") == null) { // roomList 전체 보여줌.
 			request.setAttribute("roomlist", rDao.selectAll(hotelId));
 			request.setAttribute("roomNameList", rDao.selectAll(hotelId));
-			System.out.println("여기 오나??");
+			
 			request.getRequestDispatcher("userRoomList.jsp").forward(request, response);
 		} else { // 선택한 room만 보여줌.
 			 request.setAttribute("roomlist", rDao.selectOneList(request.getParameter("roomno")));

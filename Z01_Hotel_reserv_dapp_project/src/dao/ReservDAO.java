@@ -33,7 +33,7 @@ public ReservVO select(String resno, String hotelid) {
 				resVo = new ReservVO();
 				resVo.setResno(rs.getString("resno"));
 				resVo.setGuestname(rs.getString("guestname"));
-				resVo.setTotalprice(rs.getString("totalprice"));
+				resVo.setTotalprice("0" + rs.getString("totalprice"));
 				resVo.setTime(rs.getString("time"));
 				resVo.setCheckin(rs.getString("checkin"));
 				resVo.setCheckout(rs.getString("checkout"));
@@ -155,7 +155,7 @@ public ReservVO select(String resno, String hotelid) {
 				resVo.setResno(rs.getString("resno"));
 				resVo.setGuestname(rs.getString("guestname"));
 				resVo.setRoomno(rs.getString("roomname"));
-				resVo.setTotalprice(rs.getString("totalprice"));
+				resVo.setTotalprice("0" + rs.getString("totalprice"));
 				resVo.setIscancel(rs.getString("iscancel"));
 				resVo.setIswithdraw(rs.getString("iswithdraw"));
 				resVo.setContract(rs.getString("contract"));

@@ -106,7 +106,7 @@ table td, table th {
 	        	<c:choose>
 	        		<c:when test="${ uresVo.iscancel eq 1 }"><td><a>취소완료</a></td></c:when>		
 	        		<c:when test="${ uresVo.iswithdraw eq 1 }"><td><a>정산완료</a></td></c:when>
-	        		<c:when test="${ uresVo.iscancel eq 0 }"><td><button class="btn_hgray userCancel">취 소</button></td></c:when>
+	        		<c:when test="${ uresVo.iscancel eq 0 }"><td><button class="btn_hgray" onclick="userCancelBtnClick(this)">취 소</button></td></c:when>
 	        	</c:choose>
 	        	</tr>
 	        </c:forEach>

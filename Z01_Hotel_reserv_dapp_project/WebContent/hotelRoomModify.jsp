@@ -76,7 +76,7 @@
           		<div style="width: 500px">※ 취소 수수료를 변경하시려면 <a href="hotelMain.jsp?contentPage=hotelModify.jsp">호텔 정보</a>에서 수정해주세요.</div>
 	          </li>
           </ul>
-          <input style=" margin-top: 30px; margin-left: 235px;" id="submitBtn" type="button" value="등록">
+          <input style=" margin-top: 30px; margin-left: 235px;" id="submitBtn" type="button" value="수정">
           <input id="cancelBtn" type="button" value="취소" onclick="location.href='manageRoom?type=show&pIndex=1'">
         </form>
       </div>

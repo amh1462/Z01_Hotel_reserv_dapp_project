@@ -19,70 +19,70 @@ window.onload = function(){
 		window.open("about:blank").location.href = 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ko';
 		history.back();
 	}
+}
+
+//취소 버튼을 눌렀을 때
+function cancelBtnClick(obj){
+	var cancelBtn = obj;
+	tr = cancelBtn.parentElement.parentElement;
+	contract = tr.children[0].innerHTML;
+	uwallet = tr.children[1].innerHTML;
+	resno = tr.children[2].innerHTML;
+	console.log("contract: " + contract + ", uwallet: " + uwallet + ", resno: " + resno);
 	
-	// 정산 버튼을 눌렀을 때
-	document.getElementsByClassName('withdrawBtn').onclick = function(){
-		var withdrawBtn = document.getElementsByClassName('withdrawBtn');
-		tr = withdrawBtn.parent().parent();
-		contract = tr.children().eq(0).text();
-		uwallet = tr.children().eq(1).text();
-		resno = tr.children().eq(2).text();
-		console.log("contract: " + contract + ", uwallet: " + uwallet + ", resno: " + resno);
-		
-		reservContractObj = web3js.eth.contract(reservation_contract_ABI).at(contract);
-		withdraw(uwallet);
-		var paymentCompleteEvent = reservContractObj.PaymentCompleteEvent();
-		paymentCompleteEvent.watch(function(err,res){
-			if(err) console.error("지불 이벤트 발생 에러",err);
-			else {
-				console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
-				alert('이더 받을 계좌: '+res.args.account+'\n이더량: '+res.args.amount+'ether\n컨트랙트 이더 보유여부: '+res.args.isContractHasEther);
-				$.ajax({
-					url: 'showReservation?withdrawOk=1&resno='+resno,
-					async: false,
-					success:function(data, statusTxt, xhr){
-						// isWithdraw => 1로 처리 성공했을 시
-						console.log('/'+data+'/');
-						alert(data);
-						location.reload();
-					},
-					error: function(xhr,statusTxt,c){ console.log("통신에 실패했습니다."); }
-				});
-				
-			}
-		})
-	}
+	reservContractObj = web3js.eth.contract(reservation_contract_ABI).at(contract);
+	cancel(uwallet);
+	var cancelEvent = reservContractObj.CancelEvent();
+	cancelEvent.watch(function(err,res){
+		if(err) console.error('cancelEvent 에러');
+		else {
+			console.log("이벤트에서 받은 값: 게스트 지갑 주소: " + res.args.guest + ", 취소 수수료: " + res.args.cancelFee + " , 호텔의 전액환불인지: " + res.args.inevitable);
+			alert("게스트 지갑 주소: " + res.args.guest + "\n취소 수수료: " + res.args.cancelFee + "\n호텔의 전액환불인지: " + res.args.inevitable);
+			$.ajax({
+				url: "showReservation?cancelOk=1&resno="+resno,
+				async: false,
+				success: function(data, statusTxt, xhr){
+					console.log('/'+data+'/');
+					alert(data);
+					location.reload();
+				},
+				error: function(xhr,statusTxt,c){ console.log("통신에 실패했습니다."); }
+			});
+		}
+	})
+}
+
+//정산 버튼을 눌렀을 때
+function withdrawBtnClick(obj){
+	var withdrawBtn = obj;
+	tr = withdrawBtn.parentElement.parentElement;
+	contract = tr.children[0].innerHTML;
+	uwallet = tr.children[1].innerHTML;
+	resno = tr.children[2].innerHTML;
+	console.log("contract: " + contract + ", uwallet: " + uwallet + ", resno: " + resno);
 	
-	// 취소 버튼을 눌렀을 때
-	document.getElementsByClassName('cancelBtn').onclick = function(){
-		var cancelBtn = document.getElementsByClassName('cancelBtn');
-		tr = cancelBtn.parent().parent();
-		contract = tr.children().eq(0).text();
-		uwallet = tr.children().eq(1).text();
-		resno = tr.children().eq(2).text();
-		console.log("contract: " + contract + ", uwallet: " + uwallet + ", resno: " + resno);
-		
-		reservContractObj = web3js.eth.contract(reservation_contract_ABI).at(contract);
-		cancel(uwallet);
-		var cancelEvent = reservContractObj.CancelEvent();
-		cancelEvent.watch(function(err,res){
-			if(err) console.error('cancelEvent 에러');
-			else {
-				console.log("이벤트에서 받은 값: 게스트 지갑 주소: " + res.args.guest + ", 취소 수수료: " + res.args.cancelFee + " , 호텔의 전액환불인지: " + res.args.inevitable);
-				alert("게스트 지갑 주소: " + res.args.guest + "\n취소 수수료: " + res.args.cancelFee + "\n호텔의 전액환불인지: " + res.args.inevitable);
-				$.ajax({
-					url: "showReservation?cancelOk=1&resno="+resno,
-					async: false,
-					success: function(data, statusTxt, xhr){
-						console.log('/'+data+'/');
-						alert(data);
-						location.reload();
-					},
-					error: function(xhr,statusTxt,c){ console.log("통신에 실패했습니다."); }
-				});
-			}
-		})
-	}
+	reservContractObj = web3js.eth.contract(reservation_contract_ABI).at(contract);
+	withdraw(uwallet);
+	var paymentCompleteEvent = reservContractObj.PaymentCompleteEvent();
+	paymentCompleteEvent.watch(function(err,res){
+		if(err) console.error("지불 이벤트 발생 에러",err);
+		else {
+			console.log("이벤트에서 받아온값: ", res.args.account + "," + res.args.amount + "," + res.args.isContractHasEther);
+			alert('이더 받을 계좌: '+res.args.account+'\n이더량: '+res.args.amount+'ether\n컨트랙트 이더 보유여부: '+res.args.isContractHasEther);
+			$.ajax({
+				url: 'showReservation?withdrawOk=1&resno='+resno,
+				async: false,
+				success:function(data, statusTxt, xhr){
+					// isWithdraw => 1로 처리 성공했을 시
+					console.log('/'+data+'/');
+					alert(data);
+					location.reload();
+				},
+				error: function(xhr,statusTxt,c){ console.log("통신에 실패했습니다."); }
+			});
+			
+		}
+	})
 }
 
 function withdraw(uwallet){
