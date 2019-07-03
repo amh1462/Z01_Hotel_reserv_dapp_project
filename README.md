@@ -4,8 +4,8 @@
 
 __개발 기간 및 인원__
 
-개발 기간: 2019-5-16 ~ 2019-7-3 (총 49일)
-개발 인원: 3명
+- 개발 기간: 2019-5-16 ~ 2019-7-3 (총 49일)
+- 개발 인원: 3명
 
 __프로젝트 내용__
 
@@ -19,10 +19,10 @@ __프로젝트 내용__
 
 __사용 기술__
 
-OS : Window 10, 7
-DB : OracleDB 11g express, Amazon RDS
-WAS : Apache tomcat 9.0
-Cloud : Amazon EC2
-Tool : Eclipse, sqldeveloper, Remix
-API: Google map api, CryptoCompare api
-언어 : JSP(html, css, javascript), Java, Solidity
+- OS : Window 10, 7
+- DB : OracleDB 11g express, Amazon RDS
+- WAS : Apache tomcat 9.0
+- Cloud : Amazon EC2
+- Tool : Eclipse, sqldeveloper, Remix
+- API: Google map api, CryptoCompare api
+- 언어 : JSP(html, css, javascript), Java, Solidity
