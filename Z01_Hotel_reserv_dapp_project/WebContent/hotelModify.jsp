@@ -184,7 +184,7 @@
 	<script src="https://github.com/ethereum/web3.js/blob/master/dist/web3.min.js"></script>
 	
 	<!-- js ì²ë¦¬ íì¼ -->
-	<script src="js/join.js?ver=1"></script>
+	<script src="js/Hotel/join.js"></script>
 	
 	<!-- google places api import -->
 	<script src="https://maps.googleapis.com/maps/api/js?
@@ -196,7 +196,7 @@
 <!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<script src="js/Hotel/main.js"></script>
 
 </body>
 </html>
